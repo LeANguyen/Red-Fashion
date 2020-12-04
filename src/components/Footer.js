@@ -10,7 +10,7 @@ const Footer = () => {
             {/* <span className="sr-only">(current)</span> */}
             <h1 className="text-uppercase">Business</h1>
             <p className="font-weight-bold">- Business Hour:</p>
-            <p>8:30 AM - 12:00 PM</p>
+            <p>7:30 AM - 12:00 PM</p>
             <p className="font-weight-bold">- Contact Number:</p>
             <p>82-0779546</p>
             <p className="font-weight-bold">- Shop Address:</p>
