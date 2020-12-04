@@ -1,3 +1,7 @@
+# Red-Fashion
+
+This is a ReactJS version of my fist full stack project done in 2018 with just html + css + javascript.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
