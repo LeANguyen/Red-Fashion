@@ -8,8 +8,9 @@ const CartScreen = () => {
   const getAllItemFromCurrentCartApi = useApi(
     cartItemApi.getAllItemFromCurrentCart
   );
+
   useEffect(() => {
-    getAllItemFromCurrentCartApi.request();
+    getAllItemFromCurrentCartApi.request(1);
   }, []);
 
   return (
@@ -19,7 +20,9 @@ const CartScreen = () => {
           <div className="container">
             <div className="row">
               <div className="col-lg-12 p-5 bg-white rounded shadow-sm mb-5">
-                <CartTable _data={[]}></CartTable>
+                <CartTable
+                  _data={getAllItemFromCurrentCartApi.data}
+                ></CartTable>
                 {/* <div className="table-responsive">
                   <table className="table">
                     <thead>

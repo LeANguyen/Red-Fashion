@@ -3,8 +3,19 @@ import TableHeader from "./TableHeader";
 import CartTableItem from "./CartTableItem";
 import usePagination from "./usePagination";
 import Pagination from "./Pagination";
-const CartTable = ({ _data, _headers = ["Name", "URL", ""] }) => {
+import useCartItemApi from "../../api/useCartItemApi";
+import useApi from "../../hooks/useApi";
+
+const CartTable = ({
+  _data,
+  _headers = ["Product", "Price", "Quantity", "Total", ""]
+}) => {
+  const cartItemApi = useCartItemApi();
+  const deleteItemFromCurrentCartApi = useApi(
+    cartItemApi.deleteItemFromCurrentCart
+  );
   const pagination = usePagination(_data);
+
   return (
     <div>
       <div className="table-responsive">
@@ -20,7 +31,15 @@ const CartTable = ({ _data, _headers = ["Name", "URL", ""] }) => {
 
               <tbody>
                 {pagination.currentItems.map((item, i) => {
-                  return <CartTableItem _item={item} _key={i}></CartTableItem>;
+                  return (
+                    <CartTableItem
+                      _item={item}
+                      _key={i}
+                      _onClickRemove={() => {
+                        deleteItemFromCurrentCartApi.request(1, item.item_id);
+                      }}
+                    ></CartTableItem>
+                  );
                 })}
               </tbody>
             </table>

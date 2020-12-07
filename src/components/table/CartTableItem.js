@@ -1,12 +1,12 @@
 import React from "react";
-const CartTableItem = ({ _item, _key }) => {
+const CartTableItem = ({ _item, _key, _onClickRemove }) => {
   return (
     <tr key={_key}>
       <th scope="row">
         <div class="p-2">
           <img
             src={
-              "https://static.remove.bg/sample-gallery/products/fashion-footwear-19090-thumbnail.jpgxs"
+              "https://dosi-in.com/images/detailed/9/Basic-T-shirt-Black.jpg"
             }
             alt="No Image"
             width="70"
@@ -57,8 +57,10 @@ const CartTableItem = ({ _item, _key }) => {
         <button
           class="btn btn-danger"
           id="remove_btn${data[i].item_id}"
-          onclick="remove(${data[i].item_id})"
-          style="color: white"
+          onClick={() => {
+            _onClickRemove();
+          }}
+          style={{ color: "white" }}
         >
           Remove
         </button>

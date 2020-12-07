@@ -7,18 +7,14 @@ const useClient = () => {
   const api = create({
     // 192.168.5.102 - Home
     // 10.247.201.219 - School
-    baseURL: "http://192.168.5.103:3000",
+    baseURL: "http://localhost:3000",
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
       Authorization: "Basic " + btoa(name + ":" + pass)
-      //   Authorization: {
-      //     username: "admin",
-      //     password: "supersecret"
-      //   }
+      //   "Access-Control-Allow-Origin": "*"
     }
   });
-  //   api.setHeader("Authorization", btoa(name + ":" + pass));
   return { api };
 };
 
