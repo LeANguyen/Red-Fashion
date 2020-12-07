@@ -1,16 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Screen from "../components/Screen";
+import CartTable from "../components/table/CartTable";
+import useCartItemApi from "../api/useCartItemApi";
+import useApi from "../hooks/useApi";
 const CartScreen = () => {
+  const cartItemApi = useCartItemApi();
+  const getAllItemFromCurrentCartApi = useApi(
+    cartItemApi.getAllItemFromCurrentCart
+  );
+  useEffect(() => {
+    getAllItemFromCurrentCartApi.request();
+  }, []);
+
   return (
     <Screen>
       <div className="px-4 px-lg-0">
-        <div className="container text-white py-5 text-center"></div>
-
-        <div className="pb-5">
+        <div className="p-5">
           <div className="container">
             <div className="row">
               <div className="col-lg-12 p-5 bg-white rounded shadow-sm mb-5">
-                <div className="table-responsive">
+                <CartTable _data={[]}></CartTable>
+                {/* <div className="table-responsive">
                   <table className="table">
                     <thead>
                       <tr>
@@ -39,7 +49,7 @@ const CartScreen = () => {
                     </thead>
                     <tbody id="cart_table_body"></tbody>
                   </table>
-                </div>
+                </div> */}
               </div>
             </div>
 

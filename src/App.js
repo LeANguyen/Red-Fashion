@@ -30,7 +30,7 @@ function App() {
   // return <HomeScreen></HomeScreen>;
   // return <ItemListScreen></ItemListScreen>;
   // return <PurchaseHistoryScreen></PurchaseHica
-  // return <CartScreen></CartScreen>;
+  return <CartScreen></CartScreen>;
   return <SignScreen></SignScreen>;
 }
 
