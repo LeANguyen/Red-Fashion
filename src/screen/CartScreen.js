@@ -3,6 +3,7 @@ import Screen from "../components/Screen";
 import CartTable from "../components/table/CartTable";
 import useCartItemApi from "../api/useCartItemApi";
 import useApi from "../hooks/useApi";
+import useTotalPrice from "../components/useTotalPrice";
 const CartScreen = () => {
   const cartItemApi = useCartItemApi();
   const getAllItemFromCurrentCartApi = useApi(
@@ -13,6 +14,8 @@ const CartScreen = () => {
     getAllItemFromCurrentCartApi.request(1);
   }, []);
 
+  const totalPrice = useTotalPrice();
+
   return (
     <Screen>
       <div className="px-4 px-lg-0">
@@ -22,6 +25,8 @@ const CartScreen = () => {
               <div className="col-lg-12 p-5 bg-white rounded shadow-sm mb-5">
                 <CartTable
                   _data={getAllItemFromCurrentCartApi.data}
+                  _onChangeQuantity={() => totalPrice.set(1000)}
+                  _totalPrice={totalPrice}
                 ></CartTable>
                 {/* <div className="table-responsive">
                   <table className="table">
@@ -109,7 +114,7 @@ const CartScreen = () => {
                     <li className="d-flex justify-content-between py-3 border-bottom">
                       <strong className="text-muted">Total</strong>
                       <h5 id="big_total_label" className="font-weight-bold">
-                        $0
+                        {totalPrice.price}
                       </h5>
                     </li>
                   </ul>
@@ -117,7 +122,10 @@ const CartScreen = () => {
                     className="btn btn-info rounded-pill py-2 btn-block"
                     id="checkout_btn"
                     style={{ color: "white" }}
-                    onClick="checkValidOnCheckOut()"
+                    onClick={() => {
+                      console.log("checkValidOnCheckOut()");
+                      // totalPrice2.setPrice(2000);
+                    }}
                   >
                     Procceed to Checkout
                   </button>

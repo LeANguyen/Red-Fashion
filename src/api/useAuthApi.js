@@ -1,20 +1,18 @@
 import useClient from "./useClient";
 
-const signIn = "/signin";
-const signUp = "/signup";
-const clientByEmail = "/client/email/Nguyen123@gmail.com";
+// const clientByEmail = "/client/email/Nguyen123@gmail.com";
 
 const useAuthApi = ({}) => {
   const client = useClient();
 
   const signIn = () => {
-    client.post(signIn, { email, pass });
+    client.post("/signin", { email, pass });
   };
   const signUp = () => {
-    client.post(signUp, { name, email, pass });
+    client.post("/signup", { name, email, pass });
   };
-  const getClientByEmail = () => {
-    client.get(clientByEmail);
+  const getClientByEmail = email => {
+    client.get(`/client/email/${email}`);
   };
 
   return {

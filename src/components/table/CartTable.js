@@ -8,7 +8,10 @@ import useApi from "../../hooks/useApi";
 
 const CartTable = ({
   _data,
-  _headers = ["Product", "Price", "Quantity", "Total", ""]
+  _headers = ["Product", "Price", "Quantity", "Total", ""],
+  _onChangeQuantity,
+  _onClickRemove,
+  _totalPrice
 }) => {
   const cartItemApi = useCartItemApi();
   const deleteItemFromCurrentCartApi = useApi(
@@ -37,7 +40,12 @@ const CartTable = ({
                       _key={i}
                       _onClickRemove={() => {
                         deleteItemFromCurrentCartApi.request(1, item.item_id);
+                        _onClickRemove();
                       }}
+                      _onChangeQuantity={() => {
+                        _onChangeQuantity();
+                      }}
+                      _totalPrice={_totalPrice}
                     ></CartTableItem>
                   );
                 })}

@@ -27,7 +27,7 @@ function App() {
   //     </header>
   //   </div>
   // );
-  // return <HomeScreen></HomeScreen>;
+  return <HomeScreen></HomeScreen>;
   // return <ItemListScreen></ItemListScreen>;
   // return <PurchaseHistoryScreen></PurchaseHica
   return <CartScreen></CartScreen>;

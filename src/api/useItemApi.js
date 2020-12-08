@@ -1,24 +1,24 @@
 import useClient from "./useClient";
 
-const item = "/item";
-const allItem = "/items";
-const allItemByCategory = "/items/category/Shirt";
-const currentItem = "/current_item";
-const itemById = "/item/id/1";
-const allItemByName = "/items/name/Sh";
+// const item = "/item";
+// const allItem = "/items";
+// const allItemByCategory = "/items/category/Shirt";
+// const currentItem = "/current_item";
+// const itemById = "/item/id/1";
+// const allItemByName = "/items/name/Sh";
 
-const useItemApi = ({}) => {
+const useItemApi = () => {
   const client = useClient();
 
-  const createItem = ({ itemData, onUploadProgress }) => {
+  const createItem = ({ item, onUploadProgress }) => {
     const data = new FormData();
-    data.append("item_name", itemData.item_name);
-    data.append("price", itemData.price);
-    data.append("category", itemData.category);
-    data.append("origin", itemData.origin);
-    data.append("description", itemData.description);
+    data.append("item_name", item.item_name);
+    data.append("price", item.price);
+    data.append("category", item.category);
+    data.append("origin", item.origin);
+    data.append("description", item.description);
 
-    itemData.images.forEach((image, index) =>
+    item.images.forEach((image, index) =>
       data.append("images", {
         name: "image" + index,
         type: "image/jpeg",
@@ -34,19 +34,20 @@ const useItemApi = ({}) => {
     });
   };
 
-  const getAllItem = () => client.api.get(allItem);
+  const getAllItem = () => client.api.get("/items");
 
-  const getAllItemByCategory = () => client.api.get(allItemByCategory);
+  const getAllItemByCategory = category =>
+    client.api.get(`items/category/${category}`);
 
-  const getCurrentItem = () => client.api.get(currentItem);
+  const getCurrentItem = () => client.api.get("/current_item");
 
-  const getItemById = () => client.api.get(itemById);
+  const getItemById = id => client.api.get(`item/id/${id}`);
 
-  const deleteItem = () => client.api.delete(itemById);
+  const deleteItem = id => client.api.delete(`item/id/${id}`);
 
-  const updateItem = () => client.api.put(itemById);
+  const updateItem = id => client.api.put(`item/id/${id}`);
 
-  const getAllItemByName = () => client.api.get(allItemByName);
+  const getAllItemByName = name => client.api.get(`items/name/${name}`);
 
   return {
     createItem,

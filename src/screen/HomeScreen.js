@@ -1,10 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Screen from "../components/Screen";
 import Video from "../components/Video";
 import Carousel from "../components/Carousel";
 import CardList from "../components/CardList";
+import useItemApi from "../api/useItemApi";
+import useApi from "../hooks/useApi";
 
 const HomeScreen = () => {
+  const itemApi = useItemApi();
+  const getAllItemApi = useApi(itemApi.getAllItem);
+
+  useEffect(() => {
+    getAllItemApi.request();
+  }, []);
+
   return (
     <div>
       <Screen>
@@ -17,7 +26,7 @@ const HomeScreen = () => {
         <div className="row">
           <div className="col-12 bg-dark py-5">
             <h1 className="bg-dark text-center">LATEST PRODUCT</h1>
-            <CardList></CardList>
+            <CardList _data={getAllItemApi.data}></CardList>
           </div>
         </div>
 
