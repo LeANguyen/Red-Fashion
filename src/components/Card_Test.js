@@ -21,7 +21,28 @@ const Card = ({ _item, _key }) => {
   );
 
   const [quantity, setQuantity] = useState(100);
-  const [itemInCart, setItemInCart] = useState();
+  const [cartButtonClass, setCartButtonClass] = useState();
+  const [cartButtonOnClick, setCartButtonOnClick] = useState();
+  const [cartButtonText, setCartButtonText] = useState();
+
+  const addToCart = () => {
+    console.log("ADD");
+    console.log(quantity);
+    addItemIntoCurrentCartApi.request(1, _item.id, quantity);
+    setCartButtonText("Remove from Cart");
+    setCartButtonClass("btn btn-danger rounded-pill py-2 btn-block");
+    setCartButtonOnClick(() => () => removeFromCart());
+  };
+
+  const removeFromCart = () => {
+    console.log("REMOVE");
+    deleteItemFromCurrentCartApi.request(1, _item.id);
+    setCartButtonText("Add to Cart");
+    setCartButtonClass("btn btn-success rounded-pill py-2 btn-block");
+    setCartButtonOnClick(() => () => {
+      addToCart();
+    });
+  };
 
   useEffect(async () => {
     const response = await getItemFromCurrentCartByItemIdApi.request(
@@ -29,11 +50,18 @@ const Card = ({ _item, _key }) => {
       _item.id
     );
     if (response.data[0] != undefined) {
-      setItemInCart(true);
+      console.log(response.data[0].quantity);
       setQuantity(response.data[0].quantity);
+      setCartButtonClass("btn btn-danger rounded-pill py-2 btn-block");
+      setCartButtonOnClick(() => () => removeFromCart());
+      setCartButtonText("Remove from Cart");
     } else {
-      setItemInCart(false);
       setQuantity(1);
+      setCartButtonClass("btn btn-success rounded-pill py-2 btn-block");
+      setCartButtonOnClick(() => () => {
+        addToCart();
+      });
+      setCartButtonText("Add to Cart");
     }
   }, []);
 
@@ -49,7 +77,7 @@ const Card = ({ _item, _key }) => {
         <label className="card-text">${_item.price}</label>
         <br></br>
         <strong className="text-muted">- Quantity: </strong>
-        {!itemInCart && (
+        {getItemFromCurrentCartByItemIdApi.data.length === 0 && (
           <input
             type="number"
             step={1}
@@ -58,10 +86,16 @@ const Card = ({ _item, _key }) => {
             value={quantity}
             onChange={event => {
               setQuantity(event.target.value);
+              //   updateItemQuantityFromCurrentCartApi.request(
+              //     1,
+              //     _item.id,
+              //     event.target.value
+              //   );
             }}
+            // oninput="this.value = Math.abs(this.value)"
           ></input>
         )}
-        {itemInCart && (
+        {getItemFromCurrentCartByItemIdApi.data.length !== 0 && (
           <input
             type="number"
             step={1}
@@ -76,37 +110,49 @@ const Card = ({ _item, _key }) => {
                 event.target.value
               );
             }}
+            // oninput="this.value = Math.abs(this.value)"
           ></input>
         )}
         <div className="mt-4">
           <button
             className="btn btn-info rounded-pill py-2 btn-block"
             type="submit"
+            // id="detail_btn${data[i].id}"
+            // onclick="toItemDetail(${data[i].id})"
           >
             Item Detail
           </button>
-          {!itemInCart && (
+          {getItemFromCurrentCartByItemIdApi.data.length === 0 && (
             <button
-              className="btn btn-success rounded-pill py-2 btn-block"
+              className={cartButtonClass}
               type="submit"
-              onClick={() => {
-                addItemIntoCurrentCartApi.request(1, _item.id, quantity);
-                setItemInCart(true);
-              }}
+              // id="add_to_cart_btn${data[i].id}"
+              onClick={() =>
+                // addItemIntoCurrentCartApi.request(1, _item.id, quantity)
+                {
+                  cartButtonOnClick();
+                }
+              }
             >
-              Add to Cart
+              {/* Add to Cart */}
+              {cartButtonText}
             </button>
           )}
-          {itemInCart && (
+          {getItemFromCurrentCartByItemIdApi.data.length !== 0 && (
             <button
-              className="btn btn-danger rounded-pill py-2 btn-block"
+              className={cartButtonClass}
               type="submit"
-              onClick={() => {
-                deleteItemFromCurrentCartApi.request(1, _item.id);
-                setItemInCart(false);
-              }}
+              // id="add_to_cart_btn${data[i].id}"
+              // onclick="addToCart(${data[i].id})"
+              onClick={() =>
+                // deleteItemFromCurrentCartApi.request(1, _item.id)
+                {
+                  cartButtonOnClick();
+                }
+              }
             >
-              Remove from Cart
+              {/* Remove from Cart */}
+              {cartButtonText}
             </button>
           )}
         </div>

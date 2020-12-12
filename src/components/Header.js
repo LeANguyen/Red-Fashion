@@ -139,7 +139,7 @@ const Header = () => {
           <button
             className="btn btn-warning my-2 my-sm-0"
             type="button"
-            onClick={console.log("search()")}
+            onClick={() => console.log("search()")}
           >
             <i className="fa fa-fw fa-search"></i>Search
           </button>

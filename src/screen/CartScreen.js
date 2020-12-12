@@ -4,6 +4,7 @@ import CartTable from "../components/table/CartTable";
 import useCartItemApi from "../api/useCartItemApi";
 import useApi from "../hooks/useApi";
 import useTotalPrice from "../components/useTotalPrice";
+
 const CartScreen = () => {
   const cartItemApi = useCartItemApi();
   const getAllItemFromCurrentCartApi = useApi(
