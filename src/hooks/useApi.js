@@ -9,6 +9,7 @@ const useApi = apiFunc => {
     setIsLoading(true);
     const response = await apiFunc(...args);
     setIsLoading(false);
+
     setError(!response.ok);
     setData(response.data);
     return response;
@@ -16,4 +17,5 @@ const useApi = apiFunc => {
 
   return { data, error, isLoading, request };
 };
+
 export default useApi;

@@ -9,6 +9,7 @@ const CartTableItem = ({
   _totalPrice
 }) => {
   const [quantity, setQuantity] = useState(_item.quantity);
+
   const decreasePrice = () => {
     _totalPrice.setPrice(_totalPrice.price - quantity * _item.price);
   };

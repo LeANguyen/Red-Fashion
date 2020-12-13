@@ -24,6 +24,11 @@ const CartScreen = () => {
           <div className="container">
             <div className="row">
               <div className="col-lg-12 p-5 bg-white rounded shadow-sm mb-5">
+                {/* <button
+                  onClick={() => console.log(getAllItemFromCurrentCartApi.data)}
+                >
+                  Test to see data
+                </button> */}
                 <CartTable
                   _data={getAllItemFromCurrentCartApi.data}
                   _onChangeQuantity={() => totalPrice.set(1000)}

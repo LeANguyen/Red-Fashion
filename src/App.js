@@ -28,9 +28,10 @@ function App() {
   //   </div>
   // );
   // return <HomeScreen></HomeScreen>;
-  return <ItemListScreen></ItemListScreen>;
+  // return <ItemListScreen></ItemListScreen>;
+  return <ItemDetailScreen></ItemDetailScreen>;
   // return <PurchaseHistoryScreen></PurchaseHica
-  return <CartScreen></CartScreen>;
+  // return <CartScreen></CartScreen>;
   return <SignScreen></SignScreen>;
 }
 
