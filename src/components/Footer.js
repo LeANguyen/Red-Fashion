@@ -2,23 +2,11 @@ import React from "react";
 import "./Footer.css";
 const Footer = () => {
   return (
-    <footer className="page-footer pt-4 bg-dark text-white footer-style">
+    <footer className="page-footer py-4 bg-dark text-white footer-style">
       <div className="container-fluid text-center text-md-left">
         <div className="row">
-          <div className="col-md-6 mt-md-0 mt-3">
-            {/* <i className="fa fa-fw fa-home">Home</i> */}
-            {/* <span className="sr-only">(current)</span> */}
-            <h1 className="text-uppercase">Business</h1>
-            <p className="font-weight-bold">- Business Hour:</p>
-            <p>7:30 AM - 12:00 PM</p>
-            <p className="font-weight-bold">- Contact Number:</p>
-            <p>82-0779546</p>
-            <p className="font-weight-bold">- Shop Address:</p>
-            <p>702 Nguyễn Văn Linh, Tân Hưng, Quận 7, TP.HCM</p>
-          </div>
-          <hr className="clearfix w-100 d-md-none pb-3"></hr>
-
-          <div className="col-md-3 mb-md-0 mb-3">
+          <div className="col-lg-1"></div>
+          <div className="col-lg-4">
             <h1 className="text-uppercase">Help</h1>
 
             <ul className="list-unstyled">
@@ -42,6 +30,23 @@ const Footer = () => {
               </li>
             </ul>
           </div>
+          <div className="col-lg-1"></div>
+          <div className="col-lg-5">
+            <h1 className="text-uppercase">Business</h1>
+            <li className="d-flex justify-content-between">
+              <strong className="text-white">- Business Hour:</strong>
+              <p>7:30 AM - 12:00 PM</p>
+            </li>
+            <li className="d-flex justify-content-between">
+              <strong className="text-white">- Contact Number:</strong>
+              <p>82-0779546</p>
+            </li>
+            <li className="d-flex justify-content-between">
+              <strong className="text-white">- Shop Address: </strong>
+              <p>702 Nguyễn Văn Linh, Tân Hưng, Quận 7, TP.HCM</p>
+            </li>
+          </div>
+          <div className="col-lg-1"></div>
         </div>
       </div>
     </footer>

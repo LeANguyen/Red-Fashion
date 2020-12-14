@@ -21,34 +21,35 @@ const CartTableItem = ({
 
   return (
     <tr key={_key}>
-      <th scope="row">
-        <div class="p-2">
-          <img
-            src={
-              "https://dosi-in.com/images/detailed/9/Basic-T-shirt-Black.jpg"
-            }
-            alt="No Image"
-            width="70"
-            class="img-fluid rounded shadow-sm"
-          ></img>
-          <div class="ml-3 d-inline-block align-middle">
-            <strong>
-              <a
-                href="item_detail_page?id=${data[i].item_id}"
-                class="text-dark d-inline-block align-middle"
-              >
-                {_item.item_name}
-              </a>
-            </strong>
-            <span class="text-muted font-weight-normal font-italic d-block">
-              {"Category: " + _item.category}
-            </span>
-            <span class="text-muted font-weight-normal font-italic d-block">
-              {"Made in: " + _item.origin}
-            </span>
-          </div>
+      <th>
+        <img
+          src={
+            "http://localhost:3000/uploaded_images/item" +
+            _item.item_id +
+            ".png"
+          }
+          alt="No Image"
+          width="80"
+          class="img-fluid rounded shadow-sm"
+        ></img>
+        <div class="ml-3 d-inline-block align-middle">
+          <strong>
+            <a
+              href="item_detail_page?id=${data[i].item_id}"
+              class="text-dark d-inline-block align-middle"
+            >
+              {_item.item_name}
+            </a>
+          </strong>
+          <span class="text-muted font-weight-normal font-italic d-block">
+            {"Category: " + _item.category}
+          </span>
+          <span class="text-muted font-weight-normal font-italic d-block">
+            {"Made in: " + _item.origin}
+          </span>
         </div>
       </th>
+
       <td class="align-middle">
         <strong id="price_label${data[i].item_id}">{"$" + _item.price}</strong>
       </td>

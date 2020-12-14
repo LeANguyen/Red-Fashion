@@ -1,7 +1,19 @@
 import React from "react";
 import logo from "../assets/logo.png";
+import { Link } from "react-router-dom";
 const Header = () => {
   return (
+    // <ul className="App-header">
+    //       <li>
+    //         <Link to="/">Home</Link>
+    //       </li>
+    //       <li>
+    //         <Link to="/about">About Us</Link>
+    //       </li>
+    //       <li>
+    //         <Link to="/contact">Contact Us</Link>
+    //       </li>
+    //     </ul>
     <nav className="navbar navbar-expand-lg navbar navbar-dark bg-dark header-style">
       <button
         className="navbar-toggler"
@@ -17,22 +29,23 @@ const Header = () => {
 
       <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
         <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
-          <li className="nav-item mr-5 mt-1">
-            <img src={logo} height="20" />
+          <li className="nav-item mx-lg-4 my-1">
+            <img src={logo} height="20px" />
           </li>
 
-          <li className="nav-item active">
-            <a className="nav-link" href="home_page">
-              <i className="fa fa-fw fa-home"></i>Home
-              <span className="sr-only">(current)</span>
+          <li className="nav-item active mx-lg-2">
+            <a className="nav-link">
+              <Link className="text-white font-weight-bold" to="/">
+                <i className="fa fa-fw fa-home"></i>Home
+              </Link>
+              <span class="sr-only">(current)</span>
             </a>
           </li>
 
-          <li className="nav-item dropdown active">
+          <li className="nav-item dropdown active mx-lg-2">
             <a
-              className="nav-link dropdown-toggle"
+              className="nav-link dropdown-toggle text-white font-weight-bold"
               href="#"
-              id="shop_dropdown"
               data-toggle="dropdown"
               aria-haspopup={true}
               aria-expanded={false}
@@ -43,23 +56,31 @@ const Header = () => {
               className="dropdown-menu"
               aria-labelledby="navbarDropdownMenuLink"
             >
-              <a className="dropdown-item" href="item_page?category=Shirt">
+              <Link className="dropdown-item" to="/items/Shirt">
+                Shirt
+              </Link>
+              <Link className="dropdown-item" to="/items/Pant">
+                Pant
+              </Link>
+              <Link className="dropdown-item" to="/items/Shoe">
+                Shoe
+              </Link>
+              {/* <a className="dropdown-item" href="items?category=Shirt">
                 Shirt
               </a>
-              <a className="dropdown-item" href="item_page?category=Pant">
+              <a className="dropdown-item" href="items?category=Pant">
                 Pant
               </a>
-              <a className="dropdown-item" href="item_page?category=Shoe">
+              <a className="dropdown-item" href="items?category=Shoe">
                 Shoe
-              </a>
+              </a> */}
             </div>
           </li>
 
-          <li className="nav-item dropdown active">
+          <li className="nav-item dropdown active mx-lg-2">
             <a
-              className="nav-link dropdown-toggle"
+              className="nav-link dropdown-toggle text-white font-weight-bold"
               href="#"
-              id="cart_dropdown"
               data-toggle="dropdown"
               aria-haspopup={true}
               aria-expanded={false}
@@ -71,22 +92,31 @@ const Header = () => {
               className="dropdown-menu"
               aria-labelledby="navbarDropdownMenuLink"
             >
-              <a className="dropdown-item" href="cart_page">
+              <Link className="dropdown-item" to="/cart?">
+                Current Cart
+              </Link>
+              <Link className="dropdown-item" to="/history">
+                Purchase History
+              </Link>
+              {/* <a className="dropdown-item" href="cart">
                 Current Cart
               </a>
-              <a className="dropdown-item" href="cart_history_page">
+              <a className="dropdown-item" href="history">
                 Purchase History
-              </a>
+              </a> */}
             </div>
           </li>
 
-          <li className="nav-item dropdown active">
-            <a className="nav-link" href="sign_page" id="signin_head">
-              <i className="fa fa-fw fa-user"></i>Signin
+          <li className="nav-item dropdown active mx-lg-2">
+            <a className="nav-link" href="sign" id="signin_head">
+              <Link className="text-white font-weight-bold" to="/sign">
+                <i className="fa fa-fw fa-user"></i>Login
+              </Link>
+              {/* <i className="fa fa-fw fa-user"></i>Signin */}
             </a>
           </li>
 
-          <li className="nav-item dropdown active">
+          <li className="nav-item dropdown active mx-lg-2">
             <a
               className="nav-link dropdown-toggle"
               href="#"

@@ -55,14 +55,11 @@ const SignUpForm = () => {
 
   return (
     <form>
-      <p className="text-center font-weight-bold mt-3">
+      <p className="text-center font-weight-bold my-2">
         Don't have an account yet?
       </p>
-      <div
-        className="bg-dark rounded-pill px-4 py-3 mb-4 text-uppercase font-weight-bold"
-        style={{ color: "white" }}
-      >
-        Sign Up an Account
+      <div className="bg-dark rounded px-4 py-2 my-4 text-center font-weight-bold text-white">
+        Register
       </div>
       <div className="form-group">
         <strong className="text-muted">Username: </strong>

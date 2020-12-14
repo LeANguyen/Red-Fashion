@@ -5,9 +5,8 @@ import CartScreen from "./screen/CartScreen";
 import ItemListScreen from "./screen/ItemListScreen";
 import ItemDetailScreen from "./screen/ItemDetailScreen";
 import PurchaseHistoryScreen from "./screen/PurchaseHistoryScreen";
-import LoginScreen from "./screen/SignScreen";
 import SignScreen from "./screen/SignScreen";
-
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 function App() {
   // return (
   //   <div className="App">
@@ -27,6 +26,35 @@ function App() {
   //     </header>
   //   </div>
   // );
+
+  return (
+    <Router>
+      {/* <ul className="App-header">
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/about">About Us</Link>
+          </li>
+          <li>
+            <Link to="/contact">Contact Us</Link>
+          </li>
+        </ul> */}
+      <Switch>
+        <Route exact path="/" component={HomeScreen}></Route>
+        <Route exact path="/items/:category" component={ItemListScreen}></Route>
+        <Route
+          exact
+          path="/item_detail/:id"
+          component={ItemDetailScreen}
+        ></Route>
+        <Route exact path="/cart" component={CartScreen}></Route>
+        <Route exact path="/history" component={PurchaseHistoryScreen}></Route>
+        <Route exact path="/sign" component={SignScreen}></Route>
+      </Switch>
+    </Router>
+  );
+
   // return <HomeScreen></HomeScreen>;
   // return <ItemListScreen></ItemListScreen>;
   return <ItemDetailScreen></ItemDetailScreen>;

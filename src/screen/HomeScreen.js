@@ -30,7 +30,7 @@ const HomeScreen = () => {
           </div>
         </div>
 
-        <div className="row m-5">
+        <div className="row p-lg-5">
           <div className="col-lg-8">
             <Video></Video>
           </div>

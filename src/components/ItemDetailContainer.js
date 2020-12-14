@@ -1,28 +1,30 @@
 import React from "react";
+import shirt1 from "../assets/shirt1.jpeg";
 
 const ItemDetailContainer = ({ _item }) => {
   return (
-    <div className="row py-5 p-4 bg-white rounded shadow-sm item-detail-style">
+    <div className="row p-4 bg-white rounded shadow-sm item-detail-style">
       <div className="col-md-4">
         <div
-          className="bg-dark rounded-pill px-4 py-3 text-uppercase font-weight-bold"
+          className="bg-dark rounded px-4 py-2 text-uppercase font-weight-bold"
           style={{ color: "white" }}
         >
-          Item Information
+          {_item.item_name}
         </div>
         <img
-          src="no_image.jpg"
+          src={"http://localhost:3000/uploaded_images/item" + _item.id + ".png"}
           id="item_imageview"
           alt="..."
-          className="img-thumbnail"
+          className="img-thumbnail my-4"
         ></img>
       </div>
+
       <div className="col-md-8">
         <div className="form-row">
           <div className="form-group col-md-12">
             <div
               id="item_name_label"
-              className="bg-dark rounded-pill px-4 py-3 text-uppercase font-weight-bold"
+              className="bg-dark rounded px-4 py-2 text-uppercase font-weight-bold"
               style={{ color: "white" }}
             >
               {_item.item_name}
@@ -31,53 +33,45 @@ const ItemDetailContainer = ({ _item }) => {
 
           <div className="form-group col-md-8">
             <div className="p-4">
-              <ul className="list-unstyled mb-4">
-                <li className="d-flex justify-content-between py-3 border-bottom">
-                  <strong className="text-muted">Category: </strong>
-                  <h5 id="category_label" className="font-weight-bold">
-                    {_item.category}
-                  </h5>
-                </li>
-              </ul>
+              <li className="d-flex justify-content-between py-2 border-bottom">
+                <strong className="text-muted">Category: </strong>
+                <h5 id="category_label" className="font-weight-bold">
+                  {_item.category}
+                </h5>
+              </li>
             </div>
           </div>
 
           <div className="form-group col-md-4">
             <div className="p-4">
-              <ul className="list-unstyled mb-4">
-                <li className="d-flex justify-content-between py-3 border-bottom">
-                  <strong className="text-muted">Item ID: </strong>
-                  <h5 id="id_label" className="font-weight-bold">
-                    {_item.id}
-                  </h5>
-                </li>
-              </ul>
+              <li className="d-flex justify-content-between py-2 border-bottom">
+                <strong className="text-muted">Item ID: </strong>
+                <h5 id="id_label" className="font-weight-bold">
+                  {_item.id}
+                </h5>
+              </li>
             </div>
           </div>
 
           <div className="form-group col-md-8">
             <div className="p-4">
-              <ul className="list-unstyled mb-4">
-                <li className="d-flex justify-content-between py-3 border-bottom">
-                  <strong className="text-muted">Made in: </strong>
-                  <h5 id="origin_label" className="font-weight-bold">
-                    {_item.origin}
-                  </h5>
-                </li>
-              </ul>
+              <li className="d-flex justify-content-between py-2 border-bottom">
+                <strong className="text-muted">Made in: </strong>
+                <h5 id="origin_label" className="font-weight-bold">
+                  {_item.origin}
+                </h5>
+              </li>
             </div>
           </div>
 
           <div className="form-group col-md-4">
             <div className="p-4">
-              <ul className="list-unstyled mb-4">
-                <li className="d-flex justify-content-between py-3 border-bottom">
-                  <strong className="text-muted">Price: </strong>
-                  <h5 id="price_label" className="font-weight-bold">
-                    {"$" + _item.price}
-                  </h5>
-                </li>
-              </ul>
+              <li className="d-flex justify-content-between py-2 border-bottom">
+                <strong className="text-muted">Price: </strong>
+                <h5 id="price_label" className="font-weight-bold">
+                  {"$" + _item.price}
+                </h5>
+              </li>
             </div>
           </div>
 
@@ -114,7 +108,7 @@ const ItemDetailContainer = ({ _item }) => {
             </td>
             <label
               type="button"
-              class="btn btn-success rounded-pill py-2 btn-block mt-2"
+              class="btn btn-success rounded-pill py-2 btn-block my-2"
               id="add_to_cart_btn"
               style={{ color: "white" }}
             >

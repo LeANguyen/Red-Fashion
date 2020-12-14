@@ -8,9 +8,9 @@ const SignInForm = () => {
   const [email, setEmail] = useState();
   const [pass, setPass] = useState();
 
-  const handleSubmit = () => {
-    signInApi.request(email, pass);
-    if (signInApi.data.length !== 0) {
+  const handleSubmit = async () => {
+    const response = await signInApi.request(email, pass);
+    if (response.data.length !== 0) {
       alert("Login Success");
     } else {
       alert("Login Failed");
@@ -20,11 +20,11 @@ const SignInForm = () => {
   return (
     <div>
       <form>
-        <p className="text-center font-weight-bold mt-3">
+        <p className="text-center font-weight-bold my-2">
           Please Sign In to save a cart
         </p>
-        <div className="bg-dark rounded-pill px-4 py-3 mb-4 text-uppercase font-weight-bold text-white">
-          Sign In to an Account
+        <div className="bg-dark rounded px-4 py-2 my-4 text-center font-weight-bold text-white">
+          Login
         </div>
 
         <div className="form-group">
@@ -66,7 +66,7 @@ const SignInForm = () => {
           type="button"
           onClick={() => handleSubmit()}
         >
-          Sign In
+          Login
         </button>
       </form>
     </div>

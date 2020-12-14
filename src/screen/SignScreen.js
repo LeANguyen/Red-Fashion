@@ -5,14 +5,17 @@ import RegisterForm from "../components/SignUpForm";
 const SignScreen = () => {
   return (
     <Screen>
-      <div class="row py-5 p-4 bg-white rounded shadow-sm m-5 text-align-center">
-        <div class="col-lg-6">
+      <div className="row p-md-5">
+        <div className="col-md-2"></div>
+        <div class="col-lg-8 p-4 my-5 bg-white rounded shadow-sm text-align-center">
           <LoginForm></LoginForm>
         </div>
-
-        <div class="col-lg-6">
+        <div className="col-lg-2"></div>
+        <div className="col-lg-2"></div>
+        <div class="col-lg-8 p-4 bg-white rounded shadow-sm text-align-center">
           <RegisterForm></RegisterForm>
         </div>
+        <div className="col-lg-2"></div>
       </div>
     </Screen>
   );
