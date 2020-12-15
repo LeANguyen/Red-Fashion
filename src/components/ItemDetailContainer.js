@@ -1,5 +1,4 @@
 import React from "react";
-import shirt1 from "../assets/shirt1.jpeg";
 
 const ItemDetailContainer = ({ _item }) => {
   return (

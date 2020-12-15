@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import useApi from "../hooks/useApi";
 import useAuthApi from "../api/useAuthApi";
 
-const SignInForm = () => {
+const LoginForm = () => {
   const authApi = useAuthApi();
   const signInApi = useApi(authApi.signIn);
   const [email, setEmail] = useState();
@@ -21,7 +21,7 @@ const SignInForm = () => {
     <div>
       <form>
         <p className="text-center font-weight-bold my-2">
-          Please Sign In to save a cart
+          Please login to save a cart
         </p>
         <div className="bg-dark rounded px-4 py-2 my-4 text-center font-weight-bold text-white">
           Login
@@ -32,10 +32,7 @@ const SignInForm = () => {
           <input
             type="text"
             className="form-control"
-            id="email_input_signin"
-            aria-describedby="emailHelp"
             placeholder="Email"
-            onreset="retrieveMe()"
             onChange={event => setEmail(event.target.value)}
           ></input>
         </div>
@@ -45,7 +42,6 @@ const SignInForm = () => {
           <input
             type="password"
             className="form-control"
-            id="pass_input_signin"
             placeholder="Password"
             onChange={event => setPass(event.target.value)}
           ></input>
@@ -73,4 +69,4 @@ const SignInForm = () => {
   );
 };
 
-export default SignInForm;
+export default LoginForm;

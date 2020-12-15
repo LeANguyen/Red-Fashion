@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import useCartItemApi from "../api/useCartItemApi";
-import shirt1 from "../assets/shirt1.jpeg";
 import useApi from "../hooks/useApi";
 import { Link, useHistory } from "react-router-dom";
 

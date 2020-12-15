@@ -3,17 +3,6 @@ import logo from "../assets/logo.png";
 import { Link } from "react-router-dom";
 const Header = () => {
   return (
-    // <ul className="App-header">
-    //       <li>
-    //         <Link to="/">Home</Link>
-    //       </li>
-    //       <li>
-    //         <Link to="/about">About Us</Link>
-    //       </li>
-    //       <li>
-    //         <Link to="/contact">Contact Us</Link>
-    //       </li>
-    //     </ul>
     <nav className="navbar navbar-expand-lg navbar navbar-dark bg-dark header-style">
       <button
         className="navbar-toggler"
@@ -65,15 +54,6 @@ const Header = () => {
               <Link className="dropdown-item" to="/items/Shoe">
                 Shoe
               </Link>
-              {/* <a className="dropdown-item" href="items?category=Shirt">
-                Shirt
-              </a>
-              <a className="dropdown-item" href="items?category=Pant">
-                Pant
-              </a>
-              <a className="dropdown-item" href="items?category=Shoe">
-                Shoe
-              </a> */}
             </div>
           </li>
 
@@ -158,16 +138,15 @@ const Header = () => {
           </li>
         </ul>
 
-        <form className="form-inline my-2 my-lg-0">
+        <form className="form-inline">
           <input
-            id="search_input"
-            className="form-control mr-sm-2"
+            className="form-control mx-lg-1 my-1"
             type="search"
             placeholder="Search Item's name"
             aria-label="Search"
           />
           <button
-            className="btn btn-warning my-2 my-sm-0"
+            className="btn btn-warning mx-lg-1 my-1 font-weight-bold"
             type="button"
             onClick={() => console.log("search()")}
           >

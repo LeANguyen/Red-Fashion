@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
 import Screen from "../components/Screen";
-import CartTable from "../components/table/CartTable";
+import Table from "../components/table/Table";
 import useCartItemApi from "../api/useCartItemApi";
 import useApi from "../hooks/useApi";
 import useTotalPrice from "../components/useTotalPrice";
+import CartTableItem from "../components/table/CartTableItem";
+import $ from "jquery";
 
 const CartScreen = () => {
   const cartItemApi = useCartItemApi();
@@ -12,6 +14,7 @@ const CartScreen = () => {
   );
 
   useEffect(() => {
+    $("#myModal").modal("show");
     getAllItemFromCurrentCartApi.request(1);
   }, []);
 
@@ -19,51 +22,49 @@ const CartScreen = () => {
 
   return (
     <Screen>
+      <div id="myModal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Modal title</h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>Modal body text goes here.</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary">
+                Save changes
+              </button>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="px-4 px-lg-0">
         <div className="p-5">
           <div className="container">
             <div className="row">
               <div className="col-lg-12 p-5 bg-white rounded shadow-sm mb-5">
-                {/* <button
-                  onClick={() => console.log(getAllItemFromCurrentCartApi.data)}
-                >
-                  Test to see data
-                </button> */}
-                <CartTable
+                <Table
                   _data={getAllItemFromCurrentCartApi.data}
-                  _onChangeQuantity={() => totalPrice.set(1000)}
-                  _totalPrice={totalPrice}
-                ></CartTable>
-                {/* <div className="table-responsive">
-                  <table className="table">
-                    <thead>
-                      <tr>
-                        <th
-                          scope="col"
-                          className="border-0 rounded-left bg-dark text-white"
-                        >
-                          <div className="p-2 px-3 text-uppercase">Product</div>
-                        </th>
-                        <th scope="col" className="border-0 bg-dark text-white">
-                          <div className="py-2 text-uppercase">Price</div>
-                        </th>
-                        <th scope="col" className="border-0 bg-dark text-white">
-                          <div className="py-2 text-uppercase">Quantity</div>
-                        </th>
-                        <th scope="col" className="border-0 bg-dark text-white">
-                          <div className="py-2 text-uppercase">Total</div>
-                        </th>
-                        <th
-                          scope="col"
-                          className="border-0 rounded-right bg-dark text-white"
-                        >
-                          <div className="py-2 text-uppercase"></div>
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody id="cart_table_body"></tbody>
-                  </table>
-                </div> */}
+                  _headers={["Product", "Price", "Quantity", "Total", ""]}
+                  _component={CartTableItem}
+                ></Table>
               </div>
             </div>
 

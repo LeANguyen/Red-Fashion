@@ -22,8 +22,6 @@ const FormTextInput = ({
             className="form-control"
             placeholder={_placeHolder}
             onChange={_onChange}
-            aria-label="from"
-            aria-describedby="from"
           ></input>
         )}
         {_inputType === "number" && (

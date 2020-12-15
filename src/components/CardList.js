@@ -1,5 +1,4 @@
 import React from "react";
-import shirt1 from "../assets/shirt1.jpeg";
 import Card from "./Card";
 const CardList = ({
   _data = [

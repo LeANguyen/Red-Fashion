@@ -7,6 +7,7 @@ import ItemDetailScreen from "./screen/ItemDetailScreen";
 import PurchaseHistoryScreen from "./screen/PurchaseHistoryScreen";
 import SignScreen from "./screen/SignScreen";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import AdminScreen from "./screen/AdminScreen";
 function App() {
   // return (
   //   <div className="App">
@@ -42,6 +43,7 @@ function App() {
         </ul> */}
       <Switch>
         <Route exact path="/" component={HomeScreen}></Route>
+        <Route exact path="/admin" component={AdminScreen}></Route>
         <Route exact path="/items/:category" component={ItemListScreen}></Route>
         <Route
           exact

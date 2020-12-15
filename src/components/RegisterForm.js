@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import useApi from "../hooks/useApi";
 import useAuthApi from "../api/useAuthApi";
 
-const SignUpForm = () => {
+const RegisterForm = () => {
   const authApi = useAuthApi();
   const signUpApi = useApi(authApi.signUp);
   const getClientByEmailApi = useApi(authApi.getClientByEmail);
@@ -134,4 +134,4 @@ const SignUpForm = () => {
   );
 };
 
-export default SignUpForm;
+export default RegisterForm;

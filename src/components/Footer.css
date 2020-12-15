@@ -1,15 +1,24 @@
 /* footer */
-.footer-style p {
+.app-footer p {
+  color: white;
+  padding: 4px;
+  /* font-size: 20px; */
+}
+
+.app-footer a {
   color: white;
   /* font-size: 20px; */
 }
 
-.footer-style a {
-  color: white;
-  /* font-size: 20px; */
-}
-
-.footer-style a:hover {
+.app-footer a:hover {
   color: white;
   text-underline-position: below;
+}
+
+.app-footer strong {
+  color: white;
+}
+
+.app-footer p {
+  color: white;
 }

@@ -1,22 +1,25 @@
 import React, { useState } from "react";
 import useTotalPrice from "../useTotalPrice";
+import useCartItemApi from "../../api/useCartItemApi";
+import useApi from "../../hooks/useApi";
 
-const CartTableItem = ({
-  _item,
-  _key,
-  _onClickRemove,
-  _onChangeQuantity,
-  _totalPrice
-}) => {
+const CartTableItem = ({ _item, _key }) => {
+  const cartItemApi = useCartItemApi();
+  const deleteItemFromCurrentCartApi = useApi(
+    cartItemApi.deleteItemFromCurrentCart
+  );
+
+  const totalPrice = useTotalPrice();
+
   const [quantity, setQuantity] = useState(_item.quantity);
 
   const decreasePrice = () => {
-    _totalPrice.setPrice(_totalPrice.price - quantity * _item.price);
+    totalPrice.setPrice(totalPrice.price - quantity * _item.price);
   };
 
   const increasePrice = event => {
     setQuantity(event.target.value);
-    _totalPrice.setPrice(_totalPrice.price + quantity * _item.price);
+    totalPrice.setPrice(totalPrice.price + quantity * _item.price);
   };
 
   return (
@@ -32,7 +35,7 @@ const CartTableItem = ({
           width="80"
           class="img-fluid rounded shadow-sm"
         ></img>
-        <div class="ml-3 d-inline-block align-middle">
+        <div class="m-2 d-inline-block align-middle">
           <strong>
             <a
               href="item_detail_page?id=${data[i].item_id}"
@@ -51,7 +54,7 @@ const CartTableItem = ({
       </th>
 
       <td class="align-middle">
-        <strong id="price_label${data[i].item_id}">{"$" + _item.price}</strong>
+        <strong>{"$" + _item.price}</strong>
       </td>
       <td class="align-middle">
         <input
@@ -83,7 +86,7 @@ const CartTableItem = ({
           class="btn btn-danger"
           id="remove_btn${data[i].item_id}"
           onClick={() => {
-            _onClickRemove();
+            deleteItemFromCurrentCartApi.request(1, _item.item_id);
           }}
           style={{ color: "white" }}
         >

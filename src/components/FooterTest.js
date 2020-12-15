@@ -1,6 +1,5 @@
 import React from "react";
 import "./Footer.css";
-import SocialMediaButton from "./SocialMediaButton";
 const Footer = () => {
   return (
     <footer className="page-footer py-4 bg-dark text-white">
@@ -72,14 +71,31 @@ const Footer = () => {
               </div>
 
               <div className="col-12">
-                <SocialMediaButton
-                  _iconName={"facebook"}
-                  _href="https://www.facebook.com/profile.php?id=100013080886155"
-                ></SocialMediaButton>
-                <SocialMediaButton _iconName={"twitter"}></SocialMediaButton>
-                <SocialMediaButton _iconName={"instagram"}></SocialMediaButton>
-                <SocialMediaButton _iconName={"pinterest"}></SocialMediaButton>
-                <SocialMediaButton _iconName={"youtube"}></SocialMediaButton>
+                <a
+                  target="_blank"
+                  href="https://www.facebook.com/profile.php?id=100013080886155"
+                  className="fa fa-facebook fa-2x bg-white text-dark text-decoration-none border rounded p-2 m-4"
+                ></a>
+                <a
+                  target="_blank"
+                  href="#"
+                  className="fa fa-twitter fa-2x bg-white text-dark text-decoration-none border rounded p-2 m-4"
+                ></a>
+                <a
+                  target="_blank"
+                  href="#"
+                  className="fa fa-instagram fa-2x bg-white text-dark text-decoration-none border rounded p-2 m-4"
+                ></a>
+                <a
+                  target="_blank"
+                  href="#"
+                  className="fa fa-pinterest fa-2x bg-white text-dark text-decoration-none border rounded p-2 m-4"
+                ></a>
+                <a
+                  target="_blank"
+                  href="#"
+                  className="fa fa-youtube fa-2x bg-white text-dark text-decoration-none border rounded p-2 m-4"
+                ></a>
               </div>
             </div>
           </div>
