@@ -26,7 +26,12 @@ const HomeScreen = () => {
         <div className="row">
           <div className="col-12 bg-dark py-5">
             <h1 className="bg-dark text-center">LATEST PRODUCT</h1>
-            <CardList _data={getAllItemApi.data}></CardList>
+            {getAllItemApi.isLoading && (
+              <p className="text text-info text-center">Fetching Data...</p>
+            )}
+            {getAllItemApi.success && (
+              <CardList _data={getAllItemApi.data}></CardList>
+            )}
           </div>
         </div>
 

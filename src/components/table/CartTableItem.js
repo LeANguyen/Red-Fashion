@@ -1,29 +1,40 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import useTotalPrice from "../useTotalPrice";
 import useCartItemApi from "../../api/useCartItemApi";
 import useApi from "../../hooks/useApi";
-
-const CartTableItem = ({ _item, _key }) => {
+import "./Table.css";
+const CartTableItem = ({ _item, _key, _onClickRemove }) => {
   const cartItemApi = useCartItemApi();
   const deleteItemFromCurrentCartApi = useApi(
     cartItemApi.deleteItemFromCurrentCart
   );
 
+  const [item, setItem] = useState(_item);
+
+  const handleQuantityValueChange = event => {
+    let newItem = item;
+    newItem.quantity = event.target.value;
+    setItem(newItem);
+  };
+
   const totalPrice = useTotalPrice();
 
-  const [quantity, setQuantity] = useState(_item.quantity);
-
   const decreasePrice = () => {
-    totalPrice.setPrice(totalPrice.price - quantity * _item.price);
+    totalPrice.setPrice(totalPrice.price - item.quantity * item.price);
   };
 
   const increasePrice = event => {
-    setQuantity(event.target.value);
-    totalPrice.setPrice(totalPrice.price + quantity * _item.price);
+    let newItem = item;
+    newItem.quantity = event.target.value;
+    setItem(newItem);
+    totalPrice.setPrice(totalPrice.price + item.quantity * item.price);
   };
 
   return (
     <tr key={_key}>
+      <td class="align-middle">
+        <strong>{_key}</strong>
+      </td>
       <th>
         <img
           src={
@@ -63,22 +74,17 @@ const CartTableItem = ({ _item, _key }) => {
           step="1"
           max="9999"
           min="1"
-          value={quantity}
+          value={_item.quantity}
           onChange={event => {
-            // totalPrice = totalPrice - quantity * _item.price;
-            // _totalPrice.setPrice(_totalPrice.price - quantity * _item.price);
-            // setQuantity(event.target.value);
-            // totalPrice = totalPrice + quantity * _item.price;
-            // _totalPrice.setPrice(_totalPrice.price + quantity * _item.price);
-            // _onChangeQuantity();
-            decreasePrice();
-            increasePrice(event);
+            // decreasePrice();
+            // increasePrice(event);
+            handleQuantityValueChange(event);
           }}
         ></input>
       </td>
       <td class="align-middle">
         <strong id="sub_total_label${data[i].item_id}">
-          {"$" + _item.price * quantity}
+          {"$" + item.price * item.quantity}
         </strong>
       </td>
       <td class="align-middle">
@@ -86,7 +92,8 @@ const CartTableItem = ({ _item, _key }) => {
           class="btn btn-danger"
           id="remove_btn${data[i].item_id}"
           onClick={() => {
-            deleteItemFromCurrentCartApi.request(1, _item.item_id);
+            // deleteItemFromCurrentCartApi.request(1, _item.item_id);
+            _onClickRemove();
           }}
           style={{ color: "white" }}
         >

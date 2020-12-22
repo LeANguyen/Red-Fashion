@@ -10,7 +10,7 @@ const ItemListScreen = ({ match }) => {
 
   useEffect(() => {
     getAllItemByCategoryApi.request(category);
-  }, []);
+  }, [match.params.category]);
 
   const data = [
     {

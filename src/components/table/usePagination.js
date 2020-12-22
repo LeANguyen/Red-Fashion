@@ -14,7 +14,7 @@ const usePagination = data => {
   };
 
   const pageNumbers = [];
-  for (let number = 1; number <= data.length / itemsPerPage + 1; number++) {
+  for (let number = 1; number < data.length / itemsPerPage + 1; number++) {
     if (number == currentPage) {
       pageNumbers.push(
         <li className="page-item active">
