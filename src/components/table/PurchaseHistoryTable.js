@@ -1,7 +1,10 @@
 import React from "react";
 import TableHeader from "./TableHeader";
+import { Link, useHistory } from "react-router-dom";
 
 const PurchaseHistoryTable = ({ _data, _headers = [] }) => {
+  const history = useHistory();
+
   return (
     <div class="table-responsive">
       <table class="table">
@@ -28,7 +31,47 @@ const PurchaseHistoryTable = ({ _data, _headers = [] }) => {
             </th>
           </tr>
         </thead> */}
-        <tbody id="cart_table_body"></tbody>
+        <tbody id="cart_table_body">
+          {_data.map((item, i) => {
+            return (
+              <tr key={i}>
+                <td class="align-middle">
+                  <strong id="client_name_label${data[i].id}">
+                    {item.checkout_date}
+                  </strong>
+                </td>
+                <td class="align-middle">
+                  <strong
+                    class="text-muted"
+                    id="client_name_label${data[i].id}"
+                  >
+                    {item.client_name}
+                  </strong>
+                </td>
+                <td class="align-middle">
+                  <strong class="text-muted" id="address_label${data[i].id}">
+                    {item.address}
+                  </strong>
+                </td>
+                <td class="align-middle">
+                  <strong class="text-muted" id="phone_label${data[i].id}">
+                    {item.phone}
+                  </strong>
+                </td>
+                <td class="align-middle">
+                  <a
+                    class="btn btn-info"
+                    onClick={() => {
+                      history.push("/cart/" + item.id);
+                    }}
+                  >
+                    Detail
+                  </a>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
       </table>
     </div>
   );

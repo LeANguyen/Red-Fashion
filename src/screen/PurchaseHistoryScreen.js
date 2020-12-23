@@ -30,7 +30,8 @@ const PurchaseHistoryScreen = () => {
                       "Checkout Date",
                       "Receiver's Name",
                       "Address",
-                      "Phone"
+                      "Phone",
+                      ""
                     ]}
                   ></PurchaseHistoryTable>
                 )}

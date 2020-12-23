@@ -55,7 +55,9 @@ const LoginForm = () => {
           ></input>
           <strong className="text-muted">Remember me</strong>
         </div>
-
+        {signInApi.isLoading && (
+          <p className="text text-info text-center">Please Wait...</p>
+        )}
         <button
           className="btn btn-info rounded-pill py-2 btn-block text-white font-weight-bold mt-3"
           id="signin_btn"

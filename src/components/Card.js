@@ -4,8 +4,8 @@ import useApi from "../hooks/useApi";
 import { Link, useHistory } from "react-router-dom";
 
 const Card = ({ _item, _key }) => {
-  const cartItemApi = useCartItemApi();
   const history = useHistory();
+  const cartItemApi = useCartItemApi();
 
   const getItemFromCurrentCartByItemIdApi = useApi(
     cartItemApi.getItemFromCurrentCartByItemId
@@ -21,21 +21,79 @@ const Card = ({ _item, _key }) => {
     cartItemApi.deleteItemFromCurrentCart
   );
 
-  const [quantity, setQuantity] = useState(100);
+  const [quantity, setQuantity] = useState();
   const [itemInCart, setItemInCart] = useState();
+  const [quantityEdited, setQuantityEdited] = useState(false);
 
-  useEffect(async () => {
-    const response = await getItemFromCurrentCartByItemIdApi.request(
-      1,
-      _item.id
+  const addItemIntoCurrentCartExtraHandling = async (
+    clientId,
+    itemId,
+    quantity
+  ) => {
+    const response = await addItemIntoCurrentCartApi.request(
+      clientId,
+      itemId,
+      quantity
     );
-    if (response.data[0] != undefined) {
+    if (response.ok) {
       setItemInCart(true);
-      setQuantity(response.data[0].quantity);
     } else {
-      setItemInCart(false);
-      setQuantity(1);
+      alert("addItemIntoCurrentCart Failed");
     }
+  };
+
+  const updateItemQuantityFromCurrentExtraHandling = async (
+    clientId,
+    itemId,
+    quantity
+  ) => {
+    const response = await updateItemQuantityFromCurrentCartApi.request(
+      clientId,
+      itemId,
+      quantity
+    );
+    if (response.ok) {
+      setQuantityEdited(false);
+    } else {
+      alert("updateItemQuantityFromCurrentCart Failed");
+    }
+  };
+
+  const deleteItemFromCurrentCartExtraHandling = async (clientId, itemId) => {
+    const response = await deleteItemFromCurrentCartApi.request(
+      clientId,
+      itemId
+    );
+    if (response.ok) {
+      setItemInCart(false);
+    } else {
+      alert("deleteItemFromCurrentCart Failed");
+    }
+  };
+
+  const getItemFromCurrentCartByItemIdExtraHandling = async (
+    clientId,
+    itemId
+  ) => {
+    const response = await getItemFromCurrentCartByItemIdApi.request(
+      clientId,
+      itemId
+    );
+    if (response.ok) {
+      if (response.data[0] != undefined) {
+        setItemInCart(true);
+        setQuantity(response.data[0].quantity);
+      } else {
+        setItemInCart(false);
+        setQuantity(1);
+      }
+    } else {
+      alert("getItemFromCurrentCartByItemId Failed");
+    }
+  };
+
+  useEffect(() => {
+    getItemFromCurrentCartByItemIdExtraHandling(1, _item.id);
   }, []);
 
   return (
@@ -52,7 +110,6 @@ const Card = ({ _item, _key }) => {
         {_item.item_name}
       </div>
       <div className="card-body">
-        {/* <h4 className="card-title">{_item.item_name}</h4> */}
         <li className="d-flex justify-content-between py-2 border-bottom">
           <strong className="text-muted">Category:</strong>
           <h6 id="category_label" className="font-weight-bold">
@@ -94,11 +151,7 @@ const Card = ({ _item, _key }) => {
               value={quantity}
               onChange={event => {
                 setQuantity(event.target.value);
-                updateItemQuantityFromCurrentCartApi.request(
-                  1,
-                  _item.id,
-                  event.target.value
-                );
+                setQuantityEdited(true);
               }}
             ></input>
           )}
@@ -106,8 +159,16 @@ const Card = ({ _item, _key }) => {
 
         <div className="mt-4">
           <button
+            className="btn btn-warning rounded-pill btn-block"
+            hidden={!quantityEdited}
+            onClick={() => {
+              updateItemQuantityFromCurrentExtraHandling(1, _item.id, quantity);
+            }}
+          >
+            Update
+          </button>
+          <button
             className="btn btn-info rounded-pill py-2 btn-block"
-            type="submit"
             onClick={() => {
               history.push("/item_detail/" + _item.id);
             }}
@@ -117,10 +178,8 @@ const Card = ({ _item, _key }) => {
           {!itemInCart && (
             <button
               className="btn btn-success rounded-pill py-2 btn-block"
-              type="submit"
               onClick={() => {
-                addItemIntoCurrentCartApi.request(1, _item.id, quantity);
-                setItemInCart(true);
+                addItemIntoCurrentCartExtraHandling(1, _item.id, quantity);
               }}
             >
               Add to Cart
@@ -131,8 +190,7 @@ const Card = ({ _item, _key }) => {
               className="btn btn-danger rounded-pill py-2 btn-block"
               type="submit"
               onClick={() => {
-                deleteItemFromCurrentCartApi.request(1, _item.id);
-                setItemInCart(false);
+                deleteItemFromCurrentCartExtraHandling(1, _item.id);
               }}
             >
               Remove from Cart

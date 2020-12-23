@@ -1,6 +1,99 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import useCartItemApi from "../api/useCartItemApi";
+import useApi from "../hooks/useApi";
 
 const ItemDetailContainer = ({ _item }) => {
+  const cartItemApi = useCartItemApi();
+
+  const getItemFromCurrentCartByItemIdApi = useApi(
+    cartItemApi.getItemFromCurrentCartByItemId
+  );
+
+  const updateItemQuantityFromCurrentCartApi = useApi(
+    cartItemApi.updateItemQuantityFromCurrentCart
+  );
+
+  const addItemIntoCurrentCartApi = useApi(cartItemApi.addItemIntoCurrentCart);
+
+  const deleteItemFromCurrentCartApi = useApi(
+    cartItemApi.deleteItemFromCurrentCart
+  );
+
+  const [quantity, setQuantity] = useState();
+  const [itemInCart, setItemInCart] = useState();
+  const [quantityEdited, setQuantityEdited] = useState(false);
+
+  const addItemIntoCurrentCartExtraHandling = async (
+    clientId,
+    itemId,
+    quantity
+  ) => {
+    const response = await addItemIntoCurrentCartApi.request(
+      clientId,
+      itemId,
+      quantity
+    );
+    if (response.ok) {
+      setItemInCart(true);
+    } else {
+      alert("addItemIntoCurrentCart Failed");
+    }
+  };
+
+  const updateItemQuantityFromCurrentExtraHandling = async (
+    clientId,
+    itemId,
+    quantity
+  ) => {
+    const response = await updateItemQuantityFromCurrentCartApi.request(
+      clientId,
+      itemId,
+      quantity
+    );
+    if (response.ok) {
+      setQuantityEdited(false);
+    } else {
+      alert("updateItemQuantityFromCurrentCart Failed");
+    }
+  };
+
+  const deleteItemFromCurrentCartExtraHandling = async (clientId, itemId) => {
+    const response = await deleteItemFromCurrentCartApi.request(
+      clientId,
+      itemId
+    );
+    if (response.ok) {
+      setItemInCart(false);
+    } else {
+      alert("deleteItemFromCurrentCart Failed");
+    }
+  };
+
+  const getItemFromCurrentCartByItemIdExtraHandling = async (
+    clientId,
+    itemId
+  ) => {
+    const response = await getItemFromCurrentCartByItemIdApi.request(
+      clientId,
+      itemId
+    );
+    if (response.ok) {
+      if (response.data[0] != undefined) {
+        setItemInCart(true);
+        setQuantity(response.data[0].quantity);
+      } else {
+        setItemInCart(false);
+        setQuantity(1);
+      }
+    } else {
+      alert("getItemFromCurrentCartByItemId Failed");
+    }
+  };
+
+  useEffect(() => {
+    getItemFromCurrentCartByItemIdExtraHandling(1, _item.id);
+  }, []);
+
   return (
     <div className="row p-4 bg-white rounded shadow-sm item-detail-style">
       <div className="col-md-4">
@@ -93,26 +186,63 @@ const ItemDetailContainer = ({ _item }) => {
               In Cart:
             </strong>
             <td class="align-middle">
-              <input
-                type="number"
-                class="form-control"
-                id="quantity_input"
-                step="1"
-                max="9999"
-                min="1"
-                value="1"
-                onchange="quantityEdit()"
-                oninput="this.value = Math.abs(this.value)"
-              ></input>
+              {!itemInCart && (
+                <input
+                  type="number"
+                  step={1}
+                  max={9999}
+                  min={1}
+                  value={quantity}
+                  onChange={event => {
+                    setQuantity(event.target.value);
+                  }}
+                ></input>
+              )}
+              {itemInCart && (
+                <input
+                  type="number"
+                  step={1}
+                  max={9999}
+                  min={1}
+                  value={quantity}
+                  onChange={event => {
+                    setQuantity(event.target.value);
+                    setQuantityEdited(true);
+                  }}
+                ></input>
+              )}
             </td>
-            <label
-              type="button"
-              class="btn btn-success rounded-pill py-2 btn-block my-2"
-              id="add_to_cart_btn"
-              style={{ color: "white" }}
+            <button
+              class="btn btn-warning rounded-pill py-2 btn-block my-2"
+              hidden={!quantityEdited}
+              onClick={() =>
+                updateItemQuantityFromCurrentExtraHandling(
+                  1,
+                  _item.id,
+                  quantity
+                )
+              }
             >
-              Add to Cart
-            </label>
+              Update
+            </button>
+            {itemInCart && (
+              <button
+                class="btn btn-danger rounded-pill py-2 btn-block my-2"
+                onClick={() =>
+                  deleteItemFromCurrentCartExtraHandling(1, _item.id)
+                }
+              >
+                Remove from Cart
+              </button>
+            )}
+            {!itemInCart && (
+              <button
+                class="btn btn-success rounded-pill py-2 btn-block my-2"
+                onClick={() => addItemIntoCurrentCartExtraHandling(1, _item.id)}
+              >
+                Add to Cart
+              </button>
+            )}
           </div>
         </div>
       </div>

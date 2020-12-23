@@ -50,7 +50,7 @@ function App() {
           path="/item_detail/:id"
           component={ItemDetailScreen}
         ></Route>
-        <Route exact path="/cart" component={CartScreen}></Route>
+        <Route exact path="/cart/:id?" component={CartScreen}></Route>
         <Route exact path="/history" component={PurchaseHistoryScreen}></Route>
         <Route exact path="/sign" component={SignScreen}></Route>
       </Switch>
