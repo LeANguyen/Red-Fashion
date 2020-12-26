@@ -2,13 +2,25 @@ import React, { useEffect } from "react";
 import Screen from "../components/Screen";
 import useCartItemApi from "../api/useCartItemApi";
 import useApi from "../hooks/useApi";
+import DataTable from "../components/table/DataTable";
+import CartTableItem from "../components/table/CartTableItem";
+
 import CartTable from "../components/table/CartTable";
 import useCartApi from "../api/useCartApi";
 import CheckoutForm from "../components/CheckoutForm";
 import CheckoutDisplay from "../components/CheckoutDisplay";
+import { useSelector, useDispatch } from "react-redux";
+import { setData, setEditedList, initEditedList } from "../actions/cartActions";
+import CartTableReadOnlyItem from "../components/table/CartTableReadOnlyItem";
 
 const CartScreen = ({ match }) => {
+  const currentId = localStorage.getItem("id");
+  const cartData = useSelector(state => state.cart.data);
+  const editedList = useSelector(state => state.cart.editedList);
+  const dispatch = useDispatch();
+
   const id = match.params.id;
+
   const cartItemApi = useCartItemApi();
   const getAllItemFromCurrentCartApi = useApi(
     cartItemApi.getAllItemFromCurrentCart
@@ -18,11 +30,27 @@ const CartScreen = ({ match }) => {
   const cartApi = useCartApi();
   const createCartApi = useApi(cartApi.createCart);
 
+  const getAllItemFromCurrentCartApiExtraHandling = async clientId => {
+    const response = await getAllItemFromCurrentCartApi.request(clientId);
+    if (response.ok) {
+      dispatch(setData(response.data));
+      dispatch(initEditedList(response.data.length));
+    }
+  };
+
+  const getAllItemByCartIdExtraHandling = async cartId => {
+    const response = await getAllItemByCartIdApi.request(cartId);
+    if (response.ok) {
+      dispatch(setData(response.data));
+    }
+  };
+
   useEffect(() => {
     if (match.params && match.params.id) {
-      getAllItemByCartIdApi.request(id);
+      // getAllItemByCartIdApi.request(id);
+      getAllItemByCartIdExtraHandling(id);
     } else {
-      getAllItemFromCurrentCartApi.request(1);
+      getAllItemFromCurrentCartApiExtraHandling(currentId);
     }
   }, []);
 
@@ -33,25 +61,26 @@ const CartScreen = ({ match }) => {
           <div className="container">
             <div className="row">
               <div className="col-lg-12 p-5 bg-white rounded shadow-sm mb-5">
-                {getAllItemFromCurrentCartApi.success && (
-                  <CartTable
-                    _data={getAllItemFromCurrentCartApi.data}
-                    _headers={[
-                      "id",
-                      "Product",
-                      "Price",
-                      "Quantity",
-                      "Total",
-                      ""
-                    ]}
-                  ></CartTable>
-                )}
-                {getAllItemByCartIdApi.success && (
-                  <CartTable
-                    _data={getAllItemByCartIdApi.data}
-                    _headers={["id", "Product", "Price", "Quantity", "Total"]}
-                    _readOnly={true}
-                  ></CartTable>
+                {getAllItemFromCurrentCartApi.success &&
+                  cartData.length !== 0 && (
+                    <DataTable
+                      _data={cartData}
+                      _headers={[
+                        "id",
+                        "Product",
+                        "Quantity",
+                        "Total",
+                        "Actions"
+                      ]}
+                      _component={CartTableItem}
+                    ></DataTable>
+                  )}
+                {getAllItemByCartIdApi.success && cartData.length !== 0 && (
+                  <DataTable
+                    _data={cartData}
+                    _headers={["id", "Product", "Quantity", "Total"]}
+                    _component={CartTableReadOnlyItem}
+                  ></DataTable>
                 )}
               </div>
             </div>

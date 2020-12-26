@@ -9,8 +9,6 @@ import $ from "jquery";
 // $.DataTable = require("datatables.net");
 
 const DataTable = ({ _data, _headers = [], _component }) => {
-  const [data, setData] = useState(_data);
-
   const reloadTableData = data => {
     // const table = $(".data-table-wrapper")
     //   .find("table")
@@ -34,34 +32,14 @@ const DataTable = ({ _data, _headers = [], _component }) => {
 
   return (
     <div className="table-responsive">
-      <button
-        className="btn btn-danger"
-        onClick={() => reloadTableData([...data])}
-      >
-        Reload Table
-      </button>
       <table id="dataTable" className="table">
         <thead>
           <TableHeader _headers={_headers}></TableHeader>
         </thead>
 
         <tbody>
-          {data.map((item, i) => {
-            return (
-              <_component
-                _item={item}
-                _key={i}
-                _onClickRemove={() => {
-                  //   const array = [...data];
-                  //   console.log(array);
-                  //   console.log("Removed " + array[i].item_name + " Index " + i);
-                  //   array.splice(i, 1);
-                  //   console.log(array);
-                  setData(data.filter((item, id) => id !== i));
-                  //   reloadTableData(data);
-                }}
-              ></_component>
-            );
+          {_data.map((item, i) => {
+            return <_component _item={item} _key={i}></_component>;
           })}
         </tbody>
       </table>

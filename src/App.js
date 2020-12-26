@@ -8,6 +8,7 @@ import PurchaseHistoryScreen from "./screen/PurchaseHistoryScreen";
 import SignScreen from "./screen/SignScreen";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import AdminScreen from "./screen/AdminScreen";
+
 function App() {
   // return (
   //   <div className="App">

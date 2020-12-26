@@ -4,6 +4,7 @@ import useApi from "../hooks/useApi";
 import { Link, useHistory } from "react-router-dom";
 
 const Card = ({ _item, _key }) => {
+  const currentId = localStorage.getItem("id");
   const history = useHistory();
   const cartItemApi = useCartItemApi();
 
@@ -93,7 +94,9 @@ const Card = ({ _item, _key }) => {
   };
 
   useEffect(() => {
-    getItemFromCurrentCartByItemIdExtraHandling(1, _item.id);
+    if (currentId != null) {
+      getItemFromCurrentCartByItemIdExtraHandling(currentId, _item.id);
+    }
   }, []);
 
   return (
@@ -162,7 +165,11 @@ const Card = ({ _item, _key }) => {
             className="btn btn-warning rounded-pill btn-block"
             hidden={!quantityEdited}
             onClick={() => {
-              updateItemQuantityFromCurrentExtraHandling(1, _item.id, quantity);
+              updateItemQuantityFromCurrentExtraHandling(
+                currentId,
+                _item.id,
+                quantity
+              );
             }}
           >
             Update
@@ -175,25 +182,41 @@ const Card = ({ _item, _key }) => {
           >
             Item Detail
           </button>
-          {!itemInCart && (
+          {currentId !== null && !itemInCart && (
             <button
               className="btn btn-success rounded-pill py-2 btn-block"
               onClick={() => {
-                addItemIntoCurrentCartExtraHandling(1, _item.id, quantity);
+                addItemIntoCurrentCartExtraHandling(
+                  currentId,
+                  _item.id,
+                  quantity
+                );
               }}
             >
               Add to Cart
             </button>
           )}
-          {itemInCart && (
+
+          {currentId !== null && itemInCart && (
             <button
               className="btn btn-danger rounded-pill py-2 btn-block"
               type="submit"
               onClick={() => {
-                deleteItemFromCurrentCartExtraHandling(1, _item.id);
+                deleteItemFromCurrentCartExtraHandling(currentId, _item.id);
               }}
             >
               Remove from Cart
+            </button>
+          )}
+
+          {currentId === null && (
+            <button
+              className="btn btn-success rounded-pill py-2 btn-block"
+              onClick={() => {
+                history.push("/sign");
+              }}
+            >
+              Add to Cart
             </button>
           )}
         </div>

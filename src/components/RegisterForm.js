@@ -1,11 +1,18 @@
 import React, { useState } from "react";
 import useApi from "../hooks/useApi";
 import useAuthApi from "../api/useAuthApi";
+import { Link, useHistory } from "react-router-dom";
+import useCartApi from "../api/useCartApi";
 
 const RegisterForm = () => {
+  const history = useHistory();
   const authApi = useAuthApi();
+  const cartApi = useCartApi();
+
   const signUpApi = useApi(authApi.signUp);
+  const signInApi = useApi(authApi.signIn);
   const getClientByEmailApi = useApi(authApi.getClientByEmail);
+  const createCartApi = useApi(cartApi.createCart);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -46,10 +53,40 @@ const RegisterForm = () => {
 
   const handleSubmit = async () => {
     const response = await signUpApi.request(name, email, pass);
-    if (response.data.length !== 0) {
-      alert("Signup Success");
+    if (response.ok) {
+      if (response.data.length !== 0) {
+        alert("Signup Success");
+        loginExtraHandling();
+      } else {
+        alert("Signup Failed");
+      }
     } else {
-      alert("Signup Failed");
+      alert("Register Failed");
+    }
+  };
+
+  const loginExtraHandling = async () => {
+    const response = await signInApi.request(email, pass);
+    if (response.ok) {
+      if (response.data.length !== 0) {
+        alert("Login Success");
+        localStorage.setItem("id", response.data[0].id);
+        localStorage.setItem("name", response.data[0].name);
+        createCartExtraHandling();
+      } else {
+        alert("Wrong name or password");
+      }
+    } else {
+      alert("Login Failed");
+    }
+  };
+
+  const createCartExtraHandling = async () => {
+    const response = await createCartApi.request(localStorage.getItem("id"));
+    if (response.ok) {
+      history.push("/");
+    } else {
+      alert("createCart Failed");
     }
   };
 

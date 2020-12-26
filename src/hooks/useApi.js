@@ -10,6 +10,7 @@ const useApi = apiFunc => {
     setIsLoading(true);
     setError(false);
     setSuccess(false);
+
     const response = await apiFunc(...args);
     setIsLoading(false);
 

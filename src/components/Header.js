@@ -1,7 +1,21 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import logo from "../assets/logo.png";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+
 const Header = () => {
+  const history = useHistory();
+  const userName = useSelector(state => state.user.name);
+
+  const currentId = localStorage.getItem("id");
+
+  const logout = () => {
+    localStorage.removeItem("id");
+    localStorage.removeItem("name");
+    history.push("/");
+  };
+
+  console.log(localStorage.getItem("userinfo"));
   return (
     <nav className="navbar navbar-expand-lg navbar navbar-dark bg-dark header-style">
       <button
@@ -57,74 +71,77 @@ const Header = () => {
             </div>
           </li>
 
-          <li className="nav-item dropdown active mx-lg-2">
-            <a
-              className="nav-link dropdown-toggle text-white font-weight-bold"
-              href="#"
-              data-toggle="dropdown"
-              aria-haspopup={true}
-              aria-expanded={false}
-            >
-              <i className="fa fa-fw fa-shopping-cart"></i>Cart
-            </a>
+          {currentId !== null && (
+            <li className="nav-item dropdown active mx-lg-2">
+              <a
+                className="nav-link dropdown-toggle text-white font-weight-bold"
+                href="#"
+                data-toggle="dropdown"
+                aria-haspopup={true}
+                aria-expanded={false}
+              >
+                <i className="fa fa-fw fa-shopping-cart"></i>Cart
+              </a>
 
-            <div
-              className="dropdown-menu"
-              aria-labelledby="navbarDropdownMenuLink"
-            >
-              <Link className="dropdown-item" to="/cart?">
-                Current Cart
-              </Link>
-              <Link className="dropdown-item" to="/history">
-                Purchase History
-              </Link>
-              {/* <a className="dropdown-item" href="cart">
+              <div
+                className="dropdown-menu"
+                aria-labelledby="navbarDropdownMenuLink"
+              >
+                <Link className="dropdown-item" to="/cart?">
+                  Current Cart
+                </Link>
+                <Link className="dropdown-item" to="/history">
+                  Purchase History
+                </Link>
+                {/* <a className="dropdown-item" href="cart">
                 Current Cart
               </a>
               <a className="dropdown-item" href="history">
                 Purchase History
               </a> */}
-            </div>
-          </li>
+              </div>
+            </li>
+          )}
 
-          <li className="nav-item dropdown active mx-lg-2">
-            <a className="nav-link" href="sign" id="signin_head">
-              <Link className="text-white font-weight-bold" to="/sign">
-                <i className="fa fa-fw fa-user"></i>Login
-              </Link>
-              {/* <i className="fa fa-fw fa-user"></i>Signin */}
-            </a>
-          </li>
+          {currentId === null && (
+            <li className="nav-item dropdown active mx-lg-2">
+              <a className="nav-link" href="sign" id="signin_head">
+                <Link className="text-white font-weight-bold" to="/sign">
+                  <i className="fa fa-fw fa-user"></i>Login
+                </Link>
+                {/* <i className="fa fa-fw fa-user"></i>Signin */}
+              </a>
+            </li>
+          )}
 
-          <li className="nav-item dropdown active mx-lg-2">
-            <a
-              className="nav-link dropdown-toggle"
-              href="#"
-              id="user_dropdown"
-              data-toggle="dropdown"
-              aria-haspopup={true}
-              aria-expanded={false}
-              style={{ borderRadius: 5 }}
-              hidden={true}
-            >
-              <i className="fa fa-fw fa-user"></i>
-            </a>
-            <div
-              className="dropdown-menu"
-              aria-labelledby="navbarDropdownMenuLink"
-            >
+          {currentId !== null && (
+            <li className="nav-item dropdown active mx-lg-2 bg-danger rounded">
               <a
-                className="dropdown-item"
+                className="nav-link dropdown-toggle font-weight-bold"
                 href="#"
-                onClick={() => console.log("signout()")}
+                id="user_dropdown"
+                data-toggle="dropdown"
+                aria-haspopup={true}
+                aria-expanded={false}
+                style={{ borderRadius: 5 }}
+                hidden={false}
               >
-                Sign Out
+                <i className="fa fa-fw fa-user"></i>
+                {localStorage.getItem("name") + currentId}
               </a>
-              <a className="dropdown-item" href="sign_page">
-                Sign In With Another Account
-              </a>
-            </div>
-          </li>
+              <div
+                className="dropdown-menu  "
+                aria-labelledby="navbarDropdownMenuLink"
+              >
+                <a className="dropdown-item" href="#" onClick={() => logout()}>
+                  Sign Out
+                </a>
+                <Link className="dropdown-item" to="/sign">
+                  Sign In With Another Account
+                </Link>
+              </div>
+            </li>
+          )}
 
           <li className="nav-item active">
             <a

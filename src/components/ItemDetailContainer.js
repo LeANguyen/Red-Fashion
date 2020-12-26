@@ -3,6 +3,7 @@ import useCartItemApi from "../api/useCartItemApi";
 import useApi from "../hooks/useApi";
 
 const ItemDetailContainer = ({ _item }) => {
+  const currentId = localStorage.getItem("id");
   const cartItemApi = useCartItemApi();
 
   const getItemFromCurrentCartByItemIdApi = useApi(
@@ -91,7 +92,7 @@ const ItemDetailContainer = ({ _item }) => {
   };
 
   useEffect(() => {
-    getItemFromCurrentCartByItemIdExtraHandling(1, _item.id);
+    getItemFromCurrentCartByItemIdExtraHandling(currentId, _item.id);
   }, []);
 
   return (
@@ -217,7 +218,7 @@ const ItemDetailContainer = ({ _item }) => {
               hidden={!quantityEdited}
               onClick={() =>
                 updateItemQuantityFromCurrentExtraHandling(
-                  1,
+                  currentId,
                   _item.id,
                   quantity
                 )
@@ -229,7 +230,7 @@ const ItemDetailContainer = ({ _item }) => {
               <button
                 class="btn btn-danger rounded-pill py-2 btn-block my-2"
                 onClick={() =>
-                  deleteItemFromCurrentCartExtraHandling(1, _item.id)
+                  deleteItemFromCurrentCartExtraHandling(currentId, _item.id)
                 }
               >
                 Remove from Cart
@@ -238,7 +239,9 @@ const ItemDetailContainer = ({ _item }) => {
             {!itemInCart && (
               <button
                 class="btn btn-success rounded-pill py-2 btn-block my-2"
-                onClick={() => addItemIntoCurrentCartExtraHandling(1, _item.id)}
+                onClick={() =>
+                  addItemIntoCurrentCartExtraHandling(currentId, _item.id)
+                }
               >
                 Add to Cart
               </button>

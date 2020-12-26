@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import useTotalPrice from "./useTotalPrice";
 import useCartApi from "../api/useCartApi";
 import useApi from "../hooks/useApi";
+import { useSelector, useDispatch } from "react-redux";
 
 const CheckoutForm = () => {
-  const totalPrice = useTotalPrice();
+  const totalPrice = useSelector(state => state.cart.totalPrice);
   const cartApi = useCartApi();
   const createCartApi = useApi(cartApi.createCart);
   const updateCartApi = useApi(cartApi.updateCart);
@@ -124,7 +124,7 @@ const CheckoutForm = () => {
             <li className="d-flex justify-content-between py-3 border-bottom">
               <strong className="text-muted">Total</strong>
               <h5 id="big_total_label" className="font-weight-bold">
-                {totalPrice.price}
+                {totalPrice}
               </h5>
             </li>
           </ul>
@@ -140,7 +140,6 @@ const CheckoutForm = () => {
             style={{ color: "white" }}
             onClick={() => {
               checkValidOnCheckOut();
-              // totalPrice2.setPrice(2000);
             }}
           >
             Procceed to Checkout

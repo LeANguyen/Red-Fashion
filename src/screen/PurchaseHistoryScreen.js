@@ -6,10 +6,11 @@ import useApi from "../hooks/useApi";
 
 const PurchaseHistoryScreen = () => {
   const cartApi = useCartApi();
+  const currentId = localStorage.getItem("id");
   const getAllCartApi = useApi(cartApi.getAllCart);
 
   useEffect(() => {
-    getAllCartApi.request(1);
+    getAllCartApi.request(currentId);
   }, []);
 
   return (
@@ -25,7 +26,10 @@ const PurchaseHistoryScreen = () => {
                 )}
                 {getAllCartApi.success && (
                   <PurchaseHistoryTable
-                    _data={getAllCartApi.data}
+                    _data={getAllCartApi.data.slice(
+                      0,
+                      getAllCartApi.data.length - 1
+                    )}
                     _headers={[
                       "Checkout Date",
                       "Receiver's Name",

@@ -7,9 +7,14 @@ import $ from "jquery";
 import useCartItemApi from "../../api/useCartItemApi";
 import useApi from "../../hooks/useApi";
 
+import { useDispatch } from "react-redux";
+import {
+  increaseTotalPrice,
+  decreaseTotalPrice
+} from "../../actions/cartActions";
+
 const CartTable = ({ _data, _headers = [], _readOnly = false }) => {
   const [data, setData] = useState(_data);
-
   const cartItemApi = useCartItemApi();
 
   const updateItemQuantityFromCurrentCartApi = useApi(
@@ -77,12 +82,16 @@ const CartTable = ({ _data, _headers = [], _readOnly = false }) => {
     let newData = [...data];
     newData[id].quantity = event.target.value;
     setData(newData);
+    const increaseTotalPriceAction = increaseTotalPrice(1000);
+    dispatch(increaseTotalPriceAction);
+    // const decreaseTotalPriceAction = decreaseTotalPrice();
   };
 
   useEffect(() => {
     $("#cartTable").DataTable();
   }, []);
 
+  const dispatch = useDispatch();
   return (
     <div className="table-responsive">
       <button

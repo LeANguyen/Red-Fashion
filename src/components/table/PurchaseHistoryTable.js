@@ -60,7 +60,7 @@ const PurchaseHistoryTable = ({ _data, _headers = [] }) => {
                 </td>
                 <td class="align-middle">
                   <a
-                    class="btn btn-info"
+                    class="btn btn-info btn-block"
                     onClick={() => {
                       history.push("/cart/" + item.id);
                     }}

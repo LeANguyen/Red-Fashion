@@ -10,10 +10,16 @@ import "bootstrap/dist/js/bootstrap.js";
 import $ from "jquery";
 import Popper from "popper.js";
 
+import { Provider } from "react-redux";
+import store from "./store";
+
 ReactDOM.render(
-  <React.StrictMode>
+  // <React.StrictMode>
+  //   <App />
+  // </React.StrictMode>,
+  <Provider store={store}>
     <App />
-  </React.StrictMode>,
+  </Provider>,
   document.getElementById("root")
 );
 

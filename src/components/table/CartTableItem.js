@@ -1,38 +1,69 @@
 import React, { useState, useEffect } from "react";
-import useTotalPrice from "../useTotalPrice";
+import { useDispatch, useSelector } from "react-redux";
+
 import useCartItemApi from "../../api/useCartItemApi";
 import useApi from "../../hooks/useApi";
 import "./Table.css";
-const CartTableItem = ({ _item, _key, _onClickRemove }) => {
+import {
+  setQuantity,
+  removeItem,
+  setEditedList
+} from "../../actions/cartActions";
+
+const CartTableItem = ({ _item, _key }) => {
+  const currentId = localStorage.getItem("id");
+  const dispatch = useDispatch();
+  const editedList = useSelector(state => state.cart.editedList);
+
   const cartItemApi = useCartItemApi();
+
   const deleteItemFromCurrentCartApi = useApi(
     cartItemApi.deleteItemFromCurrentCart
   );
 
-  const [item, setItem] = useState(_item);
+  const deleteItemFromCurrentCartExtraHandling = async (
+    clientId,
+    itemId,
+    index
+  ) => {
+    // dispatch(removeItem(itemId, index));
 
-  const handleQuantityValueChange = event => {
-    let newItem = item;
-    newItem.quantity = event.target.value;
-    setItem(newItem);
+    const response = await deleteItemFromCurrentCartApi.request(
+      clientId,
+      itemId
+    );
+    if (response.ok) {
+      dispatch(removeItem(itemId, index));
+    } else {
+      alert("deleteItemFromCurrentCart Failed");
+    }
   };
 
-  const totalPrice = useTotalPrice();
+  const updateItemQuantityFromCurrentCartApi = useApi(
+    cartItemApi.updateItemQuantityFromCurrentCart
+  );
 
-  const decreasePrice = () => {
-    totalPrice.setPrice(totalPrice.price - item.quantity * item.price);
-  };
-
-  const increasePrice = event => {
-    let newItem = item;
-    newItem.quantity = event.target.value;
-    setItem(newItem);
-    totalPrice.setPrice(totalPrice.price + item.quantity * item.price);
+  const updateItemQuantityFromCurrentCartExtrahandling = async (
+    clientId,
+    itemId,
+    quantity,
+    index
+  ) => {
+    const response = await updateItemQuantityFromCurrentCartApi.request(
+      clientId,
+      itemId,
+      quantity
+    );
+    if (response.ok) {
+      dispatch(setEditedList(index, false));
+    } else {
+      alert("updateItemQuantityFromCurrentCart Failed");
+    }
   };
 
   return (
     <tr key={_key}>
-      <td class="align-middle">
+      <td className="align-middle">
         <strong>{_key}</strong>
       </td>
       <th>
@@ -43,61 +74,66 @@ const CartTableItem = ({ _item, _key, _onClickRemove }) => {
             ".png"
           }
           alt="No Image"
-          width="80"
-          class="img-fluid rounded shadow-sm"
+          width="100"
+          className="img-fluid rounded shadow-sm"
         ></img>
-        <div class="m-2 d-inline-block align-middle">
+        <div className="m-2 d-inline-block align-middle">
           <strong>
-            <a
-              href="item_detail_page?id=${data[i].item_id}"
-              class="text-dark d-inline-block align-middle"
-            >
+            <a className="text-dark d-inline-block align-middle">
               {_item.item_name}
             </a>
           </strong>
-          <span class="text-muted font-weight-normal font-italic d-block">
-            {"Category: " + _item.category}
-          </span>
-          <span class="text-muted font-weight-normal font-italic d-block">
-            {"Made in: " + _item.origin}
+          <span className="text-muted font-weight-normal d-block">
+            {"$ " + _item.price}
           </span>
         </div>
       </th>
-
-      <td class="align-middle">
-        <strong>{"$" + _item.price}</strong>
-      </td>
-      <td class="align-middle">
+      <td className="align-middle">
         <input
           type="number"
-          class="form-control"
+          className="form-control"
           step="1"
           max="9999"
           min="1"
           value={_item.quantity}
           onChange={event => {
-            // decreasePrice();
-            // increasePrice(event);
-            handleQuantityValueChange(event);
+            dispatch(setEditedList(_key, true));
+            dispatch(setQuantity(event.target.value, _key));
           }}
         ></input>
       </td>
-      <td class="align-middle">
-        <strong id="sub_total_label${data[i].item_id}">
-          {"$" + item.price * item.quantity}
+      <td className="align-middle">
+        <strong className="text text-dark">
+          {"$" + _item.price * _item.quantity}
         </strong>
       </td>
-      <td class="align-middle">
+      <td className="align-middle">
         <button
-          class="btn btn-danger"
-          id="remove_btn${data[i].item_id}"
-          onClick={() => {
-            // deleteItemFromCurrentCartApi.request(1, _item.item_id);
-            _onClickRemove();
-          }}
+          className="btn btn-danger btn-block"
+          onClick={() =>
+            deleteItemFromCurrentCartExtraHandling(
+              currentId,
+              _item.item_id,
+              _key
+            )
+          }
           style={{ color: "white" }}
         >
           Remove
+        </button>
+        <button
+          className="btn btn-warning btn-block"
+          hidden={!editedList[_key]}
+          onClick={() => {
+            updateItemQuantityFromCurrentCartExtrahandling(
+              currentId,
+              _item.item_id,
+              _item.quantity,
+              _key
+            );
+          }}
+        >
+          Update
         </button>
       </td>
     </tr>
