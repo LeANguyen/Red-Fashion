@@ -17,25 +17,18 @@ const HomeScreen = () => {
   return (
     <div>
       <Screen>
-        <div className="row">
-          <div className="col-md-12">
-            <Carousel></Carousel>
-          </div>
+        <Carousel></Carousel>
+        <div className="bg-dark py-5 px-lg-5">
+          <h1 className="text-center">LATEST PRODUCT</h1>
+          {getAllItemApi.isLoading && (
+            <p className="text text-info text-center">Fetching Data...</p>
+          )}
+          {getAllItemApi.success && (
+            <CardList _data={getAllItemApi.data}></CardList>
+          )}
         </div>
 
-        <div className="row">
-          <div className="col-12 bg-dark py-5">
-            <h1 className="bg-dark text-center">LATEST PRODUCT</h1>
-            {getAllItemApi.isLoading && (
-              <p className="text text-info text-center">Fetching Data...</p>
-            )}
-            {getAllItemApi.success && (
-              <CardList _data={getAllItemApi.data}></CardList>
-            )}
-          </div>
-        </div>
-
-        <div className="row p-lg-5">
+        <div className="row p-5">
           <div className="col-lg-8">
             <Video></Video>
           </div>

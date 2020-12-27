@@ -5,6 +5,9 @@ import useCartItemApi from "../../api/useCartItemApi";
 import useApi from "../../hooks/useApi";
 import "./Table.css";
 import {
+  setTotalPrice,
+  increaseTotalPrice,
+  decreaseTotalPrice,
   setQuantity,
   removeItem,
   setEditedList
@@ -26,8 +29,6 @@ const CartTableItem = ({ _item, _key }) => {
     itemId,
     index
   ) => {
-    // dispatch(removeItem(itemId, index));
-
     const response = await deleteItemFromCurrentCartApi.request(
       clientId,
       itemId
@@ -49,6 +50,11 @@ const CartTableItem = ({ _item, _key }) => {
     quantity,
     index
   ) => {
+    if (quantity == "") {
+      return alert(
+        "The quantity cannot be empty if you want to keep the item in the cart!"
+      );
+    }
     const response = await updateItemQuantityFromCurrentCartApi.request(
       clientId,
       itemId,
@@ -60,6 +66,34 @@ const CartTableItem = ({ _item, _key }) => {
       alert("updateItemQuantityFromCurrentCart Failed");
     }
   };
+
+  // var lastNum = 0;
+  function onInput(value) {
+    if (lastNum < value) {
+      console.log("increasing");
+    } else {
+      console.log("decreasing");
+    }
+    lastNum = value;
+    console.log("onInput: " + value);
+  }
+
+  const [lastNum, setLastNum] = useState(_item.quantity);
+  function onChange(value) {
+    if (lastNum < value) {
+      dispatch(increaseTotalPrice(_item.price * (value - lastNum)));
+      console.log("increasing");
+    } else {
+      dispatch(decreaseTotalPrice(_item.price * (lastNum - value)));
+      console.log("decreasing");
+    }
+    if (value == "") {
+      setLastNum(0);
+    } else {
+      setLastNum(value);
+    }
+    console.log("lastNum: " + lastNum);
+  }
 
   return (
     <tr key={_key}>
@@ -99,6 +133,7 @@ const CartTableItem = ({ _item, _key }) => {
           onChange={event => {
             dispatch(setEditedList(_key, true));
             dispatch(setQuantity(event.target.value, _key));
+            onChange(event.target.value);
           }}
         ></input>
       </td>

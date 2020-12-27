@@ -10,13 +10,18 @@ import useCartApi from "../api/useCartApi";
 import CheckoutForm from "../components/CheckoutForm";
 import CheckoutDisplay from "../components/CheckoutDisplay";
 import { useSelector, useDispatch } from "react-redux";
-import { setData, setEditedList, initEditedList } from "../actions/cartActions";
+import {
+  setData,
+  setEditedList,
+  initEditedList,
+  setTotalPrice
+} from "../actions/cartActions";
 import CartTableReadOnlyItem from "../components/table/CartTableReadOnlyItem";
+import Container from "../components/Container";
 
 const CartScreen = ({ match }) => {
   const currentId = localStorage.getItem("id");
   const cartData = useSelector(state => state.cart.data);
-  const editedList = useSelector(state => state.cart.editedList);
   const dispatch = useDispatch();
 
   const id = match.params.id;
@@ -35,6 +40,11 @@ const CartScreen = ({ match }) => {
     if (response.ok) {
       dispatch(setData(response.data));
       dispatch(initEditedList(response.data.length));
+      let totalPrice = 0;
+      for (let i = 0; i < response.data.length; i++) {
+        totalPrice += response.data[i].quantity * response.data[i].price;
+      }
+      dispatch(setTotalPrice(totalPrice));
     }
   };
 
@@ -42,6 +52,11 @@ const CartScreen = ({ match }) => {
     const response = await getAllItemByCartIdApi.request(cartId);
     if (response.ok) {
       dispatch(setData(response.data));
+      let totalPrice = 0;
+      for (let i = 0; i < response.data.length; i++) {
+        totalPrice += response.data[i].quantity * response.data[i].price;
+      }
+      dispatch(setTotalPrice(totalPrice));
     }
   };
 
@@ -56,51 +71,36 @@ const CartScreen = ({ match }) => {
 
   return (
     <Screen>
-      <div className="px-4 px-lg-0">
-        <div className="p-5">
-          <div className="container">
-            <div className="row">
-              <div className="col-lg-12 p-5 bg-white rounded shadow-sm mb-5">
-                {getAllItemFromCurrentCartApi.success &&
-                  cartData.length !== 0 && (
-                    <DataTable
-                      _data={cartData}
-                      _headers={[
-                        "id",
-                        "Product",
-                        "Quantity",
-                        "Total",
-                        "Actions"
-                      ]}
-                      _component={CartTableItem}
-                    ></DataTable>
-                  )}
-                {getAllItemByCartIdApi.success && cartData.length !== 0 && (
-                  <DataTable
-                    _data={cartData}
-                    _headers={["id", "Product", "Quantity", "Total"]}
-                    _component={CartTableReadOnlyItem}
-                  ></DataTable>
-                )}
-              </div>
-            </div>
+      <Container>
+        {getAllItemFromCurrentCartApi.success && cartData.length !== 0 && (
+          <DataTable
+            _data={cartData}
+            _headers={["id", "Product", "Quantity", "Total", "Actions"]}
+            _component={CartTableItem}
+          ></DataTable>
+        )}
+        {getAllItemByCartIdApi.success && cartData.length !== 0 && (
+          <DataTable
+            _data={cartData}
+            _headers={["id", "Product", "Quantity", "Total"]}
+            _component={CartTableReadOnlyItem}
+          ></DataTable>
+        )}
+      </Container>
 
-            {getAllItemFromCurrentCartApi.success && (
-              <div className="py-5 p-4 bg-white rounded shadow-sm">
-                <CheckoutForm></CheckoutForm>
-              </div>
-            )}
+      {getAllItemFromCurrentCartApi.success && (
+        <Container>
+          <CheckoutForm></CheckoutForm>
+        </Container>
+      )}
 
-            {getAllItemByCartIdApi.success && (
-              <div className="py-5 p-4 bg-white rounded shadow-sm">
-                <CheckoutDisplay
-                  _data={getAllItemByCartIdApi.data[0]}
-                ></CheckoutDisplay>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
+      {getAllItemByCartIdApi.success && (
+        <Container>
+          <CheckoutDisplay
+            _data={getAllItemByCartIdApi.data[0]}
+          ></CheckoutDisplay>
+        </Container>
+      )}
     </Screen>
   );
 };

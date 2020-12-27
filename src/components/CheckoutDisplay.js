@@ -1,6 +1,9 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 const CheckoutDisplay = ({ _data }) => {
+  const totalPrice = useSelector(state => state.cart.totalPrice);
+
   return (
     <div className="row">
       <div className="col-lg-6">
@@ -32,7 +35,7 @@ const CheckoutDisplay = ({ _data }) => {
       </div>
 
       <div className="col-lg-6">
-        {/* <div className="bg-dark text-white rounded-pill px-4 py-3 text-uppercase font-weight-bold">
+        <div className="bg-dark text-white rounded-pill px-4 py-3 text-uppercase font-weight-bold">
           Order summary
         </div>
         <div className="p-4">
@@ -40,28 +43,11 @@ const CheckoutDisplay = ({ _data }) => {
             <li className="d-flex justify-content-between py-3 border-bottom">
               <strong className="text-muted">Total</strong>
               <h5 id="big_total_label" className="font-weight-bold">
-                {totalPrice.price}
+                {"$" + totalPrice}
               </h5>
             </li>
           </ul>
-          {updateCartApi.isLoading && (
-            <p className="text text-info text-center">Please Wait...</p>
-          )}
-          {createCartApi.isLoading && (
-            <p className="text text-info text-center">Please Wait...</p>
-          )}
-          <button
-            className="btn btn-info rounded-pill py-2 btn-block"
-            id="checkout_btn"
-            style={{ color: "white" }}
-            onClick={() => {
-              checkValidOnCheckOut();
-              // totalPrice2.setPrice(2000);
-            }}
-          >
-            Procceed to Checkout
-          </button>
-        </div> */}
+        </div>
       </div>
     </div>
   );

@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import useCartApi from "../api/useCartApi";
 import useApi from "../hooks/useApi";
 import { useSelector, useDispatch } from "react-redux";
+import FormHeader from "./form/FormHeader";
+import FormTextInput from "./form/FormTextInput";
+import FormButton from "./form/FormButton";
+import FormUnderline from "./form/FormUnderline";
 
 const CheckoutForm = () => {
   const totalPrice = useSelector(state => state.cart.totalPrice);
@@ -74,76 +78,53 @@ const CheckoutForm = () => {
   return (
     <div className="row">
       <div className="col-lg-6">
-        <div className="bg-dark text-white rounded-pill px-4 py-3 text-uppercase font-weight-bold">
-          Shipping Information
-        </div>
+        <FormHeader _text="Shipping Information"></FormHeader>
         <div className="p-4">
           <form>
-            <div className="form-group">
-              <strong className="text-muted">Receiver's Name: </strong>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Receiver's name"
-                value={clientName}
-                onChange={event => setClientName(event.target.value)}
-              ></input>
-            </div>
+            <FormTextInput
+              _iconName="user"
+              _inputType="text"
+              _placeHolder="Receiver's Name"
+              _onChange={event => setClientName(event.target.value)}
+            ></FormTextInput>
 
-            <div className="form-group">
-              <strong className="text-muted">Address: </strong>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Address"
-                value={address}
-                onChange={event => setAddress(event.target.value)}
-              ></input>
-            </div>
+            <FormTextInput
+              _iconName="map-marker"
+              _inputType="text"
+              _placeHolder="Address"
+              _onChange={event => setAddress(event.target.value)}
+            ></FormTextInput>
 
-            <div className="form-group">
-              <strong className="text-muted">Phone Number: </strong>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Phone Number"
-                value={phone}
-                onChange={event => setPhone(event.target.value)}
-              ></input>
-            </div>
+            <FormTextInput
+              _iconName="phone"
+              _inputType="text"
+              _placeHolder="Phone Number"
+              _onChange={event => setPhone(event.target.value)}
+            ></FormTextInput>
           </form>
         </div>
       </div>
 
       <div className="col-lg-6">
-        <div className="bg-dark text-white rounded-pill px-4 py-3 text-uppercase font-weight-bold">
-          Order summary
-        </div>
+        <FormHeader _text="Order Summary"></FormHeader>
         <div className="p-4">
           <ul className="list-unstyled mb-4">
-            <li className="d-flex justify-content-between py-3 border-bottom">
+            <FormUnderline>
               <strong className="text-muted">Total</strong>
-              <h5 id="big_total_label" className="font-weight-bold">
-                {totalPrice}
-              </h5>
-            </li>
+              <strong>{"$" + totalPrice}</strong>
+            </FormUnderline>
           </ul>
           {updateCartApi.isLoading && (
-            <p className="text text-info text-center">Please Wait...</p>
+            <p className="text-info text-center">Please Wait...</p>
           )}
           {createCartApi.isLoading && (
-            <p className="text text-info text-center">Please Wait...</p>
+            <p className="text-info text-center">Please Wait...</p>
           )}
-          <button
-            className="btn btn-info rounded-pill py-2 btn-block"
-            id="checkout_btn"
-            style={{ color: "white" }}
-            onClick={() => {
-              checkValidOnCheckOut();
-            }}
-          >
-            Procceed to Checkout
-          </button>
+          <FormButton
+            _variant="info"
+            _text="Procceed to Checkout"
+            _onClick={() => checkValidOnCheckOut()}
+          ></FormButton>
         </div>
       </div>
     </div>

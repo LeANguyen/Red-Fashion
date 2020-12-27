@@ -12,55 +12,10 @@ const ItemListScreen = ({ match }) => {
     getAllItemByCategoryApi.request(category);
   }, [match.params.category]);
 
-  const data = [
-    {
-      id: 1,
-      item: "A",
-      item_name: "Green Shirt",
-      origin: "China",
-      price: "9000"
-    },
-    {
-      id: 1,
-      item: "A",
-      item_name: "Green Shirt",
-      origin: "China",
-      price: "9000"
-    },
-    {
-      id: 1,
-      item: "A",
-      item_name: "Green Shirt",
-      origin: "China",
-      price: "9000"
-    },
-    {
-      id: 1,
-      item: "A",
-      item_name: "Green Shirt",
-      origin: "China",
-      price: "9000"
-    },
-    {
-      id: 1,
-      item: "A",
-      item_name: "Green Shirt",
-      origin: "China",
-      price: "9000"
-    },
-    {
-      id: 1,
-      item: "A",
-      item_name: "Green Shirt",
-      origin: "China",
-      price: "9000"
-    }
-  ];
-
   return (
     <Screen>
       <div class="container">
-        <h2 id="type_label"></h2>
+        <h2></h2>
         {getAllItemByCategoryApi.data && (
           <CardList _data={getAllItemByCategoryApi.data}></CardList>
         )}
