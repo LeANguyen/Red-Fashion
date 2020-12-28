@@ -4,6 +4,11 @@ import { Link, useHistory } from "react-router-dom";
 import useApi from "../hooks/useApi";
 import useAuthApi from "../api/useAuthApi";
 import { login, logout } from "../actions/userActions";
+import FormHeader from "./form/FormHeader";
+import FormTextInput from "./form/FormTextInput";
+import FormButton from "./form/FormButton";
+import FormCheckbox from "./form/FormCheckbox";
+import FormText from "./form/FormText";
 
 const LoginForm = () => {
   const history = useHistory();
@@ -33,52 +38,29 @@ const LoginForm = () => {
   return (
     <div>
       <form>
-        <p className="text-center font-weight-bold my-2">
-          Please login to save a cart
-        </p>
-        <div className="bg-dark rounded px-4 py-2 my-4 text-center font-weight-bold text-white">
-          Login
-        </div>
-
-        <div className="form-group">
-          <strong className="text-muted">Email: </strong>
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Email"
-            onChange={event => setEmail(event.target.value)}
-          ></input>
-        </div>
-
-        <div className="form-group">
-          <strong className="text-muted">Password: </strong>
-          <input
-            type="password"
-            className="form-control"
-            placeholder="Password"
-            onChange={event => setPass(event.target.value)}
-          ></input>
-        </div>
-
-        <div className="form-check">
-          <input
-            type="checkbox"
-            className="form-check-input"
-            id="remember_checkbox_signin"
-          ></input>
-          <strong className="text-muted">Remember me</strong>
-        </div>
+        <FormText _text="Please login to save a cart"></FormText>
+        <FormHeader _text="Login"></FormHeader>
+        <FormTextInput
+          _iconName="envelope"
+          _placeHolder="Email"
+          _inputType="email"
+          _onChange={event => setEmail(event.target.value)}
+        ></FormTextInput>
+        <FormTextInput
+          _iconName="lock"
+          _placeHolder="Password"
+          _inputType="password"
+          _onChange={event => setPass(event.target.value)}
+        ></FormTextInput>
+        <FormCheckbox _text="Remember me" _onChange={() => {}}></FormCheckbox>
         {signInApi.isLoading && (
           <p className="text text-info text-center">Please Wait...</p>
         )}
-        <button
-          className="btn btn-info rounded-pill py-2 btn-block text-white font-weight-bold mt-3"
-          id="signin_btn"
-          type="button"
-          onClick={() => loginExtraHandling()}
-        >
-          Login
-        </button>
+        <FormButton
+          _text="Login"
+          _variant="info my-4"
+          _onClick={() => loginExtraHandling()}
+        ></FormButton>
       </form>
     </div>
   );

@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import Screen from "../components/Screen";
 import no_image from "../assets/no_image.jpg";
-import Table from "../components/table/Table";
 import useItemApi from "../api/useItemApi";
 import useApi from "../hooks/useApi";
 import CartTableItem from "../components/table/CartTableItem";
@@ -192,11 +191,11 @@ const AdminScreen = () => {
               <tbody id="item_table_body"></tbody>
             </table>
           </div> */}
-          <Table
+          {/* <Table
             _data={getAllItemApi.data}
             _headers={["ID", "Product", "", ""]}
             _component={AdminTableItem}
-          ></Table>
+          ></Table> */}
         </div>
       </div>
     </Screen>

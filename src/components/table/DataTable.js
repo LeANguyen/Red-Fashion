@@ -8,7 +8,7 @@ import $ from "jquery";
 // const $ = require("jquery");
 // $.DataTable = require("datatables.net");
 
-const DataTable = ({ _data, _headers = [], _component }) => {
+const DataTable = ({ _data, _headers = [], _component, _id }) => {
   const reloadTableData = data => {
     // const table = $(".data-table-wrapper")
     //   .find("table")
@@ -27,12 +27,12 @@ const DataTable = ({ _data, _headers = [], _component }) => {
   };
 
   useEffect(() => {
-    $("#dataTable").DataTable();
+    $("#" + _id).DataTable();
   }, []);
 
   return (
     <div className="table-responsive">
-      <table id="dataTable" className="table">
+      <table id={_id} className="table">
         <thead>
           <TableHeader _headers={_headers}></TableHeader>
         </thead>

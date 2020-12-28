@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
 import Screen from "../components/Screen";
-import PurchaseHistoryTable from "../components/table/PurchaseHistoryTable";
 import useCartApi from "../api/useCartApi";
 import useApi from "../hooks/useApi";
+import DataTable from "../components/table/DataTable";
+import PurchaseHistoryTableItem from "../components/table/PurchaseHistoryTableItem";
+import Container from "../components/Container";
 
 const PurchaseHistoryScreen = () => {
   const cartApi = useCartApi();
@@ -15,35 +17,25 @@ const PurchaseHistoryScreen = () => {
 
   return (
     <Screen>
-      <div class="px-4 px-lg-0">
-        <div class="container text-white py-5 text-center"></div>
-        <div class="pb-5">
-          <div class="container">
-            <div class="row">
-              <div class="col-lg-12 p-5 bg-white rounded shadow-sm mb-5">
-                {getAllCartApi.isLoading && (
-                  <p className="text text-info text-center">Fetching Data...</p>
-                )}
-                {getAllCartApi.success && (
-                  <PurchaseHistoryTable
-                    _data={getAllCartApi.data.slice(
-                      0,
-                      getAllCartApi.data.length - 1
-                    )}
-                    _headers={[
-                      "Checkout Date",
-                      "Receiver's Name",
-                      "Address",
-                      "Phone",
-                      ""
-                    ]}
-                  ></PurchaseHistoryTable>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Container>
+        {getAllCartApi.isLoading && (
+          <p className="text text-info text-center">Fetching Data...</p>
+        )}
+        {getAllCartApi.success && (
+          <DataTable
+            _id="purchaseHistoryTable"
+            _data={getAllCartApi.data.slice(0, getAllCartApi.data.length - 1)}
+            _headers={[
+              "Checkout Date",
+              "Receiver's Name",
+              "Address",
+              "Phone",
+              ""
+            ]}
+            _component={PurchaseHistoryTableItem}
+          ></DataTable>
+        )}
+      </Container>
     </Screen>
   );
 };

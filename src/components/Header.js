@@ -1,11 +1,9 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import logo from "../assets/logo.png";
 import { Link, useHistory } from "react-router-dom";
 
 const Header = () => {
   const history = useHistory();
-  const userName = useSelector(state => state.user.name);
 
   const currentId = localStorage.getItem("id");
 
@@ -15,22 +13,17 @@ const Header = () => {
     history.push("/");
   };
 
-  console.log(localStorage.getItem("userinfo"));
   return (
     <nav className="navbar navbar-expand-lg navbar navbar-dark bg-dark header-style">
       <button
         className="navbar-toggler"
-        type="button"
         data-toggle="collapse"
-        data-target="#navbarTogglerDemo03"
-        aria-controls="navbarTogglerDemo03"
-        aria-expanded={false}
-        aria-label="Toggle navigation"
+        data-target="#navbarToggler"
       >
         <span className="navbar-toggler-icon"></span>
       </button>
 
-      <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
+      <div className="collapse navbar-collapse" id="navbarToggler">
         <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
           <li className="nav-item mx-lg-4 my-1">
             <img src={logo} height="20px" />
@@ -50,8 +43,6 @@ const Header = () => {
               className="nav-link dropdown-toggle text-white font-weight-bold"
               href="#"
               data-toggle="dropdown"
-              aria-haspopup={true}
-              aria-expanded={false}
             >
               <i className="fa fa-fw fa-black-tie"></i>Shop
             </a>

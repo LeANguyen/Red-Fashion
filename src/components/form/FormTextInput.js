@@ -8,27 +8,16 @@ const FormTextInput = ({
 }) => {
   return (
     <div className="form-group">
-      {/* <div className="form-group">
-              <strong className="text-muted">Receiver's Name: </strong>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Receiver's name"
-                value={clientName}
-                onChange={event => setClientName(event.target.value)}
-              ></input>
-            </div> */}
       <strong className="text-muted">{_placeHolder + ":"}</strong>
-
       <div className="input-group">
         <div className="input-group-append">
           <span className="input-group-text rounded-left">
             <i className={"fa fa-" + _iconName}></i>
           </span>
         </div>
-        {_inputType === "text" && (
+        {_inputType !== "number" && (
           <input
-            type="text"
+            type={_inputType}
             className="form-control"
             placeholder={_placeHolder}
             onChange={_onChange}

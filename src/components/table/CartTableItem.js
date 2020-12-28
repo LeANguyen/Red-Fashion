@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 import useCartItemApi from "../../api/useCartItemApi";
 import useApi from "../../hooks/useApi";
-import "./Table.css";
 import {
   setTotalPrice,
   increaseTotalPrice,
@@ -12,6 +11,7 @@ import {
   removeItem,
   setEditedList
 } from "../../actions/cartActions";
+import FormButton from "../form/FormButton";
 
 const CartTableItem = ({ _item, _key }) => {
   const currentId = localStorage.getItem("id");
@@ -67,17 +67,6 @@ const CartTableItem = ({ _item, _key }) => {
     }
   };
 
-  // var lastNum = 0;
-  function onInput(value) {
-    if (lastNum < value) {
-      console.log("increasing");
-    } else {
-      console.log("decreasing");
-    }
-    lastNum = value;
-    console.log("onInput: " + value);
-  }
-
   const [lastNum, setLastNum] = useState(_item.quantity);
   function onChange(value) {
     if (lastNum < value) {
@@ -100,28 +89,23 @@ const CartTableItem = ({ _item, _key }) => {
       <td className="align-middle">
         <strong>{_key}</strong>
       </td>
-      <th>
+      <td className="align-middle">
         <img
           src={
             "http://localhost:3000/uploaded_images/item" +
             _item.item_id +
             ".png"
           }
-          alt="No Image"
           width="100"
-          className="img-fluid rounded shadow-sm"
+          className="rounded"
         ></img>
-        <div className="m-2 d-inline-block align-middle">
+        <div className="ml-4 d-inline-block align-middle">
           <strong>
-            <a className="text-dark d-inline-block align-middle">
-              {_item.item_name}
-            </a>
+            <a>{_item.item_name}</a>
           </strong>
-          <span className="text-muted font-weight-normal d-block">
-            {"$ " + _item.price}
-          </span>
+          <p className="text-muted">{"$" + _item.price}</p>
         </div>
-      </th>
+      </td>
       <td className="align-middle">
         <input
           type="number"
@@ -138,38 +122,33 @@ const CartTableItem = ({ _item, _key }) => {
         ></input>
       </td>
       <td className="align-middle">
-        <strong className="text text-dark">
-          {"$" + _item.price * _item.quantity}
-        </strong>
+        <strong>{"$" + _item.price * _item.quantity}</strong>
       </td>
       <td className="align-middle">
-        <button
-          className="btn btn-danger btn-block"
-          onClick={() =>
+        <FormButton
+          _text="Update"
+          _hidden={!editedList[_key]}
+          _variant="warning"
+          _onClick={() =>
+            updateItemQuantityFromCurrentCartExtrahandling(
+              currentId,
+              _item.item_id,
+              _item.quantity,
+              _key
+            )
+          }
+        ></FormButton>
+        <FormButton
+          _text="Remove"
+          _variant="danger"
+          _onClick={() =>
             deleteItemFromCurrentCartExtraHandling(
               currentId,
               _item.item_id,
               _key
             )
           }
-          style={{ color: "white" }}
-        >
-          Remove
-        </button>
-        <button
-          className="btn btn-warning btn-block"
-          hidden={!editedList[_key]}
-          onClick={() => {
-            updateItemQuantityFromCurrentCartExtrahandling(
-              currentId,
-              _item.item_id,
-              _item.quantity,
-              _key
-            );
-          }}
-        >
-          Update
-        </button>
+        ></FormButton>
       </td>
     </tr>
   );

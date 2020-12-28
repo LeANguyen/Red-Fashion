@@ -108,7 +108,7 @@ const CheckoutForm = () => {
       <div className="col-lg-6">
         <FormHeader _text="Order Summary"></FormHeader>
         <div className="p-4">
-          <ul className="list-unstyled mb-4">
+          <ul className="list-unstyled">
             <FormUnderline>
               <strong className="text-muted">Total</strong>
               <strong>{"$" + totalPrice}</strong>

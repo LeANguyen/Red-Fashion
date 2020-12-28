@@ -5,18 +5,13 @@ import useApi from "../hooks/useApi";
 import DataTable from "../components/table/DataTable";
 import CartTableItem from "../components/table/CartTableItem";
 
-import CartTable from "../components/table/CartTable";
-import useCartApi from "../api/useCartApi";
 import CheckoutForm from "../components/CheckoutForm";
 import CheckoutDisplay from "../components/CheckoutDisplay";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  setData,
-  setEditedList,
-  initEditedList,
-  setTotalPrice
-} from "../actions/cartActions";
-import CartTableReadOnlyItem from "../components/table/CartTableReadOnlyItem";
+
+import { setData, initEditedList, setTotalPrice } from "../actions/cartActions";
+
+import CartReadOnlyTableItem from "../components/table/CartReadOnlyTableItem";
 import Container from "../components/Container";
 
 const CartScreen = ({ match }) => {
@@ -31,9 +26,6 @@ const CartScreen = ({ match }) => {
     cartItemApi.getAllItemFromCurrentCart
   );
   const getAllItemByCartIdApi = useApi(cartItemApi.getAllItemByCartId);
-
-  const cartApi = useCartApi();
-  const createCartApi = useApi(cartApi.createCart);
 
   const getAllItemFromCurrentCartApiExtraHandling = async clientId => {
     const response = await getAllItemFromCurrentCartApi.request(clientId);
@@ -62,7 +54,6 @@ const CartScreen = ({ match }) => {
 
   useEffect(() => {
     if (match.params && match.params.id) {
-      // getAllItemByCartIdApi.request(id);
       getAllItemByCartIdExtraHandling(id);
     } else {
       getAllItemFromCurrentCartApiExtraHandling(currentId);
@@ -74,6 +65,7 @@ const CartScreen = ({ match }) => {
       <Container>
         {getAllItemFromCurrentCartApi.success && cartData.length !== 0 && (
           <DataTable
+            _id="cartTable"
             _data={cartData}
             _headers={["id", "Product", "Quantity", "Total", "Actions"]}
             _component={CartTableItem}
@@ -81,9 +73,10 @@ const CartScreen = ({ match }) => {
         )}
         {getAllItemByCartIdApi.success && cartData.length !== 0 && (
           <DataTable
+            _id="cartReadOnlyTable"
             _data={cartData}
             _headers={["id", "Product", "Quantity", "Total"]}
-            _component={CartTableReadOnlyItem}
+            _component={CartReadOnlyTableItem}
           ></DataTable>
         )}
       </Container>

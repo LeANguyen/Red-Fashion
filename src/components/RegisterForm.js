@@ -3,6 +3,11 @@ import useApi from "../hooks/useApi";
 import useAuthApi from "../api/useAuthApi";
 import { Link, useHistory } from "react-router-dom";
 import useCartApi from "../api/useCartApi";
+import FormHeader from "./form/FormHeader";
+import FormTextInput from "./form/FormTextInput";
+import FormButton from "./form/FormButton";
+import FormCheckbox from "./form/FormCheckbox";
+import FormText from "./form/FormText";
 
 const RegisterForm = () => {
   const history = useHistory();
@@ -92,81 +97,42 @@ const RegisterForm = () => {
 
   return (
     <form>
-      <p className="text-center font-weight-bold my-2">
-        Don't have an account yet?
-      </p>
-      <div className="bg-dark rounded px-4 py-2 my-4 text-center font-weight-bold text-white">
-        Register
-      </div>
-      <div className="form-group">
-        <strong className="text-muted">Username: </strong>
-        <input
-          type="text"
-          className="form-control"
-          id="name_input_signup"
-          aria-describedby="emailHelp"
-          placeholder="Username"
-          onChange={event => setName(event.target.value)}
-        ></input>
-      </div>
+      <FormText _text="Don't have an account yet?"></FormText>
+      <FormHeader _text="Register"></FormHeader>
+      <FormTextInput
+        _iconName="user"
+        _placeHolder="Username"
+        _onChange={event => setName(event.target.value)}
+      ></FormTextInput>
 
-      <div className="form-group">
-        <strong className="text-muted">Email: </strong>
-        <input
-          type="email"
-          className="form-control"
-          aria-describedby="emailHelp"
-          id="email_input_signup"
-          placeholder="Email"
-          onChange={event => setEmail(event.target.value)}
-        ></input>
-      </div>
+      <FormTextInput
+        _iconName="envelope"
+        _placeHolder="Email"
+        _onChange={event => setEmail(event.target.value)}
+      ></FormTextInput>
 
-      <div className="form-group">
-        <strong className="text-muted">Password: </strong>
-        <input
-          type="password"
-          className="form-control"
-          id="pass1_input_signup"
-          placeholder="Password"
-          oninput="checkValidOnInput()"
-          onChange={event => setPass(event.target.value)}
-        ></input>
-        <small id="pass1_alert_signup"></small>
-      </div>
+      <FormTextInput
+        _iconName="lock"
+        _placeHolder="Password"
+        _onChange={event => setPass(event.target.value)}
+      ></FormTextInput>
 
-      <div className="form-group">
-        <strong className="text-muted">Password Confirmation: </strong>
-        <input
-          type="password"
-          className="form-control"
-          id="pass2_input_signup"
-          placeholder="Confirm Password"
-          onChange={event => setPassConfirm(event.target.value)}
-        ></input>
-      </div>
+      <FormTextInput
+        _iconName="lock"
+        _placeHolder="Password Confirmation"
+        _onChange={event => setPassConfirm(event.target.value)}
+      ></FormTextInput>
 
-      <div className="form-check">
-        <input
-          type="checkbox"
-          className="form-check-input"
-          id="accept_checkbox_signup"
-          onChange={() => {
-            setPolicyAgree(!policyAgree);
-          }}
-        ></input>
-        <strong className="text-muted">
-          I accept the Terms of Use & Privacy Policy
-        </strong>
-      </div>
-      <button
-        type="button"
-        id="signup_btn"
-        className="btn btn-info rounded-pill py-2 btn-block text-white font-weight-bold mt-3"
-        onClick={() => checkForm()}
-      >
-        Sign Up
-      </button>
+      <FormCheckbox
+        _text="I accept the Terms of Use & Privacy Policy"
+        _onChange={() => setPolicyAgree(!policyAgree)}
+      ></FormCheckbox>
+
+      <FormButton
+        _text="Register"
+        _onClick={() => checkForm()}
+        _variant="info my-4"
+      ></FormButton>
     </form>
   );
 };

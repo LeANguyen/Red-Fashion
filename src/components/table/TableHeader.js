@@ -6,7 +6,7 @@ const TableHeader = ({ _headers }) => {
       {_headers.map(header => {
         return (
           <th scope="col">
-            <div className="p-2">{header}</div>
+            <div className="text-center">{header}</div>
           </th>
         );
       })}
