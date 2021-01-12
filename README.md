@@ -1,10 +1,14 @@
 # Red-Fashion
 
-This is a ReactJS version of my fist full stack project done in 2018 with just html + css + javascript.
-This is the Heroku link:
-https://red-fashion.herokuapp.com/
+- This is a ReactJS version of my fist full stack project done in 2018 with just html + css + javascript.
+- This is the Heroku link:
+  https://red-fashion.herokuapp.com/
 
 - If you want to download this project for local demo.
+- The backend first to go along with this ReactJS app: https://github.com/LeANguyen/CommerceApp.git
+  (You may see there are html files in the backend project, they were there for my school project)
+  (Start the server with "node -app")
+  (Start)
 
 # Getting Started with Create React App
 
