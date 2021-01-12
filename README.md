@@ -6,7 +6,7 @@
 
 - If you want to download this project for local demo.
 - The backend first to go along with this ReactJS app: https://github.com/LeANguyen/CommerceApp.git
-  (You may see there are html files in the backend project, they were there for my school project)
+  (You may see there are html files in the backend project, they were mock frontend there for my school project)
   (Start the server with "node -app")
   (Start)
 
