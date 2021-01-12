@@ -13,6 +13,8 @@ import { setData, initEditedList, setTotalPrice } from "../actions/cartActions";
 
 import CartReadOnlyTableItem from "../components/table/CartReadOnlyTableItem";
 import Container from "../components/Container";
+import FormLoader from "../components/form/FormLoader";
+import FormText from "../components/form/FormText";
 
 const CartScreen = ({ match }) => {
   const currentId = localStorage.getItem("id");
@@ -63,6 +65,13 @@ const CartScreen = ({ match }) => {
   return (
     <Screen>
       <Container>
+        {(getAllItemFromCurrentCartApi.isLoading ||
+          getAllItemByCartIdApi.isLoading) && (
+          <>
+            <FormLoader></FormLoader>
+            <FormText _text="Fetching Data..." _variant="info"></FormText>
+          </>
+        )}
         {getAllItemFromCurrentCartApi.success && cartData.length !== 0 && (
           <DataTable
             _id="cartTable"

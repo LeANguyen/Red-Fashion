@@ -8,6 +8,7 @@ import FormTextInput from "./form/FormTextInput";
 import FormButton from "./form/FormButton";
 import FormCheckbox from "./form/FormCheckbox";
 import FormText from "./form/FormText";
+import FormLoader from "./form/FormLoader";
 
 const RegisterForm = () => {
   const history = useHistory();
@@ -113,12 +114,14 @@ const RegisterForm = () => {
 
       <FormTextInput
         _iconName="lock"
+        _inputType="password"
         _placeHolder="Password"
         _onChange={event => setPass(event.target.value)}
       ></FormTextInput>
 
       <FormTextInput
         _iconName="lock"
+        _inputType="password"
         _placeHolder="Password Confirmation"
         _onChange={event => setPassConfirm(event.target.value)}
       ></FormTextInput>
@@ -128,8 +131,12 @@ const RegisterForm = () => {
         _onChange={() => setPolicyAgree(!policyAgree)}
       ></FormCheckbox>
 
+      {(signUpApi.isLoading || signInApi.isLoading) && (
+        <FormLoader></FormLoader>
+      )}
       <FormButton
         _text="Register"
+        _disabled={signUpApi.isLoading || signInApi.isLoading}
         _onClick={() => checkForm()}
         _variant="info my-4"
       ></FormButton>

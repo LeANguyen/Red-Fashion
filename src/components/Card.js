@@ -5,6 +5,7 @@ import { Link, useHistory } from "react-router-dom";
 import FormUnderline from "./form/FormUnderline";
 import FormHeader from "./form/FormHeader";
 import FormButton from "./form/FormButton";
+import FormLoader from "./form/FormLoader";
 
 const Card = ({ _item, _key }) => {
   const currentId = localStorage.getItem("id");
@@ -132,6 +133,7 @@ const Card = ({ _item, _key }) => {
               max={9999}
               min={1}
               value={quantity}
+              disabled={getItemFromCurrentCartByItemIdApi.isLoading}
               onChange={event => {
                 setQuantity(event.target.value);
               }}
@@ -144,6 +146,7 @@ const Card = ({ _item, _key }) => {
               max={9999}
               min={1}
               value={quantity}
+              disabled={getItemFromCurrentCartByItemIdApi.isLoading}
               onChange={event => {
                 setQuantity(event.target.value);
                 setQuantityEdited(true);
@@ -152,56 +155,71 @@ const Card = ({ _item, _key }) => {
           )}
         </FormUnderline>
 
-        <div className="mt-4">
-          <FormButton
-            _text="Update"
-            _hidden={!quantityEdited}
-            _variant="warning"
-            _onClick={() =>
-              updateItemQuantityFromCurrentExtraHandling(
-                currentId,
-                _item.id,
-                quantity
-              )
-            }
-          ></FormButton>
-          <FormButton
-            _text="Item Detail"
-            _variant="info"
-            _onClick={() => history.push("/item_detail/" + _item.id)}
-          ></FormButton>
-          {currentId !== null && !itemInCart && (
+        {getItemFromCurrentCartByItemIdApi.isLoading && (
+          <FormLoader></FormLoader>
+        )}
+        {getItemFromCurrentCartByItemIdApi.success && (
+          <div className="mt-4">
+            {addItemIntoCurrentCartApi.isLoading && <FormLoader></FormLoader>}
+            {updateItemQuantityFromCurrentCartApi.isLoading && (
+              <FormLoader></FormLoader>
+            )}
+            {deleteItemFromCurrentCartApi.isLoading && (
+              <FormLoader></FormLoader>
+            )}
             <FormButton
-              _text="Add to Cart"
-              _variant="success"
+              _text="Update"
+              _hidden={!quantityEdited}
+              _variant="warning"
+              _disabled={updateItemQuantityFromCurrentCartApi.isLoading}
               _onClick={() =>
-                addItemIntoCurrentCartExtraHandling(
+                updateItemQuantityFromCurrentExtraHandling(
                   currentId,
                   _item.id,
                   quantity
                 )
               }
             ></FormButton>
-          )}
-
-          {currentId !== null && itemInCart && (
             <FormButton
-              _text=" Remove from Cart"
-              _variant="danger"
-              _onClick={() =>
-                deleteItemFromCurrentCartExtraHandling(currentId, _item.id)
-              }
+              _text="Item Detail"
+              _variant="info"
+              _onClick={() => history.push("/item_detail/" + _item.id)}
             ></FormButton>
-          )}
+            {currentId !== null && !itemInCart && (
+              <FormButton
+                _text="Add to Cart"
+                _variant="success"
+                _disabled={addItemIntoCurrentCartApi.isLoading}
+                _onClick={() =>
+                  addItemIntoCurrentCartExtraHandling(
+                    currentId,
+                    _item.id,
+                    quantity
+                  )
+                }
+              ></FormButton>
+            )}
 
-          {currentId === null && (
-            <FormButton
-              _text="Add to Cart"
-              _variant="success"
-              _onClick={() => history.push("/sign")}
-            ></FormButton>
-          )}
-        </div>
+            {currentId !== null && itemInCart && (
+              <FormButton
+                _text="Remove from Cart"
+                _variant="danger"
+                _disabled={deleteItemFromCurrentCartApi.isLoading}
+                _onClick={() =>
+                  deleteItemFromCurrentCartExtraHandling(currentId, _item.id)
+                }
+              ></FormButton>
+            )}
+
+            {currentId === null && (
+              <FormButton
+                _text="Add to Cart"
+                _variant="success"
+                _onClick={() => history.push("/sign")}
+              ></FormButton>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

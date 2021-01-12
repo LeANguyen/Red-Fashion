@@ -118,7 +118,7 @@ const Header = () => {
                 hidden={false}
               >
                 <i className="fa fa-fw fa-user"></i>
-                {localStorage.getItem("name") + currentId}
+                {localStorage.getItem("name")}
               </a>
               <div
                 className="dropdown-menu  "

@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 import useCartApi from "../api/useCartApi";
 import useApi from "../hooks/useApi";
+import { useHistory } from "react-router-dom";
+
 import { useSelector, useDispatch } from "react-redux";
 import FormHeader from "./form/FormHeader";
 import FormTextInput from "./form/FormTextInput";
 import FormButton from "./form/FormButton";
 import FormUnderline from "./form/FormUnderline";
+import FormLoader from "./form/FormLoader";
 
 const CheckoutForm = () => {
+  const history = useHistory();
   const totalPrice = useSelector(state => state.cart.totalPrice);
   const cartApi = useCartApi();
   const createCartApi = useApi(cartApi.createCart);
@@ -72,6 +76,7 @@ const CheckoutForm = () => {
       alert("There is a connection error 222. Please try again");
     } else {
       alert("Checkout completed");
+      history.push("/");
     }
   };
 
@@ -114,15 +119,16 @@ const CheckoutForm = () => {
               <strong>{"$" + totalPrice}</strong>
             </FormUnderline>
           </ul>
-          {updateCartApi.isLoading && (
-            <p className="text-info text-center">Please Wait...</p>
-          )}
-          {createCartApi.isLoading && (
-            <p className="text-info text-center">Please Wait...</p>
+          {(updateCartApi.isLoading || createCartApi.isLoading) && (
+            <>
+              <FormLoader></FormLoader>
+              <p className="text-info text-center">Please Wait...</p>
+            </>
           )}
           <FormButton
             _variant="info"
             _text="Procceed to Checkout"
+            _disabled={updateCartApi.isLoading || createCartApi.isLoading}
             _onClick={() => checkValidOnCheckOut()}
           ></FormButton>
         </div>

@@ -5,6 +5,7 @@ import Carousel from "../components/Carousel";
 import CardList from "../components/CardList";
 import useItemApi from "../api/useItemApi";
 import useApi from "../hooks/useApi";
+import FormLoader from "../components/form/FormLoader";
 
 const HomeScreen = () => {
   const itemApi = useItemApi();
@@ -21,7 +22,10 @@ const HomeScreen = () => {
         <div className="bg-dark py-5 px-lg-5">
           <h1 className="text-center">LATEST PRODUCT</h1>
           {getAllItemApi.isLoading && (
-            <p className="text text-info text-center">Fetching Data...</p>
+            <>
+              <FormLoader></FormLoader>
+              <p className="text text-info text-center">Fetching Data...</p>
+            </>
           )}
           {getAllItemApi.success && (
             <CardList _data={getAllItemApi.data}></CardList>

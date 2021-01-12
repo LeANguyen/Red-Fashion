@@ -12,6 +12,7 @@ import {
   setEditedList
 } from "../../actions/cartActions";
 import FormButton from "../form/FormButton";
+import FormLoader from "../form/FormLoader";
 
 const CartTableItem = ({ _item, _key }) => {
   const currentId = localStorage.getItem("id");
@@ -125,10 +126,16 @@ const CartTableItem = ({ _item, _key }) => {
         <strong>{"$" + _item.price * _item.quantity}</strong>
       </td>
       <td className="align-middle">
+        {(updateItemQuantityFromCurrentCartApi.isLoading ||
+          deleteItemFromCurrentCartApi.isLoading) && <FormLoader></FormLoader>}
         <FormButton
           _text="Update"
           _hidden={!editedList[_key]}
           _variant="warning"
+          _disabled={
+            updateItemQuantityFromCurrentCartApi.isLoading ||
+            deleteItemFromCurrentCartApi.isLoading
+          }
           _onClick={() =>
             updateItemQuantityFromCurrentCartExtrahandling(
               currentId,
@@ -141,6 +148,10 @@ const CartTableItem = ({ _item, _key }) => {
         <FormButton
           _text="Remove"
           _variant="danger"
+          _disabled={
+            updateItemQuantityFromCurrentCartApi.isLoading ||
+            deleteItemFromCurrentCartApi.isLoading
+          }
           _onClick={() =>
             deleteItemFromCurrentCartExtraHandling(
               currentId,

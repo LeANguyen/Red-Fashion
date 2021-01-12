@@ -9,6 +9,7 @@ import FormTextInput from "./form/FormTextInput";
 import FormButton from "./form/FormButton";
 import FormCheckbox from "./form/FormCheckbox";
 import FormText from "./form/FormText";
+import FormLoader from "./form/FormLoader";
 
 const LoginForm = () => {
   const history = useHistory();
@@ -54,11 +55,15 @@ const LoginForm = () => {
         ></FormTextInput>
         <FormCheckbox _text="Remember me" _onChange={() => {}}></FormCheckbox>
         {signInApi.isLoading && (
-          <p className="text text-info text-center">Please Wait...</p>
+          <>
+            <FormLoader></FormLoader>
+            <p className="text text-info text-center">Please Wait...</p>
+          </>
         )}
         <FormButton
           _text="Login"
           _variant="info my-4"
+          _disabled={signInApi.isLoading}
           _onClick={() => loginExtraHandling()}
         ></FormButton>
       </form>

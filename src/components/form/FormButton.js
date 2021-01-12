@@ -1,6 +1,12 @@
 import React from "react";
 
-const FormButton = ({ _text, _hidden = false, _onClick, _variant }) => {
+const FormButton = ({
+  _text,
+  _disabled = false,
+  _hidden = false,
+  _onClick,
+  _variant
+}) => {
   return (
     <button
       className={
@@ -9,6 +15,7 @@ const FormButton = ({ _text, _hidden = false, _onClick, _variant }) => {
       onClick={_onClick}
       hidden={_hidden}
       type="button"
+      disabled={_disabled}
     >
       {_text}
     </button>
