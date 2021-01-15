@@ -17,7 +17,7 @@ const ItemListScreen = ({ match }) => {
   return (
     <Screen>
       <div class="p-5 my-5 bg-dark">
-        <h1 className="text-center">LATEST PRODUCT</h1>
+        <h1 className="text-center">LATEST PRODUCT TEST</h1>
 
         {getAllItemByCategoryApi.isLoading && (
           <>
