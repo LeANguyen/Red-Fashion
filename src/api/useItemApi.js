@@ -36,6 +36,10 @@ const useItemApi = () => {
 
   const getAllItem = () => client.api.get("/items");
 
+  const getStartItem = () => client.api.get("/items/start")
+
+  const getMoreItem = (id) => client.api.get(`/items/more/id/${id}`)
+
   const getAllItemByCategory = category =>
     client.api.get(`items/category/${category}`);
 
@@ -52,6 +56,8 @@ const useItemApi = () => {
   return {
     createItem,
     getAllItem,
+    getStartItem,
+    getMoreItem,
     getAllItemByCategory,
     getCurrentItem,
     getItemById,

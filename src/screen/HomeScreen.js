@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Screen from "../components/Screen";
 import Video from "../components/Video";
 import Carousel from "../components/Carousel";
@@ -6,13 +6,42 @@ import CardList from "../components/CardList";
 import useItemApi from "../api/useItemApi";
 import useApi from "../hooks/useApi";
 import FormLoader from "../components/form/FormLoader";
+import FormButton from "../components/form/FormButton";
 
 const HomeScreen = () => {
+  const [currentItemId, setCurrentItemId] = useState();
+  const [cardList, setCardList] = useState([]);
+  const [endOfList, setEndOfList] = useState(false);
+
   const itemApi = useItemApi();
   const getAllItemApi = useApi(itemApi.getAllItem);
+  const getStartItemApi = useApi(itemApi.getStartItem);
+  const getMoreItemApi = useApi(itemApi.getMoreItem);
+
+  const getStartItemApiExtraHandling = async () => {
+    const response = await getStartItemApi.request();
+    if (response.ok) {
+      setCurrentItemId(response.data[response.data.length - 1].id);
+      setCardList(response.data);
+    }
+  };
+
+  const getMoreItemApiExtraHandling = async id => {
+    const response = await getMoreItemApi.request(id);
+    if (response.ok) {
+      if (response.data.length == 0) {
+        setEndOfList(true);
+      } else {
+        let newCardList = [...cardList];
+        newCardList = newCardList.concat([...response.data]);
+        setCurrentItemId(response.data[response.data.length - 1].id);
+        setCardList(newCardList);
+      }
+    }
+  };
 
   useEffect(() => {
-    getAllItemApi.request();
+    getStartItemApiExtraHandling();
   }, []);
 
   return (
@@ -21,14 +50,28 @@ const HomeScreen = () => {
         <Carousel></Carousel>
         <div className="bg-dark py-5 px-lg-5">
           <h1 className="text-center">LATEST PRODUCT</h1>
-          {getAllItemApi.isLoading && (
+          {cardList !== [] && (
+            <>
+              <CardList _data={cardList}></CardList>
+              <FormButton
+                _text={
+                  <FormLoader
+                    _height={15}
+                    _color={"rgb(255, 255, 255)"}
+                  ></FormLoader>
+                }
+                _variant="info"
+                _onClick={() => {
+                  getMoreItemApiExtraHandling(currentItemId);
+                }}
+              ></FormButton>
+            </>
+          )}
+          {(getStartItemApi.isLoading || getMoreItemApi.isLoading) && (
             <>
               <FormLoader></FormLoader>
               <p className="text text-info text-center">Fetching Data...</p>
             </>
-          )}
-          {getAllItemApi.success && (
-            <CardList _data={getAllItemApi.data}></CardList>
           )}
         </div>
 

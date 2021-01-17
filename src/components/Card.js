@@ -7,6 +7,7 @@ import FormHeader from "./form/FormHeader";
 import FormButton from "./form/FormButton";
 import FormLoader from "./form/FormLoader";
 import FormText from "./form/FormText";
+import FormButtonLoader from "./form/FormButtonLoader";
 
 const Card = ({ _item, _key }) => {
   const currentId = localStorage.getItem("id");
@@ -71,6 +72,7 @@ const Card = ({ _item, _key }) => {
       itemId
     );
     if (response.ok) {
+      setQuantityEdited(false);
       setItemInCart(false);
     } else {
       alert("deleteItemFromCurrentCart Failed");
@@ -156,43 +158,26 @@ const Card = ({ _item, _key }) => {
           )}
         </FormUnderline>
 
-        {getItemFromCurrentCartByItemIdApi.isLoading && (
-          <FormLoader></FormLoader>
-        )}
         <div className="mt-4">
           <FormButton
             _text="Item Detail"
             _variant="info"
             _onClick={() => history.push("/item_detail/" + _item.id)}
           ></FormButton>
+          {getItemFromCurrentCartByItemIdApi.isLoading && (
+            <FormButtonLoader _variant="dark"></FormButtonLoader>
+          )}
           {getItemFromCurrentCartByItemIdApi.success && (
             <>
-              {addItemIntoCurrentCartApi.isLoading && <FormLoader></FormLoader>}
-              {updateItemQuantityFromCurrentCartApi.isLoading && (
-                <FormLoader></FormLoader>
+              {addItemIntoCurrentCartApi.isLoading && (
+                <FormButtonLoader _variant="success"></FormButtonLoader>
               )}
-              {deleteItemFromCurrentCartApi.isLoading && (
-                <FormLoader></FormLoader>
-              )}
-              <FormButton
-                _text="Update"
-                _hidden={!quantityEdited}
-                _variant="warning"
-                _disabled={updateItemQuantityFromCurrentCartApi.isLoading}
-                _onClick={() =>
-                  updateItemQuantityFromCurrentExtraHandling(
-                    currentId,
-                    _item.id,
-                    quantity
-                  )
-                }
-              ></FormButton>
-
               {currentId !== null && !itemInCart && (
                 <FormButton
                   _text="Add to Cart"
                   _variant="success"
-                  _disabled={addItemIntoCurrentCartApi.isLoading}
+                  // _disabled={addItemIntoCurrentCartApi.isLoading}
+                  _hidden={addItemIntoCurrentCartApi.isLoading}
                   _onClick={() =>
                     addItemIntoCurrentCartExtraHandling(
                       currentId,
@@ -203,11 +188,35 @@ const Card = ({ _item, _key }) => {
                 ></FormButton>
               )}
 
+              {updateItemQuantityFromCurrentCartApi.isLoading && (
+                <FormButtonLoader _variant="warning"></FormButtonLoader>
+              )}
+              <FormButton
+                _text="Update"
+                _hidden={
+                  !itemInCart ||
+                  !quantityEdited ||
+                  updateItemQuantityFromCurrentCartApi.isLoading
+                }
+                _variant="warning"
+                // _disabled={updateItemQuantityFromCurrentCartApi.isLoading}
+                _onClick={() =>
+                  updateItemQuantityFromCurrentExtraHandling(
+                    currentId,
+                    _item.id,
+                    quantity
+                  )
+                }
+              ></FormButton>
+
+              {deleteItemFromCurrentCartApi.isLoading && (
+                <FormButtonLoader _variant="danger"></FormButtonLoader>
+              )}
               {currentId !== null && itemInCart && (
                 <FormButton
                   _text="Remove from Cart"
                   _variant="danger"
-                  _disabled={deleteItemFromCurrentCartApi.isLoading}
+                  _hidden={deleteItemFromCurrentCartApi.isLoading}
                   _onClick={() =>
                     deleteItemFromCurrentCartExtraHandling(currentId, _item.id)
                   }

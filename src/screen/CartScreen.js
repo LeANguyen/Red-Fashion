@@ -76,7 +76,7 @@ const CartScreen = ({ match }) => {
           <DataTable
             _id="cartTable"
             _data={cartData}
-            _headers={["id", "Product", "Quantity", "Total", "Actions"]}
+            _headers={["ID", "Product", "Quantity", "Total", "Actions"]}
             _component={CartTableItem}
           ></DataTable>
         )}
@@ -84,7 +84,7 @@ const CartScreen = ({ match }) => {
           <DataTable
             _id="cartReadOnlyTable"
             _data={cartData}
-            _headers={["id", "Product", "Quantity", "Total"]}
+            _headers={["ID", "Product", "Quantity", "Total"]}
             _component={CartReadOnlyTableItem}
           ></DataTable>
         )}

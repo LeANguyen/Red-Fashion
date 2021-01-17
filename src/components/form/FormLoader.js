@@ -1,14 +1,14 @@
 import React from "react";
 import Loader from "react-loader-spinner";
 
-const FormLoader = () => {
+const FormLoader = ({ _width = "100", _height = "100", _color = "rgb(73, 160, 181)", _type = "ThreeDots" }) => {
   return (
     <Loader
-      className="text-center text-info"
-      color="rgb(73, 160, 181)"
-      type="ThreeDots"
-      height="100"
-      width="100"
+      className="text-center"
+      color={_color}
+      type={_type}
+      height={_height}
+      width={_width}
     />
   );
 };
