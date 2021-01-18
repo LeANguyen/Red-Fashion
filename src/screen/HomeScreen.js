@@ -54,12 +54,7 @@ const HomeScreen = () => {
             <>
               <CardList _data={cardList}></CardList>
               <FormButton
-                _text={
-                  <FormLoader
-                    _height={15}
-                    _color={"rgb(255, 255, 255)"}
-                  ></FormLoader>
-                }
+                _text="Load More"
                 _variant="info"
                 _onClick={() => {
                   getMoreItemApiExtraHandling(currentItemId);

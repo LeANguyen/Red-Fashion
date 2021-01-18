@@ -165,19 +165,18 @@ const Card = ({ _item, _key }) => {
             _onClick={() => history.push("/item_detail/" + _item.id)}
           ></FormButton>
           {getItemFromCurrentCartByItemIdApi.isLoading && (
-            <FormButtonLoader _variant="dark"></FormButtonLoader>
+            <FormButton
+              _variant="dark"
+              _loading={getItemFromCurrentCartByItemIdApi.isLoading}
+            ></FormButton>
           )}
           {getItemFromCurrentCartByItemIdApi.success && (
             <>
-              {addItemIntoCurrentCartApi.isLoading && (
-                <FormButtonLoader _variant="success"></FormButtonLoader>
-              )}
               {currentId !== null && !itemInCart && (
                 <FormButton
                   _text="Add to Cart"
                   _variant="success"
-                  // _disabled={addItemIntoCurrentCartApi.isLoading}
-                  _hidden={addItemIntoCurrentCartApi.isLoading}
+                  _loading={addItemIntoCurrentCartApi.isLoading}
                   _onClick={() =>
                     addItemIntoCurrentCartExtraHandling(
                       currentId,
@@ -187,19 +186,11 @@ const Card = ({ _item, _key }) => {
                   }
                 ></FormButton>
               )}
-
-              {updateItemQuantityFromCurrentCartApi.isLoading && (
-                <FormButtonLoader _variant="warning"></FormButtonLoader>
-              )}
               <FormButton
                 _text="Update"
-                _hidden={
-                  !itemInCart ||
-                  !quantityEdited ||
-                  updateItemQuantityFromCurrentCartApi.isLoading
-                }
+                _hidden={!itemInCart || !quantityEdited}
                 _variant="warning"
-                // _disabled={updateItemQuantityFromCurrentCartApi.isLoading}
+                _loading={updateItemQuantityFromCurrentCartApi.isLoading}
                 _onClick={() =>
                   updateItemQuantityFromCurrentExtraHandling(
                     currentId,
@@ -208,15 +199,11 @@ const Card = ({ _item, _key }) => {
                   )
                 }
               ></FormButton>
-
-              {deleteItemFromCurrentCartApi.isLoading && (
-                <FormButtonLoader _variant="danger"></FormButtonLoader>
-              )}
               {currentId !== null && itemInCart && (
                 <FormButton
                   _text="Remove from Cart"
                   _variant="danger"
-                  _hidden={deleteItemFromCurrentCartApi.isLoading}
+                  _loading={deleteItemFromCurrentCartApi.isLoading}
                   _onClick={() =>
                     deleteItemFromCurrentCartExtraHandling(currentId, _item.id)
                   }
