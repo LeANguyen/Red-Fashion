@@ -1,15 +1,19 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import logo from "../assets/logo.png";
 import { Link, useHistory } from "react-router-dom";
+import authStorage from "../auth/authStorage";
+import useAuth from "../auth/useAuth";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const history = useHistory();
+  const auth = useAuth();
 
-  const currentId = localStorage.getItem("id");
+  // redux in experiment (storage) - please do not delete
+  const user = useSelector(state => state.user.data);
 
   const logout = () => {
-    localStorage.removeItem("id");
-    localStorage.removeItem("name");
+    auth.logout();
     history.push("/");
   };
 
@@ -62,7 +66,7 @@ const Header = () => {
             </div>
           </li>
 
-          {currentId !== null && (
+          {user !== null && (
             <li className="nav-item dropdown active mx-lg-2">
               <a
                 className="nav-link dropdown-toggle text-white font-weight-bold"
@@ -94,7 +98,7 @@ const Header = () => {
             </li>
           )}
 
-          {currentId === null && (
+          {user === null && (
             <li className="nav-item dropdown active mx-lg-2">
               <a className="nav-link" href="sign" id="signin_head">
                 <Link className="text-white font-weight-bold" to="/sign">
@@ -105,7 +109,7 @@ const Header = () => {
             </li>
           )}
 
-          {currentId !== null && (
+          {user !== null && (
             <li className="nav-item dropdown active mx-lg-2 bg-danger rounded">
               <a
                 className="nav-link dropdown-toggle font-weight-bold"
@@ -118,12 +122,14 @@ const Header = () => {
                 hidden={false}
               >
                 <i className="fa fa-fw fa-user"></i>
-                {localStorage.getItem("name")}
+                {user.name}
               </a>
               <div
                 className="dropdown-menu  "
                 aria-labelledby="navbarDropdownMenuLink"
               >
+                <button onClick={() => localStorage.clear()}>TEST CLEAR</button>
+                <button onClick={() => console.log(user)}>TEST</button>
                 <a className="dropdown-item" href="#" onClick={() => logout()}>
                   Sign Out
                 </a>

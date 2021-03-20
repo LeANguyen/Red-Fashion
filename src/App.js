@@ -1,4 +1,5 @@
 import logo from "./logo.svg";
+import React, { useEffect } from "react";
 import "./App.css";
 import HomeScreen from "./screen/HomeScreen";
 import CartScreen from "./screen/CartScreen";
@@ -8,8 +9,23 @@ import PurchaseHistoryScreen from "./screen/PurchaseHistoryScreen";
 import SignScreen from "./screen/SignScreen";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import AdminScreen from "./screen/AdminScreen";
+import { useDispatch } from "react-redux";
+import authStorage from "./auth/authStorage";
+import { loginAction } from "./actions/userActions";
 
 function App() {
+  const dispatch = useDispatch();
+
+  const restoreUser = async () => {
+    const user = await authStorage.getUser();
+    if (!user) return;
+    dispatch(loginAction(user));
+  };
+
+  useEffect(() => {
+    restoreUser();
+  }, []);
+
   return (
     <Router>
       <Switch>
@@ -27,13 +43,6 @@ function App() {
       </Switch>
     </Router>
   );
-
-  // return <HomeScreen></HomeScreen>;
-  // return <ItemListScreen></ItemListScreen>;
-  return <ItemDetailScreen></ItemDetailScreen>;
-  // return <PurchaseHistoryScreen></PurchaseHica
-  // return <CartScreen></CartScreen>;
-  return <SignScreen></SignScreen>;
 }
 
 export default App;

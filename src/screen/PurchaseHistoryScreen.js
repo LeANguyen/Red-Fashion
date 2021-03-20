@@ -5,14 +5,17 @@ import useApi from "../hooks/useApi";
 import DataTable from "../components/table/DataTable";
 import PurchaseHistoryTableItem from "../components/table/PurchaseHistoryTableItem";
 import Container from "../components/Container";
+import { useSelector } from "react-redux";
 
 const PurchaseHistoryScreen = () => {
   const cartApi = useCartApi();
-  const currentId = localStorage.getItem("id");
+  const currentUser = useSelector(state => state.user.data);
   const getAllCartApi = useApi(cartApi.getAllCart);
 
   useEffect(() => {
-    getAllCartApi.request(currentId);
+    if (currentUser != null) {
+      getAllCartApi.request(currentUser.id);
+    }
   }, []);
 
   return (

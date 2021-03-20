@@ -5,10 +5,10 @@ import useClient from "./useClient";
 const useAuthApi = () => {
   const client = useClient();
 
-  const signIn = (email, pass) => client.api.post(`/signin`, { email, pass });
+  const signIn = (email, pass) => client.api.post(`/login`, { email, pass });
 
   const signUp = (name, email, pass) =>
-    client.api.post("/signup", { name, email, pass });
+    client.api.post("/register", { name, email, pass });
 
   const getClientByEmail = email => client.api.get(`/client/email/${email}`);
 

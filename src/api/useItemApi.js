@@ -36,9 +36,9 @@ const useItemApi = () => {
 
   const getAllItem = () => client.api.get("/items");
 
-  const getStartItem = () => client.api.get("/items/start")
+  const getStartItem = () => client.api.get("/items/starting");
 
-  const getMoreItem = (id) => client.api.get(`/items/more/id/${id}`)
+  const getMoreItem = id => client.api.get(`/items/more/id/${id}`);
 
   const getAllItemByCategory = category =>
     client.api.get(`items/category/${category}`);
