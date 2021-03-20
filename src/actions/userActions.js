@@ -1,13 +1,13 @@
 import userConstants from "../constants/userConstants";
 
-export const login = (id, name) => {
+export const loginAction = data => {
   return {
     type: userConstants.USER_LOGIN,
-    payload: { id, name }
+    payload: { data }
   };
 };
 
-export const logout = () => {
+export const logoutAction = () => {
   return {
     type: userConstants.USER_LOGOUT
   };

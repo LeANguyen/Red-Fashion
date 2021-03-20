@@ -8,9 +8,12 @@ import FormButton from "./form/FormButton";
 import FormLoader from "./form/FormLoader";
 import FormText from "./form/FormText";
 import FormButtonLoader from "./form/FormButtonLoader";
+import authStorage from "../auth/authStorage";
+import { useSelector } from "react-redux";
 
 const Card = ({ _item, _key }) => {
-  const currentId = localStorage.getItem("id");
+  const currentUser = useSelector(state => state.user.data);
+
   const history = useHistory();
   const cartItemApi = useCartItemApi();
 
@@ -101,8 +104,8 @@ const Card = ({ _item, _key }) => {
   };
 
   useEffect(() => {
-    if (currentId != null) {
-      getItemFromCurrentCartByItemIdExtraHandling(currentId, _item.id);
+    if (currentUser != null) {
+      getItemFromCurrentCartByItemIdExtraHandling(currentUser.id, _item.id);
     }
   }, []);
 
@@ -172,14 +175,14 @@ const Card = ({ _item, _key }) => {
           )}
           {getItemFromCurrentCartByItemIdApi.success && (
             <>
-              {currentId !== null && !itemInCart && (
+              {currentUser !== null && !itemInCart && (
                 <FormButton
                   _text="Add to Cart"
                   _variant="success"
                   _loading={addItemIntoCurrentCartApi.isLoading}
                   _onClick={() =>
                     addItemIntoCurrentCartExtraHandling(
-                      currentId,
+                      currentUser.id,
                       _item.id,
                       quantity
                     )
@@ -193,26 +196,29 @@ const Card = ({ _item, _key }) => {
                 _loading={updateItemQuantityFromCurrentCartApi.isLoading}
                 _onClick={() =>
                   updateItemQuantityFromCurrentExtraHandling(
-                    currentId,
+                    currentUser.id,
                     _item.id,
                     quantity
                   )
                 }
               ></FormButton>
-              {currentId !== null && itemInCart && (
+              {currentUser !== null && itemInCart && (
                 <FormButton
                   _text="Remove from Cart"
                   _variant="danger"
                   _loading={deleteItemFromCurrentCartApi.isLoading}
                   _onClick={() =>
-                    deleteItemFromCurrentCartExtraHandling(currentId, _item.id)
+                    deleteItemFromCurrentCartExtraHandling(
+                      currentUser.id,
+                      _item.id
+                    )
                   }
                 ></FormButton>
               )}
             </>
           )}
         </div>
-        {currentId === null && (
+        {currentUser === null && (
           <>
             <FormText
               _variant="muted"
