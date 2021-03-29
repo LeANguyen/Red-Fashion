@@ -1,8 +1,7 @@
 import userConstants from "../constants/userConstants";
 
 const initialState = {
-  id: "",
-  name: ""
+  data: null
 };
 
 const userReducer = (state = initialState, action) => {
@@ -10,15 +9,13 @@ const userReducer = (state = initialState, action) => {
     case userConstants.USER_LOGIN: {
       return {
         ...state,
-        id: action.payload.id,
-        name: action.payload.name
+        data: action.payload.data
       };
     }
     case userConstants.USER_LOGOUT: {
       return {
         ...state,
-        id: "",
-        name: ""
+        data: null
       };
     }
     default:

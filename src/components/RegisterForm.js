@@ -9,6 +9,8 @@ import FormButton from "./form/FormButton";
 import FormCheckbox from "./form/FormCheckbox";
 import FormText from "./form/FormText";
 import FormLoader from "./form/FormLoader";
+import authStorage from "../auth/authStorage";
+import useAuth from "../auth/useAuth";
 
 const RegisterForm = () => {
   const history = useHistory();
@@ -25,6 +27,8 @@ const RegisterForm = () => {
   const [pass, setPass] = useState("");
   const [passConfirm, setPassConfirm] = useState("");
   const [policyAgree, setPolicyAgree] = useState(false);
+
+  const auth = useAuth();
 
   const checkForm = () => {
     if (name == "") {
@@ -76,8 +80,7 @@ const RegisterForm = () => {
     if (response.ok) {
       if (response.data.length !== 0) {
         alert("Login Success");
-        localStorage.setItem("id", response.data[0].id);
-        localStorage.setItem("name", response.data[0].name);
+        auth.login(response.data);
         createCartExtraHandling();
       } else {
         alert("Wrong name or password");

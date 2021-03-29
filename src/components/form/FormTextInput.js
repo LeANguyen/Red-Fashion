@@ -4,7 +4,8 @@ const FormTextInput = ({
   _placeHolder,
   _onChange,
   _inputType = "text",
-  _iconName
+  _iconName,
+  _value
 }) => {
   return (
     <div className="form-group">
@@ -21,6 +22,7 @@ const FormTextInput = ({
             className="form-control"
             placeholder={_placeHolder}
             onChange={_onChange}
+            value={_value}
           ></input>
         )}
         {_inputType === "number" && (
@@ -31,6 +33,7 @@ const FormTextInput = ({
             max="9999"
             min="1"
             onChange={_onChange}
+            value={_value}
           ></input>
         )}
       </div>

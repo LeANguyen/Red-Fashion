@@ -16,9 +16,9 @@ import Container from "../components/Container";
 import FormLoader from "../components/form/FormLoader";
 import FormText from "../components/form/FormText";
 
-const CartScreen = ({ match }) => {
-  const currentId = localStorage.getItem("id");
+const CartPage = ({ match }) => {
   const cartData = useSelector(state => state.cart.data);
+  const currentUser = useSelector(state => state.user.data);
   const dispatch = useDispatch();
 
   const id = match.params.id;
@@ -58,7 +58,9 @@ const CartScreen = ({ match }) => {
     if (match.params && match.params.id) {
       getAllItemByCartIdExtraHandling(id);
     } else {
-      getAllItemFromCurrentCartApiExtraHandling(currentId);
+      if (currentUser != null) {
+        getAllItemFromCurrentCartApiExtraHandling(currentUser.id);
+      }
     }
   }, []);
 
@@ -107,4 +109,4 @@ const CartScreen = ({ match }) => {
   );
 };
 
-export default CartScreen;
+export default CartPage;
