@@ -5,7 +5,7 @@ import useApi from "../hooks/useApi";
 
 import ItemDetailContainer from "../components/ItemDetailContainer";
 
-const ItemDetailScreen = ({ match }) => {
+const ItemDetailPage = ({ match }) => {
   const id = match.params.id;
   const itemApi = useItemApi();
   const getItemByIdApi = useApi(itemApi.getItemById);
@@ -31,4 +31,4 @@ const ItemDetailScreen = ({ match }) => {
   );
 };
 
-export default ItemDetailScreen;
+export default ItemDetailPage;

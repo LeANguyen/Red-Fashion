@@ -8,7 +8,7 @@ import useApi from "../hooks/useApi";
 import FormLoader from "../components/form/FormLoader";
 import FormButton from "../components/form/FormButton";
 
-const HomeScreen = () => {
+const HomePage = () => {
   const [currentItemId, setCurrentItemId] = useState();
   const [cardList, setCardList] = useState([]);
   const [endOfList, setEndOfList] = useState(false);
@@ -99,4 +99,4 @@ const HomeScreen = () => {
   );
 };
 
-export default HomeScreen;
+export default HomePage;

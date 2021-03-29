@@ -6,8 +6,8 @@ const useClient = () => {
   const pass = "supersecret";
   const api = create({
     // aaa
-    baseURL: "https://red-fashion-backend.herokuapp.com",
-    // baseURL: "http://localhost:3000",
+    // baseURL: "https://red-fashion-backend.herokuapp.com",
+    baseURL: "http://localhost:3000",
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",

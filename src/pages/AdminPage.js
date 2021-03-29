@@ -6,7 +6,7 @@ import useApi from "../hooks/useApi";
 import CartTableItem from "../components/table/CartTableItem";
 import AdminTableItem from "../components/table/AdminTableItem";
 
-const AdminScreen = () => {
+const AdminPage = () => {
   const itemApi = useItemApi();
   const getAllItemApi = useApi(itemApi.getAllItem);
 
@@ -202,4 +202,4 @@ const AdminScreen = () => {
   );
 };
 
-export default AdminScreen;
+export default AdminPage;
