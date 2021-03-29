@@ -16,7 +16,7 @@ import Container from "../components/Container";
 import FormLoader from "../components/form/FormLoader";
 import FormText from "../components/form/FormText";
 
-const CartScreen = ({ match }) => {
+const CartPage = ({ match }) => {
   const cartData = useSelector(state => state.cart.data);
   const currentUser = useSelector(state => state.user.data);
   const dispatch = useDispatch();
@@ -109,4 +109,4 @@ const CartScreen = ({ match }) => {
   );
 };
 
-export default CartScreen;
+export default CartPage;

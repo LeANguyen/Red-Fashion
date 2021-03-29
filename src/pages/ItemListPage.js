@@ -5,7 +5,8 @@ import useItemApi from "../api/useItemApi";
 import useApi from "../hooks/useApi";
 import FormLoader from "../components/form/FormLoader";
 import FormText from "../components/form/FormText";
-const ItemListScreen = ({ match }) => {
+
+const ItemListPage = ({ match }) => {
   const category = match.params.category;
   const itemApi = useItemApi();
   const getAllItemByCategoryApi = useApi(itemApi.getAllItemByCategory);
@@ -33,4 +34,4 @@ const ItemListScreen = ({ match }) => {
   );
 };
 
-export default ItemListScreen;
+export default ItemListPage;
