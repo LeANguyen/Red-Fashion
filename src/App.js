@@ -6,12 +6,12 @@ import CartPage from "./pages/CartPage";
 import ItemListPage from "./pages/ItemListPage";
 import PurchaseHistoryScreen from "./pages/PurchaseHistoryScreen";
 import AdminPage from "./pages/AdminPage";
-import SignScreen from "./pages/SignScreen";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import authStorage from "./auth/authStorage";
 import { loginAction } from "./actions/userActions";
 import ItemDetailPage from "./pages/ItemDetailPage";
+import useLink from "./hooks/useLink";
 
 function App() {
   const dispatch = useDispatch();
@@ -21,6 +21,10 @@ function App() {
     if (!user) return;
     dispatch(loginAction(user));
   };
+
+  useLink(
+    "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+  );
 
   useEffect(() => {
     restoreUser();
@@ -35,7 +39,6 @@ function App() {
         <Route exact path="/item_detail/:id" component={ItemDetailPage}></Route>
         <Route exact path="/cart/:id?" component={CartPage}></Route>
         <Route exact path="/history" component={PurchaseHistoryScreen}></Route>
-        <Route exact path="/sign" component={SignScreen}></Route>
       </Switch>
     </Router>
   );

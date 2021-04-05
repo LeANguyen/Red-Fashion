@@ -1,13 +1,12 @@
 import React, { useEffect } from "react";
-import Screen from "../components/Screen";
 import no_image from "../assets/no_image.jpg";
-import useItemApi from "../api/useItemApi";
+import itemApi from "../api/itemApi";
 import useApi from "../hooks/useApi";
 import CartTableItem from "../components/table/CartTableItem";
 import AdminTableItem from "../components/table/AdminTableItem";
+import Page from "../components/temp/Page";
 
 const AdminPage = () => {
-  const itemApi = useItemApi();
   const getAllItemApi = useApi(itemApi.getAllItem);
 
   useEffect(() => {
@@ -15,7 +14,7 @@ const AdminPage = () => {
   }, []);
 
   return (
-    <Screen>
+    <Page>
       <div class="row m-md-5 p-4 bg-white rounded shadow-lg">
         <div class="col-md-12">
           <div
@@ -198,7 +197,7 @@ const AdminPage = () => {
           ></Table> */}
         </div>
       </div>
-    </Screen>
+    </Page>
   );
 };
 

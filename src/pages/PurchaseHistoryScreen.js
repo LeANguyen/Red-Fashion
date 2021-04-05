@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
-import Screen from "../components/Screen";
-import useCartApi from "../api/useCartApi";
+import useCartApi from "../api/cartApi";
 import useApi from "../hooks/useApi";
 import DataTable from "../components/table/DataTable";
 import PurchaseHistoryTableItem from "../components/table/PurchaseHistoryTableItem";
 import Container from "../components/Container";
 import { useSelector } from "react-redux";
+import Page from "../components/temp/Page";
 
 const PurchaseHistoryScreen = () => {
   const cartApi = useCartApi();
@@ -19,7 +19,7 @@ const PurchaseHistoryScreen = () => {
   }, []);
 
   return (
-    <Screen>
+    <Page>
       <Container>
         {getAllCartApi.isLoading && (
           <p className="text text-info text-center">Fetching Data...</p>
@@ -39,7 +39,7 @@ const PurchaseHistoryScreen = () => {
           ></DataTable>
         )}
       </Container>
-    </Screen>
+    </Page>
   );
 };
 

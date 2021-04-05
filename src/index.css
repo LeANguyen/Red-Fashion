@@ -12,18 +12,6 @@ code {
     monospace;
 }
 
-h1 {
-  color: goldenrod;
-}
-
-body {
-  background: #eecda3;
-  /* background: -webkit-linear-gradient(to right, skyblue, palevioletred); */
-  background: linear-gradient(to right, goldenrod, palevioletred);
-  min-height: 100vh;
-  align-content: center;
-}
-
 .card-columns {
   @include media-breakpoint-only(xl) {
     column-count: 5;
@@ -42,8 +30,6 @@ body {
   }
 }
 
-.card-body-style {
-  text-align: left;
-  /* background-color: #555; */
-  /* border: thick white solid; */
+a:hover {
+  cursor: pointer;
 }

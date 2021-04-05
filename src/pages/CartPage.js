@@ -1,6 +1,4 @@
 import React, { useEffect } from "react";
-import Screen from "../components/Screen";
-import useCartItemApi from "../api/useCartItemApi";
 import useApi from "../hooks/useApi";
 import DataTable from "../components/table/DataTable";
 import CartTableItem from "../components/table/CartTableItem";
@@ -13,8 +11,9 @@ import { setData, initEditedList, setTotalPrice } from "../actions/cartActions";
 
 import CartReadOnlyTableItem from "../components/table/CartReadOnlyTableItem";
 import Container from "../components/Container";
-import FormLoader from "../components/form/FormLoader";
-import FormText from "../components/form/FormText";
+import cartItemApi from "../api/cartItemApi";
+import AppLoader from "../components/common/AppLoader";
+import Page from "../components/temp/Page";
 
 const CartPage = ({ match }) => {
   const cartData = useSelector(state => state.cart.data);
@@ -23,14 +22,14 @@ const CartPage = ({ match }) => {
 
   const id = match.params.id;
 
-  const cartItemApi = useCartItemApi();
-  const getAllItemFromCurrentCartApi = useApi(
-    cartItemApi.getAllItemFromCurrentCart
+  const getItemsFromCurrentCartApi = useApi(
+    cartItemApi.getItemsFromCurrentCart
   );
-  const getAllItemByCartIdApi = useApi(cartItemApi.getAllItemByCartId);
 
-  const getAllItemFromCurrentCartApiExtraHandling = async clientId => {
-    const response = await getAllItemFromCurrentCartApi.request(clientId);
+  const getItemsByCartIdApi = useApi(cartItemApi.getItemsByCartId);
+
+  const getItemsFromCurrentCartHandling = async clientId => {
+    const response = await getItemsFromCurrentCartApi.request(clientId);
     if (response.ok) {
       dispatch(setData(response.data));
       dispatch(initEditedList(response.data.length));
@@ -42,8 +41,8 @@ const CartPage = ({ match }) => {
     }
   };
 
-  const getAllItemByCartIdExtraHandling = async cartId => {
-    const response = await getAllItemByCartIdApi.request(cartId);
+  const getItemsByCartIdHandling = async cartId => {
+    const response = await getItemsByCartIdApi.request(cartId);
     if (response.ok) {
       dispatch(setData(response.data));
       let totalPrice = 0;
@@ -56,25 +55,24 @@ const CartPage = ({ match }) => {
 
   useEffect(() => {
     if (match.params && match.params.id) {
-      getAllItemByCartIdExtraHandling(id);
+      getItemsByCartIdHandling(id);
     } else {
-      if (currentUser != null) {
-        getAllItemFromCurrentCartApiExtraHandling(currentUser.id);
+      if (currentUser !== null) {
+        getItemsFromCurrentCartHandling(currentUser.id);
       }
     }
   }, []);
 
   return (
-    <Screen>
+    <Page>
       <Container>
-        {(getAllItemFromCurrentCartApi.isLoading ||
-          getAllItemByCartIdApi.isLoading) && (
+        {(getItemsFromCurrentCartApi.isLoading ||
+          getItemsByCartIdApi.isLoading) && (
           <>
-            <FormLoader></FormLoader>
-            <FormText _text="Fetching Data..." _variant="info"></FormText>
+            <AppLoader></AppLoader>
           </>
         )}
-        {getAllItemFromCurrentCartApi.success && cartData.length !== 0 && (
+        {getItemsFromCurrentCartApi.success && cartData.length !== 0 && (
           <DataTable
             _id="cartTable"
             _data={cartData}
@@ -82,7 +80,7 @@ const CartPage = ({ match }) => {
             _component={CartTableItem}
           ></DataTable>
         )}
-        {getAllItemByCartIdApi.success && cartData.length !== 0 && (
+        {getItemsByCartIdApi.success && cartData.length !== 0 && (
           <DataTable
             _id="cartReadOnlyTable"
             _data={cartData}
@@ -92,20 +90,20 @@ const CartPage = ({ match }) => {
         )}
       </Container>
 
-      {getAllItemFromCurrentCartApi.success && (
+      {getItemsFromCurrentCartApi.success && (
         <Container>
           <CheckoutForm></CheckoutForm>
         </Container>
       )}
 
-      {getAllItemByCartIdApi.success && (
+      {getItemsByCartIdApi.success && (
         <Container>
           <CheckoutDisplay
-            _data={getAllItemByCartIdApi.data[0]}
+            _data={getItemsByCartIdApi.data[0]}
           ></CheckoutDisplay>
         </Container>
       )}
-    </Screen>
+    </Page>
   );
 };
 

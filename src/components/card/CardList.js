@@ -1,10 +1,10 @@
 import React from "react";
-import Card from "./Card";
-const CardList = ({ _data = [] }) => {
+
+const CardList = ({ _data = [], _component }) => {
   return (
     <div className="card-columns">
       {_data.map((item, i) => {
-        return <Card _item={item} _key={i}></Card>;
+        return <_component _item={item} _key={i}></_component>;
       })}
     </div>
   );
