@@ -5,11 +5,10 @@ const SocialMediaButton = ({ _iconName, _href }) => {
     <a
       target="_blank"
       href={_href}
-      className={
-        "bg-white text-dark text-decoration-none border rounded p-2 m-4 fa fa-2x fa-" +
-        _iconName
-      }
-    ></a>
+      className={"bg-light text-dark border rounded p-2"}
+    >
+      <i className={"fa fa-2x fa-" + _iconName}></i>
+    </a>
   );
 };
 

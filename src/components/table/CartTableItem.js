@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import useCartItemApi from "../../api/useCartItemApi";
+import cartItemApi from "../../api/cartItemApi";
 import useApi from "../../hooks/useApi";
 import {
   setTotalPrice,
@@ -11,14 +11,12 @@ import {
   removeItem,
   setEditedList
 } from "../../actions/cartActions";
-import FormButton from "../form/FormButton";
+import AppButton from "../common/AppButton";
 
 const CartTableItem = ({ _item, _key }) => {
   const currentUser = useSelector(state => state.user.data);
   const dispatch = useDispatch();
   const editedList = useSelector(state => state.cart.editedList);
-
-  const cartItemApi = useCartItemApi();
 
   const deleteItemFromCurrentCartApi = useApi(
     cartItemApi.deleteItemFromCurrentCart
@@ -125,7 +123,7 @@ const CartTableItem = ({ _item, _key }) => {
         <strong>{"$" + _item.price * _item.quantity}</strong>
       </td>
       <td className="align-middle">
-        <FormButton
+        <AppButton
           _text="Update"
           _hidden={!editedList[_key]}
           _variant="warning"
@@ -138,14 +136,10 @@ const CartTableItem = ({ _item, _key }) => {
               _key
             )
           }
-        ></FormButton>
-        <FormButton
-          _text="Remove"
+        ></AppButton>
+        <AppButton
           _variant="danger"
-          // _disabled={
-          //   updateItemQuantityFromCurrentCartApi.isLoading ||
-          //   deleteItemFromCurrentCartApi.isLoading
-          // }
+          _iconName="trash"
           _loading={deleteItemFromCurrentCartApi.isLoading}
           _onClick={() =>
             deleteItemFromCurrentCartExtraHandling(
@@ -154,7 +148,7 @@ const CartTableItem = ({ _item, _key }) => {
               _key
             )
           }
-        ></FormButton>
+        ></AppButton>
       </td>
     </tr>
   );

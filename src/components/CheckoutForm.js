@@ -1,19 +1,16 @@
 import React, { useState } from "react";
-import useCartApi from "../api/useCartApi";
+import cartApi from "../api/cartApi";
 import useApi from "../hooks/useApi";
 import { useHistory } from "react-router-dom";
 
 import { useSelector, useDispatch } from "react-redux";
-import FormHeader from "./form/FormHeader";
-import FormTextInput from "./form/FormTextInput";
-import FormButton from "./form/FormButton";
-import FormUnderline from "./form/FormUnderline";
-import FormLoader from "./form/FormLoader";
+import AppTextInput from "./common/AppInput";
+import AppLoader from "./common/AppLoader";
+import AppButton from "./common/AppButton";
 
 const CheckoutForm = () => {
   const history = useHistory();
   const totalPrice = useSelector(state => state.cart.totalPrice);
-  const cartApi = useCartApi();
   const createCartApi = useApi(cartApi.createCart);
   const updateCartApi = useApi(cartApi.updateCart);
 
@@ -63,7 +60,7 @@ const CheckoutForm = () => {
       getCurrentDateTime()
     );
     if (!response.ok) {
-      alert("There is a connection error 111. Please try again");
+      alert("There is a connection error !!!. Please try again");
     } else {
       createCart();
     }
@@ -83,54 +80,52 @@ const CheckoutForm = () => {
   return (
     <div className="row">
       <div className="col-lg-6">
-        <FormHeader _text="Shipping Information"></FormHeader>
+        <h5 _text="Shipping Information"></h5>
         <div className="p-4">
           <form>
-            <FormTextInput
+            <AppTextInput
               _iconName="user"
               _inputType="text"
               _placeHolder="Receiver's Name"
               _onChange={event => setClientName(event.target.value)}
-            ></FormTextInput>
+            ></AppTextInput>
 
-            <FormTextInput
+            <AppTextInput
               _iconName="map-marker"
               _inputType="text"
               _placeHolder="Address"
               _onChange={event => setAddress(event.target.value)}
-            ></FormTextInput>
+            ></AppTextInput>
 
-            <FormTextInput
+            <AppTextInput
               _iconName="phone"
               _inputType="text"
               _placeHolder="Phone Number"
               _onChange={event => setPhone(event.target.value)}
-            ></FormTextInput>
+            ></AppTextInput>
           </form>
         </div>
       </div>
 
       <div className="col-lg-6">
-        <FormHeader _text="Order Summary"></FormHeader>
+        <h4>"Order Summary"</h4>
         <div className="p-4">
           <ul className="list-unstyled">
-            <FormUnderline>
-              <strong className="text-muted">Total</strong>
-              <strong>{"$" + totalPrice}</strong>
-            </FormUnderline>
+            <strong className="text-muted">Total</strong>
+            <strong>{"$" + totalPrice}</strong>
           </ul>
           {(updateCartApi.isLoading || createCartApi.isLoading) && (
             <>
-              <FormLoader></FormLoader>
+              <AppLoader></AppLoader>
               <p className="text-info text-center">Please Wait...</p>
             </>
           )}
-          <FormButton
+          <AppButton
             _variant="info"
             _text="Procceed to Checkout"
             _disabled={updateCartApi.isLoading || createCartApi.isLoading}
             _onClick={() => checkValidOnCheckOut()}
-          ></FormButton>
+          ></AppButton>
         </div>
       </div>
     </div>

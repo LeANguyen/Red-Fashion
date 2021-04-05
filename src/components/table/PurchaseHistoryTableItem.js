@@ -1,6 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import FormButton from "../form/FormButton";
+import AppButton from "../common/AppButton";
 
 const PurchaseHistoryTableItem = ({ _item, _key }) => {
   const history = useHistory();
@@ -19,11 +19,11 @@ const PurchaseHistoryTableItem = ({ _item, _key }) => {
         <strong class="text-muted">{_item.phone}</strong>
       </td>
       <td class="align-middle">
-        <FormButton
+        <AppButton
           _text="Detail"
           _onClick={() => history.push("/cart/" + _item.id)}
           _variant="info"
-        ></FormButton>
+        ></AppButton>
       </td>
     </tr>
   );

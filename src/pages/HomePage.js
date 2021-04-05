@@ -1,100 +1,104 @@
 import React, { useState, useEffect } from "react";
-import Screen from "../components/Screen";
-import Video from "../components/Video";
-import Carousel from "../components/Carousel";
-import CardList from "../components/CardList";
-import useItemApi from "../api/useItemApi";
+import CardList from "../components/card/CardList";
+import Page from "../components/temp/Page";
+
+import itemApi from "../api/itemApi";
 import useApi from "../hooks/useApi";
-import FormLoader from "../components/form/FormLoader";
-import FormButton from "../components/form/FormButton";
+import AppButton from "../components/common/AppButton";
+import AppLoader from "../components/common/AppLoader";
+import ItemCard from "../components/card/ItemCard";
+import AppCarousel from "../components/common/AppCarousel";
+
+import carousel1 from "../assets/1.jpg";
+import carousel2 from "../assets/2.jpeg";
+import carousel3 from "../assets/3.jpg";
+import ad from "../assets/ad.mp4";
+import Space from "../components/common/Space";
 
 const HomePage = () => {
-  const [currentItemId, setCurrentItemId] = useState();
-  const [cardList, setCardList] = useState([]);
-  const [endOfList, setEndOfList] = useState(false);
+  const [items, setItems] = useState([]);
 
-  const itemApi = useItemApi();
-  const getAllItemApi = useApi(itemApi.getAllItem);
-  const getStartItemApi = useApi(itemApi.getStartItem);
-  const getMoreItemApi = useApi(itemApi.getMoreItem);
+  const getItemsApi = useApi(itemApi.getItems);
 
-  const getStartItemApiExtraHandling = async () => {
-    const response = await getStartItemApi.request();
+  const getItemsHandling = async (skip, limit) => {
+    const newItems = [...items];
+    const response = await getItemsApi.request(skip, limit);
     if (response.ok) {
-      setCurrentItemId(response.data[response.data.length - 1].id);
-      setCardList(response.data);
-    }
-  };
-
-  const getMoreItemApiExtraHandling = async id => {
-    const response = await getMoreItemApi.request(id);
-    if (response.ok) {
-      if (response.data.length == 0) {
-        setEndOfList(true);
-      } else {
-        let newCardList = [...cardList];
-        newCardList = newCardList.concat([...response.data]);
-        setCurrentItemId(response.data[response.data.length - 1].id);
-        setCardList(newCardList);
-      }
+      setItems(newItems.concat(response.data));
     }
   };
 
   useEffect(() => {
-    getStartItemApiExtraHandling();
+    getItemsHandling(items.length, 1);
   }, []);
 
   return (
     <div>
-      <Screen>
-        <Carousel></Carousel>
-        <div className="bg-dark py-5 px-lg-5">
-          <h1 className="text-center">LATEST PRODUCT</h1>
-          {cardList !== [] && (
+      <Page>
+        {/* banner carousel */}
+        <AppCarousel
+          _id="banner"
+          _images={[carousel1, carousel2, carousel3]}
+        ></AppCarousel>
+
+        {/* item card list */}
+        <div className="container">
+          <br></br>
+          <br></br>
+          <h2 className="text-center text-info font-weight-bold">
+            LATEST<Space></Space>
+            <Space></Space>ITEMS
+          </h2>
+          {getItemsApi.success && items.length !== 0 && (
             <>
-              <CardList _data={cardList}></CardList>
-              <FormButton
+              <CardList _data={items} _component={ItemCard}></CardList>
+              <AppButton
                 _text="Load More"
                 _variant="info"
                 _onClick={() => {
-                  getMoreItemApiExtraHandling(currentItemId);
+                  getItemsHandling(items.length, 1);
                 }}
-              ></FormButton>
+                _block
+              ></AppButton>
             </>
           )}
-          {(getStartItemApi.isLoading || getMoreItemApi.isLoading) && (
-            <>
-              <FormLoader></FormLoader>
-              <p className="text text-info text-center">Fetching Data...</p>
-            </>
-          )}
+          {getItemsApi.loading && <AppLoader></AppLoader>}
+          <br></br>
+          <br></br>
         </div>
 
-        <div className="row p-5">
-          <div className="col-lg-8">
-            <Video></Video>
-          </div>
-          <div className="col-lg-4 bg-dark shadow-lg rounded text-white">
-            <div className="bg-light rounded-bottom">
-              <h1 className="text-center" style={{ color: "palevioletred" }}>
-                About Us
-              </h1>
+        {/* About us section */}
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-8">
+              <video width="100%" height="100%" controls className="rounded">
+                <source src={ad} type="video/mp4"></source>
+                Your browser does not support the video tag.
+              </video>
             </div>
-            <p>
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book. It has
-              survived not only five centuries, but also the leap into
-              electronic typesetting, remaining essentially unchanged. It was
-              popularised in the 1960s with the release of Letraset sheets
-              containing Lorem Ipsum passages, and more recently with desktop
-              publishing software like Aldus PageMaker including versions of
-              Lorem Ipsum.
-            </p>
+            <div className="col-lg-4 bg-dark rounded shadow-lg">
+              <div className="bg-light rounded-bottom py-1">
+                <h4 className="text-center text-danger">About Us</h4>
+              </div>
+              <br></br>
+              <p className="text-light">
+                Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry. Lorem Ipsum has been the industry's standard dummy
+                text ever since the 1500s, when an unknown printer took a galley
+                of type and scrambled it to make a type specimen book. It has
+                survived not only five centuries, but also the leap into
+                electronic typesetting, remaining essentially unchanged. It was
+                popularised in the 1960s with the release of Letraset sheets
+                containing Lorem Ipsum passages, and more recently with desktop
+                publishing software like Aldus PageMaker including versions of
+                Lorem Ipsum.
+              </p>
+            </div>
           </div>
+          <br></br>
+          <br></br>
         </div>
-      </Screen>
+      </Page>
     </div>
   );
 };

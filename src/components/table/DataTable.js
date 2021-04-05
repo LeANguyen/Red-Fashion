@@ -1,49 +1,32 @@
-import React, { useState, useEffect } from "react";
-import TableHeader from "./TableHeader";
+import React, { useState } from "react";
+import AppPagination from "./AppPagination";
+import Table from "./Table";
+import settings from "../../config/settings";
 
-import "datatables.net-dt/js/dataTables.dataTables";
-import "datatables.net-dt/css/jquery.dataTables.min.css";
-import $ from "jquery";
-
-// const $ = require("jquery");
-// $.DataTable = require("datatables.net");
-
-const DataTable = ({ _data, _headers = [], _component, _id }) => {
-  const reloadTableData = data => {
-    // const table = $(".data-table-wrapper")
-    //   .find("table")
-    //   .DataTable();
-    // table.clear();
-    // table.rows.add(data);
-    // table.draw();
-
-    const table = $("#dataTable").DataTable();
-    table.clear();
-    // table.ajax.reload(data, true);
-    // table.clear();
-    // table.rows.add(data);
-    table.draw();
-    // table.clear();
-  };
-
-  useEffect(() => {
-    $("#" + _id).DataTable();
-  }, []);
+const DataTable = ({ _data, _headers = [], _component }) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const perPage = settings.perPage;
+  // logic for filter the data to be displayed
+  const indexOfLastItem = currentPage * perPage;
+  const indexOfFirstItem = indexOfLastItem - perPage;
+  const currentItems = _data.slice(indexOfFirstItem, indexOfLastItem);
 
   return (
-    <div className="table-responsive">
-      <table id={_id} className="table">
-        <thead>
-          <TableHeader _headers={_headers}></TableHeader>
-        </thead>
+    <>
+      <Table
+        _component={_component}
+        _data={currentItems}
+        _headers={_headers}
+      ></Table>
 
-        <tbody>
-          {_data.map((item, i) => {
-            return <_component _item={item} _key={i}></_component>;
-          })}
-        </tbody>
-      </table>
-    </div>
+      {/* pagination */}
+      <AppPagination
+        _totalItemsCount={_data.length}
+        _perPage={perPage}
+        _activePage={currentPage}
+        _onChange={n => setCurrentPage(n)}
+      ></AppPagination>
+    </>
   );
 };
 
