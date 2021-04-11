@@ -2,7 +2,6 @@ import React from "react";
 import AppLoader from "./AppLoader";
 import Space from "./Space";
 import colors from "../../config/colors";
-import "./Button.css";
 
 const Button = ({
   children,

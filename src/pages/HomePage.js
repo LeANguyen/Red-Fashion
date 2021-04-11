@@ -14,8 +14,7 @@ import carousel2 from "../assets/2.jpeg";
 import carousel3 from "../assets/3.jpg";
 import ad from "../assets/ad.mp4";
 import Space from "../components/common/Space";
-import AppCss from "../App.module.css";
-
+import colors from "../config/colors";
 const HomePage = () => {
   const [items, setItems] = useState([]);
 
@@ -43,29 +42,35 @@ const HomePage = () => {
         ></AppCarousel>
 
         {/* item card list */}
-        <div className="container">
-          <br></br>
-          <br></br>
-          <h2 className="text-center text-info font-weight-bold">
-            LATEST<Space></Space>
-            <Space></Space>ITEMS
-          </h2>
-          {getItemsApi.success && items.length !== 0 && (
-            <>
-              <CardList _data={items} _component={ItemCard}></CardList>
-              <Button
-                _text="Load More"
-                _variant="info"
-                _onClick={() => {
-                  getItemsHandling(items.length, 1);
-                }}
-                _block
-              ></Button>
-            </>
-          )}
-          {getItemsApi.loading && <AppLoader></AppLoader>}
-          <br></br>
-          <br></br>
+        <div style={{ backgroundColor: colors.dark }}>
+          <div className="container">
+            <br></br>
+            <br></br>
+            <h2
+              className="text-orange text-center"
+              style={{ fontWeight: "bold" }}
+            >
+              LATEST ITEMS
+            </h2>
+            {getItemsApi.success && items.length !== 0 && (
+              <>
+                <CardList _data={items} _component={ItemCard}></CardList>
+                <br></br>
+                <Button
+                  _onClick={() => {
+                    getItemsHandling(items.length, 1);
+                  }}
+                  _block
+                  _className={`btn-orange btn-block`}
+                >
+                  Load More
+                </Button>
+              </>
+            )}
+            {getItemsApi.loading && <AppLoader></AppLoader>}
+            <br></br>
+            <br></br>
+          </div>
         </div>
 
         {/* About us section */}

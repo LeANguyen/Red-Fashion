@@ -1,0 +1,72 @@
+@import "../styles/config.scss";
+
+$colors: (
+  blue: $blue,
+  indigo: $indigo,
+  purple: $purple,
+  pink: $pink,
+  red: $red,
+  orange: $orange,
+  yellow: $yellow,
+  green: $green,
+  teal: $teal,
+  cyan: $cyan
+);
+
+.btn {
+  font-weight: bold;
+  height: 44px;
+  border-radius: 22px;
+  border: none;
+  padding: 0 25px;
+}
+
+@mixin color($color) {
+  @extend .btn;
+  color: $white;
+  background-color: $color;
+  box-shadow: $shadow-1 $color, $shadow-2 $color;
+  filter: brightness(95%);
+}
+
+@mixin color-hover($color) {
+  filter: brightness(105%);
+  box-shadow: $shadow-1 $color, $shadow-2 $color, $shadow-3 $color,
+    $shadow-4 $color;
+}
+
+@mixin color-outline($color) {
+  @extend .btn;
+  color: $color;
+  background-color: transparent;
+  border: 2px solid $color;
+  box-shadow: $shadow-1 $color, $shadow-2 $color, inset $shadow-1 $color,
+    inset $shadow-2 $color;
+  text-shadow: $shadow-1 $color, $shadow-2 $color;
+}
+
+@mixin color-outline-hover($color) {
+  color: $white;
+  background-color: $color;
+  box-shadow: $shadow-1 $color, $shadow-2 $color, $shadow-3 $color,
+    $shadow-4 $color;
+}
+
+@each $c-name, $color in $colors {
+  .btn-#{$c-name} {
+    @include color($color);
+  }
+  .btn-#{$c-name}:hover {
+    @include color-hover($color);
+  }
+  .btn-#{$c-name}:focus {
+    outline: none;
+  }
+  .btn-outline-#{$c-name} {
+    @include color-outline($color);
+  }
+  .btn-outline-#{$c-name}:focus {
+    @include color-outline-hover($color);
+    outline: none;
+  }
+}

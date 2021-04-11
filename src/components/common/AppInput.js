@@ -1,5 +1,4 @@
 import React from "react";
-import InputCss from "./AppInput.css";
 
 const AppInput = ({
   _placeholder,

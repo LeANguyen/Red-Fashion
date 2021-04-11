@@ -7,11 +7,10 @@ import Button from "../common/Button";
 import AppInput from "../common/AppInput";
 import Space from "../common/Space";
 import ItemCardCss from "./ItemCard.module.scss";
-import TextCss from "../../styles/Text.module.scss";
-import ButtonCss from "../../styles/Button.module.scss";
+import AppLoader from "../common/AppLoader";
 
 const ItemCard = ({ _item, _key }) => {
-  const currentUser = useSelector(state => state.user.data);
+  const user = useSelector(state => state.user.data);
 
   const history = useHistory();
   const getItemFromCurrentCartByItemIdApi = useApi(
@@ -98,8 +97,8 @@ const ItemCard = ({ _item, _key }) => {
   };
 
   useEffect(() => {
-    if (currentUser != null) {
-      getItemFromCurrentCartByItemIdExtraHandling(currentUser.id, _item.id);
+    if (user != null) {
+      getItemFromCurrentCartByItemIdExtraHandling(user.id, _item.id);
     }
   }, []);
 
@@ -117,38 +116,38 @@ const ItemCard = ({ _item, _key }) => {
 
       {/* card body */}
       <div className="card-body">
-        <li class="d-flex justify-content-between py-3 border-bottom">
-          <strong className={TextCss["pink"]}>
+        <li className={`${ItemCardCss["divider"]}`}>
+          <strong className="text-pink">
             <i className="fa fa-black-tie">
               <Space></Space>
               <Space></Space>
             </i>
             Category
           </strong>
-          <strong>{_item.category}</strong>
+          <strong className="text-pink-w">{_item.category}</strong>
         </li>
-        <li class="d-flex justify-content-between py-3 border-bottom">
-          <strong className={TextCss["yellow"]}>
+        <li className={`${ItemCardCss["divider"]}`}>
+          <strong className={"text-pink"}>
             <i className="fa fa-star">
               <Space></Space>
               <Space></Space>
             </i>
             Origin
           </strong>
-          <strong>{_item.origin}</strong>
+          <strong className="text-pink-w">{_item.origin}</strong>
         </li>
-        <li class="d-flex justify-content-between py-3 border-bottom">
-          <strong className={TextCss["yellow"]}>
+        <li className={`${ItemCardCss["divider"]}`}>
+          <strong className="text-pink">
             <i className="fa fa-money">
               <Space></Space>
               <Space></Space>
             </i>
             Price
           </strong>
-          <strong>{"$" + _item.price}</strong>
+          <strong className="text-pink-w">{"$" + _item.price}</strong>
         </li>
-        <li class="d-flex justify-content-between py-3 border-bottom align-items-center">
-          <strong className={TextCss["yellow"]}>
+        <li className={`${ItemCardCss["divider"]}`}>
+          <strong className="text-pink">
             <i className="fa fa-shopping-cart">
               <Space></Space>
               <Space></Space>
@@ -183,80 +182,91 @@ const ItemCard = ({ _item, _key }) => {
             ></AppInput>
           )}
         </li>
-        <br></br>
 
-        {/* buttons */}
-        <Button
-          _className={`${ButtonCss["orange"]} btn-block`}
-          _iconName="tags"
-        >
+        {/* item detail btn */}
+        <br></br>
+        <Button _className={`btn-teal btn-block`} _iconName="tags">
           Item Detail
         </Button>
-        <br></br>
-        {getItemFromCurrentCartByItemIdApi.loading && (
-          <Button
-            _block
-            _variant="dark"
-            _loading={getItemFromCurrentCartByItemIdApi.loading}
-          ></Button>
-        )}
+
+        {/* CRUD buttons */}
+        {getItemFromCurrentCartByItemIdApi.loading && <AppLoader></AppLoader>}
         {getItemFromCurrentCartByItemIdApi.success && (
           <>
-            {currentUser !== null && !itemInCart && (
-              <Button
-                _loading={addItemIntoCurrentCartApi.loading}
-                _onClick={() =>
-                  addItemIntoCurrentCartHandling(
-                    currentUser.id,
-                    _item.id,
-                    quantity
-                  )
-                }
-                _iconName="cart-plus"
-                _className={`${ButtonCss["orange"]} btn-block`}
-              >
-                Add to Cart
-              </Button>
+            {/* add item btn */}
+            {user !== null && !itemInCart && (
+              <>
+                <br></br>
+                <Button
+                  _loading={addItemIntoCurrentCartApi.loading}
+                  _onClick={() =>
+                    addItemIntoCurrentCartHandling(user.id, _item.id, quantity)
+                  }
+                  _iconName="cart-plus"
+                  _className={`btn-orange btn-block`}
+                >
+                  Add to Cart
+                </Button>
+              </>
             )}
-            <Button
-              _hidden={!itemInCart || !quantityEdited}
-              _loading={updateItemQuantityFromCurrentCartApi.loading}
-              _onClick={() =>
-                updateItemQuantityFromCurrentExtraHandling(
-                  currentUser.id,
-                  _item.id,
-                  quantity
-                )
-              }
-            >
-              Update
-            </Button>
-            {currentUser !== null && itemInCart && (
-              <Button
-                _loading={deleteItemFromCurrentCartApi.loading}
-                _onClick={() =>
-                  deleteItemFromCurrentCartExtraHandling(
-                    currentUser.id,
-                    _item.id
-                  )
-                }
-                _className={`${ButtonCss["pink"]}`}
-                _iconName="cart-arrow-down"
-              >
-                Remove from Cart
-              </Button>
+
+            {/* update btn */}
+            {itemInCart && quantityEdited && (
+              <>
+                <br></br>
+                <Button
+                  _loading={updateItemQuantityFromCurrentCartApi.loading}
+                  _onClick={() =>
+                    updateItemQuantityFromCurrentExtraHandling(
+                      user.id,
+                      _item.id,
+                      quantity
+                    )
+                  }
+                  _iconName="pencil"
+                  _className={`btn-orange btn-block`}
+                >
+                  Update
+                </Button>
+              </>
+            )}
+
+            {/* remove item btn */}
+            {user !== null && itemInCart && (
+              <>
+                <br></br>
+                <Button
+                  _loading={deleteItemFromCurrentCartApi.loading}
+                  _onClick={() =>
+                    deleteItemFromCurrentCartExtraHandling(user.id, _item.id)
+                  }
+                  _className={`btn-pink btn-block`}
+                  _iconName="cart-arrow-down"
+                >
+                  Remove from Cart
+                </Button>
+              </>
             )}
           </>
         )}
-        {currentUser === null && (
-          <>
-            <p className="text-muted">You have not login to save a cart</p>
+
+        {/* no user logged in */}
+        {user === null && (
+          <div className="text-center">
+            <br></br>
+            <strong className={"text-pink"}>
+              You have not login to save a cart
+            </strong>
+            <br></br>
+            <br></br>
             <Button
-              _text="Register"
-              _variant="success"
               _onClick={() => history.push("/sign")}
-            ></Button>
-          </>
+              _className={`btn-pink btn-block`}
+              _iconName="sign-in"
+            >
+              Login
+            </Button>
+          </div>
         )}
       </div>
     </div>

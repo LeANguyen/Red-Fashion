@@ -10,8 +10,7 @@ import $ from "jquery";
 import Space from "../common/Space";
 import AppDropdown from "../common/AppDropdown";
 import HeaderCss from "./Header.module.scss";
-import FooterCss from "./Header.module.scss";
-import TextCss from "../../styles/Text.module.scss";
+
 const Header = () => {
   const history = useHistory();
   const auth = useAuth();

@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import Space from "../common/Space";
 import { Link } from "react-router-dom";
 import FooterCss from "./Footer.module.scss";
-import TextCss from "../../styles/Text.module.scss";
 
 const mediaList = [
   {
@@ -40,11 +39,11 @@ const Footer = () => {
           <h2 className={FooterCss["title"]}>HELP</h2>
 
           {/* Delivery Information */}
-          <strong className={TextCss["yellow-w"]}>
+          <strong className={"text-yellow-w"}>
             <i className="fa fa-star"></i>
             <Space></Space>
             <Space></Space>
-            <Link className={TextCss["yellow-w"]} to="/">
+            <Link className={"text-yellow-w"} to="/">
               Delivery Information
             </Link>
           </strong>
@@ -52,11 +51,11 @@ const Footer = () => {
           <br></br>
 
           {/* Privacy Policy */}
-          <strong className={TextCss["yellow-w"]}>
+          <strong className={"text-yellow-w"}>
             <i className="fa fa-star"></i>
             <Space></Space>
             <Space></Space>
-            <Link className={TextCss["yellow-w"]} to="/">
+            <Link className={"text-yellow-w"} to="/">
               Privacy Policy
             </Link>
           </strong>
@@ -64,11 +63,11 @@ const Footer = () => {
           <br></br>
 
           {/* Terms of Service */}
-          <strong className={TextCss["yellow-w"]}>
+          <strong className={"text-yellow-w"}>
             <i className="fa fa-star"></i>
             <Space></Space>
             <Space></Space>
-            <Link className={TextCss["yellow-w"]} to="/">
+            <Link className={"text-yellow-w"} to="/">
               Terms of Service
             </Link>
           </strong>
@@ -91,40 +90,40 @@ const Footer = () => {
           <br></br>
           <h2 className={FooterCss["title"]}>BUSINESS</h2>
           <li className={FooterCss["media-container"]}>
-            <strong className={TextCss["yellow-w"]}>
+            <strong className={"text-yellow-w"}>
               <i className="fa fa-phone"></i>
               <Space></Space>
               <Space></Space>Contact Number:
             </strong>
-            <strong className={TextCss["yellow"]}>{"267-269-8815"}</strong>
+            <strong className={"text-yellow"}>{"267-269-8815"}</strong>
           </li>
           <br></br>
           <li className={FooterCss["media-container"]}>
-            <strong className={TextCss["yellow-w"]}>
+            <strong className={"text-yellow-w"}>
               <i className="fa fa-envelope"></i>
               <Space></Space>
               <Space></Space>Contact Email:
             </strong>
-            <strong className={TextCss["yellow"]}>Fashion@business.com</strong>
+            <strong className={"text-yellow"}>Fashion@business.com</strong>
           </li>
           <br></br>
           <li className={FooterCss["media-container"]}>
-            <strong className={TextCss["yellow-w"]}>
+            <strong className={"text-yellow-w"}>
               <i className="fa fa-clock-o"></i>
               <Space></Space>
               <Space></Space>
               Business Hour:
             </strong>
-            <strong className={TextCss["pink"]}>09:00 AM - 09:00 PM</strong>
+            <strong className={"text-pink"}>09:00 AM - 09:00 PM</strong>
           </li>
           <br></br>
           <li className={FooterCss["media-container"]}>
-            <strong className={TextCss["yellow-w"]}>
+            <strong className={"text-yellow-w"}>
               <i className="fa fa-map-marker"></i>
               <Space></Space>
               <Space></Space>Shop Address:
             </strong>
-            <strong className={TextCss["pink"]}>
+            <strong className={"text-pink"}>
               4975 Valley Drive, Eagleville, PA, Pennsylvania
             </strong>
           </li>
@@ -132,7 +131,7 @@ const Footer = () => {
 
           {/* social media buttons - bootstrap free - start */}
           <br></br>
-          <strong className={TextCss["pink-w"]}>
+          <strong className={"text-pink-w"}>
             <i className="fa fa-thumbs-up"></i>
             <Space></Space>
             <Space></Space>
