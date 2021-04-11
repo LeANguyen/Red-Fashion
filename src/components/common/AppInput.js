@@ -1,4 +1,5 @@
 import React from "react";
+import InputCss from "./AppInput.css";
 
 const AppInput = ({
   _placeholder,
@@ -23,8 +24,6 @@ const AppInput = ({
         "border p-1",
         _width ? "w-" + _width : "",
         rounded,
-        variant,
-        textVariant,
         _className
       ].join(" ")}
     >

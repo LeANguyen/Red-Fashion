@@ -3,9 +3,13 @@ import useApi from "../../hooks/useApi";
 import { Link, useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import cartItemApi from "../../api/cartItemApi";
-import AppButton from "../common/AppButton";
+import Button from "../common/Button";
 import AppInput from "../common/AppInput";
 import Space from "../common/Space";
+import ItemCardCss from "./ItemCard.module.scss";
+import TextCss from "../../styles/Text.module.scss";
+import ButtonCss from "../../styles/Button.module.scss";
+
 const ItemCard = ({ _item, _key }) => {
   const currentUser = useSelector(state => state.user.data);
 
@@ -100,54 +104,56 @@ const ItemCard = ({ _item, _key }) => {
   }, []);
 
   return (
-    <div className="card text-left shadow-sm" key={_key}>
+    <div className={`card ${ItemCardCss.body}`} key={_key}>
+      <div className={`card-header ${ItemCardCss.header}`}>
+        <h5 className={`${ItemCardCss.title}`}>{_item.item_name}</h5>
+      </div>
       {/* item image */}
       <img
-        className="card-img-top"
+        className={`card-img-top ${ItemCardCss.img}`}
         src={"http://localhost:3000/uploaded_images/item" + _item.id + ".png"}
         alt=""
       ></img>
 
       {/* card body */}
       <div className="card-body">
-        <h5 className="text-dark font-weight-bold">{_item.item_name}</h5>
         <li class="d-flex justify-content-between py-3 border-bottom">
-          <strong className="text-muted">
+          <strong className={TextCss["pink"]}>
             <i className="fa fa-black-tie">
               <Space></Space>
               <Space></Space>
             </i>
-            Category:
+            Category
           </strong>
           <strong>{_item.category}</strong>
         </li>
         <li class="d-flex justify-content-between py-3 border-bottom">
-          <strong className="text-muted">
+          <strong className={TextCss["yellow"]}>
             <i className="fa fa-star">
               <Space></Space>
               <Space></Space>
             </i>
-            Origin:
+            Origin
           </strong>
           <strong>{_item.origin}</strong>
         </li>
         <li class="d-flex justify-content-between py-3 border-bottom">
-          <strong className="text-muted">
+          <strong className={TextCss["yellow"]}>
             <i className="fa fa-money">
               <Space></Space>
               <Space></Space>
             </i>
-            Price:
+            Price
           </strong>
           <strong>{"$" + _item.price}</strong>
         </li>
         <li class="d-flex justify-content-between py-3 border-bottom align-items-center">
-          <strong className="text-muted">
+          <strong className={TextCss["yellow"]}>
             <i className="fa fa-shopping-cart">
               <Space></Space>
               <Space></Space>
             </i>
-            In Cart:
+            Inventory
           </strong>
           {!itemInCart && (
             <AppInput
@@ -180,26 +186,24 @@ const ItemCard = ({ _item, _key }) => {
         <br></br>
 
         {/* buttons */}
-        <AppButton
-          _block
-          _text="Item Detail"
-          _variant="info"
-          _onClick={() => history.push("/item_detail/" + _item.id)}
-        ></AppButton>
+        <Button
+          _className={`${ButtonCss["orange"]} btn-block`}
+          _iconName="tags"
+        >
+          Item Detail
+        </Button>
+        <br></br>
         {getItemFromCurrentCartByItemIdApi.loading && (
-          <AppButton
+          <Button
             _block
             _variant="dark"
             _loading={getItemFromCurrentCartByItemIdApi.loading}
-          ></AppButton>
+          ></Button>
         )}
         {getItemFromCurrentCartByItemIdApi.success && (
           <>
             {currentUser !== null && !itemInCart && (
-              <AppButton
-                _block
-                _text="Add to Cart"
-                _variant="success"
+              <Button
                 _loading={addItemIntoCurrentCartApi.loading}
                 _onClick={() =>
                   addItemIntoCurrentCartHandling(
@@ -208,13 +212,14 @@ const ItemCard = ({ _item, _key }) => {
                     quantity
                   )
                 }
-              ></AppButton>
+                _iconName="cart-plus"
+                _className={`${ButtonCss["orange"]} btn-block`}
+              >
+                Add to Cart
+              </Button>
             )}
-            <AppButton
-              _block
-              _text="Update"
+            <Button
               _hidden={!itemInCart || !quantityEdited}
-              _variant="warning"
               _loading={updateItemQuantityFromCurrentCartApi.loading}
               _onClick={() =>
                 updateItemQuantityFromCurrentExtraHandling(
@@ -223,12 +228,11 @@ const ItemCard = ({ _item, _key }) => {
                   quantity
                 )
               }
-            ></AppButton>
+            >
+              Update
+            </Button>
             {currentUser !== null && itemInCart && (
-              <AppButton
-                _block
-                _text="Remove from Cart"
-                _variant="danger"
+              <Button
                 _loading={deleteItemFromCurrentCartApi.loading}
                 _onClick={() =>
                   deleteItemFromCurrentCartExtraHandling(
@@ -236,18 +240,22 @@ const ItemCard = ({ _item, _key }) => {
                     _item.id
                   )
                 }
-              ></AppButton>
+                _className={`${ButtonCss["pink"]}`}
+                _iconName="cart-arrow-down"
+              >
+                Remove from Cart
+              </Button>
             )}
           </>
         )}
         {currentUser === null && (
           <>
             <p className="text-muted">You have not login to save a cart</p>
-            <AppButton
+            <Button
               _text="Register"
               _variant="success"
               _onClick={() => history.push("/sign")}
-            ></AppButton>
+            ></Button>
           </>
         )}
       </div>

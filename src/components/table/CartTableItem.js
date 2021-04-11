@@ -11,7 +11,7 @@ import {
   removeItem,
   setEditedList
 } from "../../actions/cartActions";
-import AppButton from "../common/AppButton";
+import Button from "../common/Button";
 
 const CartTableItem = ({ _item, _key }) => {
   const currentUser = useSelector(state => state.user.data);
@@ -123,7 +123,7 @@ const CartTableItem = ({ _item, _key }) => {
         <strong>{"$" + _item.price * _item.quantity}</strong>
       </td>
       <td className="align-middle">
-        <AppButton
+        <Button
           _text="Update"
           _hidden={!editedList[_key]}
           _variant="warning"
@@ -136,8 +136,8 @@ const CartTableItem = ({ _item, _key }) => {
               _key
             )
           }
-        ></AppButton>
-        <AppButton
+        ></Button>
+        <Button
           _variant="danger"
           _iconName="trash"
           _loading={deleteItemFromCurrentCartApi.isLoading}
@@ -148,7 +148,7 @@ const CartTableItem = ({ _item, _key }) => {
               _key
             )
           }
-        ></AppButton>
+        ></Button>
       </td>
     </tr>
   );

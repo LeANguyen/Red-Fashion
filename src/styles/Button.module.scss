@@ -1,0 +1,42 @@
+@import "../styles/colors.module.scss";
+
+$colors: (
+  yellow: $yellow,
+  pink: $pink,
+  blue: $blue,
+  orange: $orange
+);
+
+.btn {
+  font-weight: bold;
+  border-radius: 22px;
+  height: 44px;
+  background-color: transparent;
+  border: none;
+  padding: 0 25px;
+}
+
+@mixin color($color) {
+  @extend .btn;
+  color: $color;
+  border: 2px solid $color;
+  box-shadow: $shadow-1 $color, $shadow-2 $color, inset $shadow-1 $color,
+    inset $shadow-2 $color;
+  text-shadow: $shadow-1 $color, $shadow-2 $color;
+}
+
+@mixin color-hover($color) {
+  color: $white;
+  background-color: $color;
+  box-shadow: $shadow-1 $color, $shadow-2 $color, $shadow-3 $color,
+    $shadow-4 $color;
+}
+
+@each $c-name, $color in $colors {
+  .#{$c-name} {
+    @include color($color);
+  }
+  .#{$c-name}:hover {
+    @include color-hover($color);
+  }
+}

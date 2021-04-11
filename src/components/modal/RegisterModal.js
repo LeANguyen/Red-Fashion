@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import AppTextInput from "../common/AppInput";
-import AppButton from "../common/AppButton";
+import Button from "../common/Button";
 
 import $ from "jquery";
 import authApi from "../../api/authApi";
@@ -98,20 +98,20 @@ const LoginModal = ({ _id }) => {
             ></AppTextInput>
             <br></br>
             {/* <AppCheckbox _text="Please agree to the Terms of Use & Privacy Policy"></AppCheckbox> */}
-            <AppButton
+            <Button
               _text="Register"
               _variant="danger"
               _block
               _onClick={() => registerHanling()}
               _loading={registerApi.loading || loginApi.loading}
-            ></AppButton>
+            ></Button>
             <br></br>
             <span className="text-muted text-center">
               Already have an account?
             </span>
             <br></br>
             <br></br>
-            <AppButton
+            <Button
               _text="Login"
               _variant="outline-danger"
               _block
@@ -119,7 +119,7 @@ const LoginModal = ({ _id }) => {
                 $("#registerModal").modal("hide");
                 $("#loginModal").modal("show");
               }}
-            ></AppButton>
+            ></Button>
             <br></br>
           </div>
         </div>

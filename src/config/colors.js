@@ -9,7 +9,7 @@ const colors = {
   green: "#28a745",
   teal: "#20c997",
   cyan: "#17a2b8",
-  white: "#fff",
+  white: "#ffffff",
   gray: "#6c757d",
   grayDark: "#343a40",
   primary: "#007bff",
@@ -19,7 +19,8 @@ const colors = {
   warning: "#ffc107",
   danger: "#dc3545",
   light: "#f8f9fa",
-  dark: "#343a40"
+  dark: "#343a40",
+  dark2: "#202125"
 };
 
 export default colors;

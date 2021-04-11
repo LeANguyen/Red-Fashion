@@ -1,22 +1,15 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import "./index.css";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
-
-import "bootstrap";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
-import $ from "jquery";
-import Popper from "popper.js";
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.module.scss";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
 
 import { Provider } from "react-redux";
 import store from "./store";
 
 ReactDOM.render(
-  // <React.StrictMode>
-  //   <App />
-  // </React.StrictMode>,
   <Provider store={store}>
     <App />
   </Provider>,

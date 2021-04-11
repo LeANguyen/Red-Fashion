@@ -4,7 +4,7 @@ import useApi from "../hooks/useApi";
 import { useSelector } from "react-redux";
 import Container from "./Container";
 import AppTextInput from "./common/AppInput";
-import AppButton from "./common/AppButton";
+import Button from "./common/Button";
 // import FormHeader from "./common/FormHeader";
 
 const ItemDetailContainer = ({ _item }) => {
@@ -182,7 +182,7 @@ const ItemDetailContainer = ({ _item }) => {
                 ></AppTextInput>
               )}
             </td>
-            <AppButton
+            <Button
               _variant="warning"
               _block
               _loading={updateItemQuantityFromCurrentCartApi.loading}
@@ -196,7 +196,7 @@ const ItemDetailContainer = ({ _item }) => {
                 )
               }
               _className="my-2"
-            ></AppButton>
+            ></Button>
             {itemInCart && (
               <button
                 class="btn btn-danger rounded-pill py-2 btn-block my-2"

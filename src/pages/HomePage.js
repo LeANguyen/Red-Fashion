@@ -4,7 +4,7 @@ import Page from "../components/temp/Page";
 
 import itemApi from "../api/itemApi";
 import useApi from "../hooks/useApi";
-import AppButton from "../components/common/AppButton";
+import Button from "../components/common/Button";
 import AppLoader from "../components/common/AppLoader";
 import ItemCard from "../components/card/ItemCard";
 import AppCarousel from "../components/common/AppCarousel";
@@ -14,6 +14,7 @@ import carousel2 from "../assets/2.jpeg";
 import carousel3 from "../assets/3.jpg";
 import ad from "../assets/ad.mp4";
 import Space from "../components/common/Space";
+import AppCss from "../App.module.css";
 
 const HomePage = () => {
   const [items, setItems] = useState([]);
@@ -38,7 +39,7 @@ const HomePage = () => {
         {/* banner carousel */}
         <AppCarousel
           _id="banner"
-          _images={[carousel1, carousel2, carousel3]}
+          _images={[carousel1, carousel3]}
         ></AppCarousel>
 
         {/* item card list */}
@@ -52,14 +53,14 @@ const HomePage = () => {
           {getItemsApi.success && items.length !== 0 && (
             <>
               <CardList _data={items} _component={ItemCard}></CardList>
-              <AppButton
+              <Button
                 _text="Load More"
                 _variant="info"
                 _onClick={() => {
                   getItemsHandling(items.length, 1);
                 }}
                 _block
-              ></AppButton>
+              ></Button>
             </>
           )}
           {getItemsApi.loading && <AppLoader></AppLoader>}

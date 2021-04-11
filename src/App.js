@@ -1,6 +1,4 @@
-import logo from "./logo.svg";
-import React, { useEffect } from "react";
-import "./App.css";
+import React, { useState, useEffect } from "react";
 import HomePage from "./pages/HomePage";
 import CartPage from "./pages/CartPage";
 import ItemListPage from "./pages/ItemListPage";
@@ -15,32 +13,51 @@ import useLink from "./hooks/useLink";
 
 function App() {
   const dispatch = useDispatch();
-
-  const restoreUser = async () => {
-    const user = await authStorage.getUser();
-    if (!user) return;
-    dispatch(loginAction(user));
-  };
+  const [ready, setReady] = useState(false);
 
   useLink(
     "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
   );
+
+  const restoreUser = async () => {
+    const user = await authStorage.getUser();
+    if (!user) return setReady(true);
+    dispatch(loginAction(user));
+    setReady(true);
+  };
 
   useEffect(() => {
     restoreUser();
   }, []);
 
   return (
-    <Router>
-      <Switch>
-        <Route exact path="/" component={HomePage}></Route>
-        <Route exact path="/admin" component={AdminPage}></Route>
-        <Route exact path="/items/:category" component={ItemListPage}></Route>
-        <Route exact path="/item_detail/:id" component={ItemDetailPage}></Route>
-        <Route exact path="/cart/:id?" component={CartPage}></Route>
-        <Route exact path="/history" component={PurchaseHistoryScreen}></Route>
-      </Switch>
-    </Router>
+    <>
+      {!ready && <></>}
+      {ready && (
+        <Router>
+          <Switch>
+            <Route exact path="/" component={HomePage}></Route>
+            <Route exact path="/admin" component={AdminPage}></Route>
+            <Route
+              exact
+              path="/items/:category"
+              component={ItemListPage}
+            ></Route>
+            <Route
+              exact
+              path="/item_detail/:id"
+              component={ItemDetailPage}
+            ></Route>
+            <Route exact path="/cart/:id?" component={CartPage}></Route>
+            <Route
+              exact
+              path="/history"
+              component={PurchaseHistoryScreen}
+            ></Route>
+          </Switch>
+        </Router>
+      )}
+    </>
   );
 }
 

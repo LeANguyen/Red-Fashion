@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import AppTextInput from "./common/AppInput";
 import AppLoader from "./common/AppLoader";
-import AppButton from "./common/AppButton";
+import Button from "./common/Button";
 
 const CheckoutForm = () => {
   const history = useHistory();
@@ -120,12 +120,12 @@ const CheckoutForm = () => {
               <p className="text-info text-center">Please Wait...</p>
             </>
           )}
-          <AppButton
+          <Button
             _variant="info"
             _text="Procceed to Checkout"
             _disabled={updateCartApi.isLoading || createCartApi.isLoading}
             _onClick={() => checkValidOnCheckOut()}
-          ></AppButton>
+          ></Button>
         </div>
       </div>
     </div>

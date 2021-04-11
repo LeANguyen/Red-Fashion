@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import AppButton from "../common/AppButton";
+import Button from "../common/Button";
 import $ from "jquery";
 import authApi from "../../api/authApi";
 import useApi from "../../hooks/useApi";
@@ -66,20 +66,20 @@ const LoginModal = ({ _id }) => {
             ></AppInput>
             <br></br>
             <br></br>
-            <AppButton
+            <Button
               _text="Login"
-              _variant="danger"
+              _variant="orange"
               _block
               _loading={loginApi.loading}
               _onClick={() => loginHandling()}
-            ></AppButton>
+            ></Button>
             <br></br>
             <span className="text-muted text-center">
               Don't have an account?
             </span>
             <br></br>
             <br></br>
-            <AppButton
+            <Button
               _text="Register"
               _variant="outline-danger"
               _block={true}
@@ -87,7 +87,7 @@ const LoginModal = ({ _id }) => {
                 $("#loginModal").modal("hide");
                 $("#registerModal").modal("show");
               }}
-            ></AppButton>
+            ></Button>
             <br></br>
           </div>
         </div>

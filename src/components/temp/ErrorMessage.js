@@ -1,5 +1,5 @@
 import React from "react";
-import AppButton from "../common/AppButton";
+import Button from "../common/Button";
 
 const ErrorMessage = ({
   _text = "There is a connection error!!!",
@@ -9,13 +9,13 @@ const ErrorMessage = ({
   return (
     <div className="text-center">
       <p className="text-danger">{_text}</p>
-      <AppButton
+      <Button
         _text="Reload"
         _variant="outline-info"
         _iconName="refresh"
         _iconLeft
         _onClick={_onClick}
-      ></AppButton>
+      ></Button>
     </div>
   );
 };

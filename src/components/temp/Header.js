@@ -9,7 +9,9 @@ import RegisterModal from "../modal/RegisterModal";
 import $ from "jquery";
 import Space from "../common/Space";
 import AppDropdown from "../common/AppDropdown";
-
+import HeaderCss from "./Header.module.scss";
+import FooterCss from "./Header.module.scss";
+import TextCss from "../../styles/Text.module.scss";
 const Header = () => {
   const history = useHistory();
   const auth = useAuth();
@@ -24,32 +26,33 @@ const Header = () => {
 
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <nav className={`navbar navbar-expand-lg ${HeaderCss.body}`}>
         {/* collapse button */}
         <button
-          className="navbar-toggler"
+          className={`navbar-toggler ${HeaderCss["collapse-btn"]}`}
           data-toggle="collapse"
           data-target="#navbarToggler"
         >
-          <span className="navbar-toggler-icon"></span>
+          <span
+            className={`navbar-toggler-icon ${HeaderCss["collapse-btn-icon"]}`}
+          ></span>
         </button>
 
         {/* logo */}
-        <a className="navbar-brand">
-          <Link
-            className="d-flex align-items-center bg-dark rounded p-3"
-            to="/"
-          >
-            <img src={logo} height={20}></img>
-          </Link>
-        </a>
+        <div className="navbar-brand">
+          <h2 style={{ margin: 0 }}>
+            <Link className={`${HeaderCss["logo"]}`} to="/">
+              Fashion
+            </Link>
+          </h2>
+        </div>
 
         {/* header body */}
         <div className="collapse navbar-collapse" id="navbarToggler">
           <ul className="navbar-nav mr-auto">
             {/* home */}
             <li className="nav-item mx-lg-2">
-              <Link className="nav-link font-weight-bold" to="/">
+              <Link className={`nav-link ${HeaderCss["link"]}`} to="/">
                 <i className="fa fa-home"></i>
                 <Space></Space>
                 <Space></Space>
@@ -64,7 +67,7 @@ const Header = () => {
                 _text="Categories"
                 _displayToggle
                 _textBold
-                _className="nav-link"
+                _className={`nav-link ${HeaderCss["link"]}`}
               >
                 <Link className="dropdown-item" to="/items/Shirt">
                   <i className="fa fa-star"></i>
@@ -91,8 +94,11 @@ const Header = () => {
             {user === null && (
               <li className="nav-item mx-lg-2">
                 <a
-                  className="nav-link font-weight-bold"
-                  onClick={() => $("#loginModal").modal("show")}
+                  className={`nav-link ${HeaderCss["link"]}`}
+                  data-toggle="modal"
+                  data-target="#loginModal"
+                  data-backdrop="static"
+                  data-keyboard="false"
                 >
                   <i className="fa fa-user"></i>
                   <Space></Space>
@@ -110,6 +116,7 @@ const Header = () => {
                   _variant="outline-dark"
                   _displayToggle
                   _textBold
+                  _className={`nav-link ${HeaderCss["link"]}`}
                 >
                   <Link className="dropdown-item" to="/cart?">
                     <i className="fa fa-shopping-cart"></i>
@@ -144,7 +151,7 @@ const Header = () => {
 
             {/* admin */}
             <li className="nav-item mx-lg-2">
-              <Link className="nav-link font-weight-bold" to="/">
+              <Link className={`nav-link ${HeaderCss["link"]}`} to="/">
                 <i className="fa fa-list"></i>
                 <Space></Space>
                 <Space></Space>Admin
