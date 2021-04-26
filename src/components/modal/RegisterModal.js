@@ -1,16 +1,20 @@
 import React, { useState } from "react";
-import AppTextInput from "../common/AppInput";
+import Input from "../common/Input";
 import Button from "../common/Button";
+import Checkbox from "../common/Checkbox";
 
 import $ from "jquery";
-import authApi from "../../api/authApi";
+import * as authApi from "../../APIs/authApi";
 
 import useApi from "../../hooks/useApi";
 import useAuth from "../../auth/useAuth";
 import Space from "../common/Space";
-import logo from "../../assets/logo.png";
 
-const LoginModal = ({ _id }) => {
+import styles from "./LoginModal.module.scss";
+import ContainerCss from "../common/Container.module.scss";
+import HeaderCss from "../Header.module.scss";
+
+const LoginModal = () => {
   const auth = useAuth();
   const [name, setName] = useState();
   const [email, setEmail] = useState();
@@ -48,78 +52,80 @@ const LoginModal = ({ _id }) => {
   };
 
   return (
-    <div id={_id} className="modal fade overflow-auto">
+    <div id="registerModal" className="modal fade overflow-auto">
       <div className="modal-dialog">
-        <div className="modal-content">
-          <div className="modal-header">
-            <h4>
+        <div className={`modal-content ${ContainerCss["body"]}`}>
+          <div className={`modal-header ${ContainerCss["header"]}`}>
+            <h4 className={ContainerCss["title"]}>
               <i className="fa fa-sign-in"></i>
               <Space></Space>
               <Space></Space>Register
             </h4>
-            <button type="button" className="close" data-dismiss="modal">
-              <span aria-hidden="true">&times;</span>
+            <button
+              className={styles["close-btn"]}
+              onClick={() => $("#registerModal").modal("hide")}
+            >
+              <i className="fa fa-times"></i>
             </button>
           </div>
 
           <div className="modal-body modal-single text-center">
+            <h1 className={HeaderCss["logo"]}>Fashion</h1>
             <br></br>
-            <img src={logo} className="bg-dark p-4 rounded"></img>
-            <br></br>
-            <br></br>
-            <br></br>
-            <AppTextInput
+            <Input
               _iconName="envelope"
               _placeholder="Email"
-              _roundedPill
+              _wrapperClass="input-1"
               _onChange={event => setEmail(event.target.value)}
-            ></AppTextInput>
+            ></Input>
             <br></br>
-            <AppTextInput
+            <Input
               _iconName="user"
               _placeholder="Name"
-              _roundedPill
+              _wrapperClass="input-1"
               _onChange={event => setName(event.target.value)}
-            ></AppTextInput>
+            ></Input>
             <br></br>
-            <AppTextInput
+            <Input
               _iconName="map-marker"
               _placeholder="Address"
-              _roundedPill
+              _wrapperClass="input-1"
               _onChange={event => setAddress(event.target.value)}
-            ></AppTextInput>
+            ></Input>
             <br></br>
-            <AppTextInput
+            <Input
               _iconName="lock"
               _placeholder="Password"
-              _roundedPill
+              _wrapperClass="input-1"
               _inputType="password"
               _onChange={event => setPassword(event.target.value)}
-            ></AppTextInput>
+            ></Input>
             <br></br>
-            {/* <AppCheckbox _text="Please agree to the Terms of Use & Privacy Policy"></AppCheckbox> */}
+            <Checkbox _className="text-white">
+              Please agree to the Terms of Use & Privacy Policy
+            </Checkbox>
             <Button
-              _text="Register"
-              _variant="danger"
-              _block
               _onClick={() => registerHanling()}
+              _className="btn-yellow btn-block"
               _loading={registerApi.loading || loginApi.loading}
-            ></Button>
+            >
+              Register
+            </Button>
             <br></br>
-            <span className="text-muted text-center">
+            <span className="text-pink text-center">
               Already have an account?
             </span>
             <br></br>
             <br></br>
             <Button
-              _text="Login"
-              _variant="outline-danger"
-              _block
+              _className="btn-pink btn-block"
               _onClick={() => {
                 $("#registerModal").modal("hide");
                 $("#loginModal").modal("show");
               }}
-            ></Button>
+            >
+              Login
+            </Button>
             <br></br>
           </div>
         </div>

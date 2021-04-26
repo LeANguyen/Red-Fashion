@@ -1,0 +1,31 @@
+@import "../../styles/config.scss";
+
+.plus-btn {
+  border-radius: 10px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  box-shadow: none;
+}
+
+.plus-btn:hover {
+  box-shadow: none;
+}
+
+.minus-btn {
+  border-radius: 10px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  box-shadow: none;
+}
+
+.minus-btn:hover {
+  box-shadow: none;
+}
+
+.input {
+  padding: 2px;
+  background-color: $white;
+  border: 1px solid $dim;
+  box-shadow: $shadow-1 $dim, $shadow-2 $dim;
+  box-shadow: none;
+}

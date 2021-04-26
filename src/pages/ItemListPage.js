@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import CardList from "../components/card/CardList";
-import itemApi from "../api/itemApi";
+import * as itemApi from "../APIs/itemApi";
 import useApi from "../hooks/useApi";
-import Page from "../components/temp/Page";
-import AppLoader from "../components/common/AppLoader";
+import Page from "../components/Page";
+import Loader from "../components/common/Loader";
 import ItemCard from "../components/card/ItemCard";
 
 const ItemListPage = ({ match }) => {
@@ -16,16 +16,20 @@ const ItemListPage = ({ match }) => {
 
   return (
     <Page>
-      <div class="p-5 my-5 bg-dark">
-        <h1 className="text-center">LATEST ITEMS</h1>
+      <div className="bg-dark">
+        <div class="container">
+          <br></br>
+          <h2 className="text-orange-g text-center">LATEST ITEMS</h2>
 
-        {getItemsByCategoryApi.loading && <AppLoader></AppLoader>}
-        {getItemsByCategoryApi.data && (
-          <CardList
-            _data={getItemsByCategoryApi.data}
-            _component={ItemCard}
-          ></CardList>
-        )}
+          {getItemsByCategoryApi.loading && <Loader></Loader>}
+          {getItemsByCategoryApi.data && (
+            <CardList
+              _data={getItemsByCategoryApi.data}
+              _component={ItemCard}
+            ></CardList>
+          )}
+          <br></br>
+        </div>
       </div>
     </Page>
   );

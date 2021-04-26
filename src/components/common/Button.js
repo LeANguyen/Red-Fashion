@@ -1,7 +1,7 @@
 import React from "react";
-import AppLoader from "./AppLoader";
+import Loader from "./Loader";
 import Space from "./Space";
-import colors from "../../config/colors";
+import colors from "../../configs/colors";
 
 const Button = ({
   children,
@@ -10,7 +10,7 @@ const Button = ({
   _disabled,
   _hidden,
   _iconName,
-  _className
+  _className = "btn btn-info btn-block"
 }) => {
   return (
     <>
@@ -32,8 +32,8 @@ const Button = ({
         </button>
       )}
       {_loading && (
-        <button className={["app-btn", _className].join(" ")} disabled={true}>
-          <AppLoader _height={15}></AppLoader>
+        <button className={_className} disabled={true}>
+          <Loader _height={15}></Loader>
         </button>
       )}
     </>

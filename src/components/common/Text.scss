@@ -1,0 +1,27 @@
+@import "../styles/config.scss";
+
+@each $c-name, $color in $colors {
+  .text-#{$c-name} {
+    color: $color;
+    font-weight: bold;
+  }
+  .text-#{$c-name}:hover {
+    text-shadow: $shadow-1 $color, $shadow-2 $color, $shadow-3 $color,
+      $shadow-4 $color;
+  }
+  .text-#{$c-name}-w {
+    color: $white;
+    font-weight: bold;
+  }
+  .text-#{$c-name}-w:hover {
+    color: $color;
+    text-shadow: $shadow-1 $color, $shadow-2 $color, $shadow-3 $color,
+      $shadow-4 $color;
+  }
+  .text-#{$c-name}-g {
+    color: $color;
+    text-shadow: $shadow-1 $color, $shadow-2 $color, $shadow-3 $color,
+      $shadow-4 $color;
+    font-weight: bold;
+  }
+}

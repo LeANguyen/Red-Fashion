@@ -1,0 +1,32 @@
+@import "./config.scss";
+
+// input skin 1
+.input-1 {
+  padding: 2px;
+  border-radius: 50px;
+  background-color: $white;
+  border: 1px solid $dim;
+  box-shadow: $shadow-1 $dim, $shadow-2 $dim;
+}
+
+.input-1 span {
+  background-color: transparent;
+}
+
+.input-1 input {
+  background-color: transparent;
+}
+
+// input skin 2
+.input-2 {
+  background-color: transparent;
+  border-bottom: 1px solid $dim;
+}
+
+.input-2 span {
+  background-color: transparent;
+}
+
+.input-2 input {
+  background-color: transparent;
+}

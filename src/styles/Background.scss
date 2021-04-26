@@ -1,0 +1,8 @@
+@import "./config.scss";
+.bg-1 {
+  background-color: $dark;
+}
+
+.bg-2 {
+  background: linear-gradient(to right, $pink, $purple);
+}

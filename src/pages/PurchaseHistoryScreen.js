@@ -1,33 +1,32 @@
 import React, { useEffect } from "react";
-import useCartApi from "../api/cartApi";
+import * as cartApi from "../APIs/cartApi";
 import useApi from "../hooks/useApi";
 import DataTable from "../components/table/DataTable";
 import PurchaseHistoryTableItem from "../components/table/PurchaseHistoryTableItem";
-import Container from "../components/Container";
+import Container from "../components/common/Container";
 import { useSelector } from "react-redux";
-import Page from "../components/temp/Page";
+import Page from "../components/Page";
 
 const PurchaseHistoryScreen = () => {
-  const cartApi = useCartApi();
   const currentUser = useSelector(state => state.user.data);
-  const getAllCartApi = useApi(cartApi.getAllCart);
+  const getCartsApi = useApi(cartApi.getCarts);
 
   useEffect(() => {
     if (currentUser != null) {
-      getAllCartApi.request(currentUser.id);
+      getCartsApi.request(currentUser.id);
     }
   }, []);
 
   return (
     <Page>
       <Container>
-        {getAllCartApi.isLoading && (
+        {getCartsApi.isLoading && (
           <p className="text text-info text-center">Fetching Data...</p>
         )}
-        {getAllCartApi.success && (
+        {getCartsApi.success && (
           <DataTable
             _id="purchaseHistoryTable"
-            _data={getAllCartApi.data.slice(0, getAllCartApi.data.length - 1)}
+            _data={getCartsApi.data.slice(0, getCartsApi.data.length - 1)}
             _headers={[
               "Checkout Date",
               "Receiver's Name",

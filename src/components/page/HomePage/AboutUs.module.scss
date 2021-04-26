@@ -1,0 +1,46 @@
+@import "../../../styles/config.scss";
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $white;
+  border-radius: 10px;
+  padding: 30px;
+}
+
+.video {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  border-radius: 10px;
+}
+
+.video:focus {
+  outline: none;
+}
+
+.about {
+  color: $white;
+  background-color: $black;
+  border-radius: 10px;
+  padding: 0 10px 10px 10px;
+}
+
+.about-title {
+  color: $white;
+  padding: 10px;
+  background: linear-gradient(to right, $pink, $purple);
+  border-radius: 0 0 40px 40px;
+}
+
+.title {
+  color: $white;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+}
+
+.home {
+}

@@ -10,6 +10,8 @@ import authStorage from "./auth/authStorage";
 import { loginAction } from "./actions/userActions";
 import ItemDetailPage from "./pages/ItemDetailPage";
 import useLink from "./hooks/useLink";
+import NotFound from "./components/page/NotFoundPage/NotFound";
+import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -54,6 +56,8 @@ function App() {
               path="/history"
               component={PurchaseHistoryScreen}
             ></Route>
+            <Route exact path="/admin" component={AdminPage}></Route>
+            <Route component={NotFoundPage} />
           </Switch>
         </Router>
       )}

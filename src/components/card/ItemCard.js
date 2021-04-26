@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import useApi from "../../hooks/useApi";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
-import cartItemApi from "../../api/cartItemApi";
+import * as cartItemApi from "../../APIs/cartItemApi";
 import Button from "../common/Button";
-import AppInput from "../common/AppInput";
+import Input from "../common/Input";
 import Space from "../common/Space";
 import ItemCardCss from "./ItemCard.module.scss";
-import AppLoader from "../common/AppLoader";
+import ContainerCss from "../common/Container.module.scss";
+import NumberInput from "../common/NumberInput";
 
 const ItemCard = ({ _item, _key }) => {
   const user = useSelector(state => state.user.data);
@@ -103,72 +104,74 @@ const ItemCard = ({ _item, _key }) => {
   }, []);
 
   return (
-    <div className={`card ${ItemCardCss.body}`} key={_key}>
-      <div className={`card-header ${ItemCardCss.header}`}>
-        <h5 className={`${ItemCardCss.title}`}>{_item.item_name}</h5>
+    <div className={`card ${ContainerCss["body"]}`} key={_key}>
+      <div className={`card-header ${ContainerCss["header"]}`}>
+        <h5 className={`${ContainerCss["title"]}`}>{_item.item_name}</h5>
       </div>
+
       {/* item image */}
       <img
-        className={`card-img-top ${ItemCardCss.img}`}
+        className={`card-img-top ${ItemCardCss["img"]}`}
         src={"http://localhost:3000/uploaded_images/item" + _item.id + ".png"}
         alt=""
       ></img>
 
       {/* card body */}
       <div className="card-body">
-        <li className={`${ItemCardCss["divider"]}`}>
+        <li className={ContainerCss["divider"]}>
           <strong className="text-pink">
-            <i className="fa fa-black-tie">
-              <Space></Space>
-              <Space></Space>
-            </i>
+            <i className="fa fa-black-tie"></i>
+            <Space></Space>
+            <Space></Space>
             Category
           </strong>
           <strong className="text-pink-w">{_item.category}</strong>
         </li>
-        <li className={`${ItemCardCss["divider"]}`}>
+        <li className={ContainerCss["divider"]}>
           <strong className={"text-pink"}>
-            <i className="fa fa-star">
-              <Space></Space>
-              <Space></Space>
-            </i>
+            <i className="fa fa-star"></i>
+            <Space></Space>
+            <Space></Space>
             Origin
           </strong>
           <strong className="text-pink-w">{_item.origin}</strong>
         </li>
-        <li className={`${ItemCardCss["divider"]}`}>
+        <li className={ContainerCss["divider"]}>
           <strong className="text-pink">
-            <i className="fa fa-money">
-              <Space></Space>
-              <Space></Space>
-            </i>
+            <i className="fa fa-money"></i>
+            <Space></Space>
+            <Space></Space>
             Price
           </strong>
           <strong className="text-pink-w">{"$" + _item.price}</strong>
         </li>
-        <li className={`${ItemCardCss["divider"]}`}>
+        <li className={ContainerCss["divider"]}>
           <strong className="text-pink">
-            <i className="fa fa-shopping-cart">
-              <Space></Space>
-              <Space></Space>
-            </i>
+            <i className="fa fa-shopping-cart"></i>
+            <Space></Space>
+            <Space></Space>
             Inventory
           </strong>
           {!itemInCart && (
-            <AppInput
-              _roundedPill
+            <Input
               _inputType="number"
               _maxLength={2}
               _value={quantity}
               _disabled={getItemFromCurrentCartByItemIdApi.loading}
               _onChange={event => setQuantity(event.target.value)}
               _width={25}
-              _className="p-0"
-            ></AppInput>
+              _wrapperClass="input-1"
+            ></Input>
+            // <NumberInput
+            //   // _iconName="shopping-cart"
+            //   _maxLength={2}
+            //   _value={quantity}
+            //   _disabled={getItemFromCurrentCartByItemIdApi.loading}
+            //   _onChange={event => setQuantity(event.target.value)}
+            // ></NumberInput>
           )}
           {itemInCart && (
-            <AppInput
-              _roundedPill
+            <Input
               _inputType="number"
               _maxLength={2}
               _value={quantity}
@@ -178,19 +181,44 @@ const ItemCard = ({ _item, _key }) => {
                 setQuantityEdited(true);
               }}
               _width={25}
-              _className="p-0"
-            ></AppInput>
+              _wrapperClass="input-1"
+            ></Input>
+            // <div className="text-right">
+            //   <NumberInput
+            //     _maxLength={2}
+            //     _value={quantity}
+            //     _disabled={getItemFromCurrentCartByItemIdApi.loading}
+            //     _onChange={event => {
+            //       setQuantity(event.target.value);
+            //       setQuantityEdited(true);
+            //     }}
+            //     _width={25}
+            //   ></NumberInput>
+            // </div>
           )}
         </li>
 
         {/* item detail btn */}
         <br></br>
-        <Button _className={`btn-teal btn-block`} _iconName="tags">
+        <Button
+          _className="btn-green btn-block"
+          _iconName="tags"
+          _onClick={() => history.push("/item_detail/" + _item.id)}
+        >
           Item Detail
         </Button>
 
         {/* CRUD buttons */}
-        {getItemFromCurrentCartByItemIdApi.loading && <AppLoader></AppLoader>}
+        {getItemFromCurrentCartByItemIdApi.loading && (
+          <>
+            <br></br>
+            <Button
+              _className="btn-pink btn-block"
+              _iconName="tags"
+              _loading={getItemFromCurrentCartByItemIdApi.loading}
+            ></Button>
+          </>
+        )}
         {getItemFromCurrentCartByItemIdApi.success && (
           <>
             {/* add item btn */}
@@ -203,7 +231,7 @@ const ItemCard = ({ _item, _key }) => {
                     addItemIntoCurrentCartHandling(user.id, _item.id, quantity)
                   }
                   _iconName="cart-plus"
-                  _className={`btn-orange btn-block`}
+                  _className="btn-yellow btn-block"
                 >
                   Add to Cart
                 </Button>
@@ -224,7 +252,7 @@ const ItemCard = ({ _item, _key }) => {
                     )
                   }
                   _iconName="pencil"
-                  _className={`btn-orange btn-block`}
+                  _className="btn-yellow btn-block"
                 >
                   Update
                 </Button>
@@ -240,7 +268,7 @@ const ItemCard = ({ _item, _key }) => {
                   _onClick={() =>
                     deleteItemFromCurrentCartExtraHandling(user.id, _item.id)
                   }
-                  _className={`btn-pink btn-block`}
+                  _className="btn-pink btn-block"
                   _iconName="cart-arrow-down"
                 >
                   Remove from Cart
@@ -259,11 +287,7 @@ const ItemCard = ({ _item, _key }) => {
             </strong>
             <br></br>
             <br></br>
-            <Button
-              _onClick={() => history.push("/sign")}
-              _className={`btn-pink btn-block`}
-              _iconName="sign-in"
-            >
+            <Button _className="btn-pink btn-block" _iconName="sign-in">
               Login
             </Button>
           </div>

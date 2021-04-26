@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import Button from "../common/Button";
 import $ from "jquery";
-import authApi from "../../api/authApi";
 import useApi from "../../hooks/useApi";
 import useAuth from "../../auth/useAuth";
-import AppInput from "../common/AppInput";
-import logo from "../../assets/logo.png";
+import Input from "../common/Input";
 import Space from "../common/Space";
+import * as authApi from "../../APIs/authApi";
+import styles from "./LoginModal.module.scss";
+import ContainerCss from "../common/Container.module.scss";
+import HeaderCss from "../Header.module.scss";
 
-const LoginModal = ({ _id }) => {
+const LoginModal = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const loginApi = useApi(authApi.login);
@@ -30,64 +32,65 @@ const LoginModal = ({ _id }) => {
   };
 
   return (
-    <div id={_id} className="modal fade overflow-auto">
+    <div id="loginModal" className="modal fade overflow-auto">
       <div className="modal-dialog">
-        <div className="modal-content">
-          <div className="modal-header">
-            <h4>
+        <div className={`modal-content ${ContainerCss["body"]}`}>
+          <div className={`modal-header ${ContainerCss["header"]}`}>
+            <h4 className={ContainerCss["title"]}>
               <i className="fa fa-sign-in"></i>
               <Space></Space>
               <Space></Space>Login
             </h4>
-            <button className="close" data-dismiss="modal">
-              <span>&times;</span>
+            <button
+              className={styles["close-btn"]}
+              onClick={() => $("#loginModal").modal("hide")}
+            >
+              <i className="fa fa-times"></i>
             </button>
           </div>
 
           <div className="modal-body modal-single text-center">
+            <h1 className={HeaderCss["logo"]}>Fashion</h1>
             <br></br>
-            <img src={logo} className="bg-dark p-4 rounded"></img>
-            <br></br>
-            <br></br>
-            <br></br>
-            <AppInput
+            <Input
               _iconName="envelope"
               _placeholder="Email"
-              _roundedPill
               _onChange={event => setEmail(event.target.value)}
-            ></AppInput>
+              _wrapperClass="input-1"
+            ></Input>
             <br></br>
-            <AppInput
+            <Input
               _iconName="lock"
               _placeholder="Password"
               _roundedPill
               _inputType="password"
               _onChange={event => setPassword(event.target.value)}
-            ></AppInput>
+              _wrapperClass="input-1"
+            ></Input>
             <br></br>
             <br></br>
             <Button
-              _text="Login"
-              _variant="orange"
-              _block
               _loading={loginApi.loading}
               _onClick={() => loginHandling()}
-            ></Button>
+              _className="btn-yellow btn-block"
+            >
+              Login
+            </Button>
             <br></br>
-            <span className="text-muted text-center">
+            <span className="text-pink text-center">
               Don't have an account?
             </span>
             <br></br>
             <br></br>
             <Button
-              _text="Register"
-              _variant="outline-danger"
-              _block={true}
               _onClick={() => {
                 $("#loginModal").modal("hide");
                 $("#registerModal").modal("show");
               }}
-            ></Button>
+              _className="btn-pink btn-block"
+            >
+              Register
+            </Button>
             <br></br>
           </div>
         </div>

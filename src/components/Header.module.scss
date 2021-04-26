@@ -1,0 +1,71 @@
+@import "../styles/config.scss";
+
+.body {
+  background-color: $black;
+  padding: 15px;
+  align-items: center;
+}
+
+// logo
+.logo {
+  font-family: cursive;
+  text-decoration: none;
+  color: $pink;
+  text-shadow: $shadow-1 $pink, $shadow-2 $pink, $shadow-3 $pink,
+    $shadow-4 $pink;
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+}
+
+.logo:hover {
+  color: $pink;
+}
+
+.link {
+  color: $white;
+  margin: 0;
+}
+
+.link::before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 1px;
+  bottom: 0;
+  left: 0;
+  background-color: $yellow;
+  visibility: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+.link:hover:before {
+  visibility: visible;
+  width: 100%;
+}
+
+.link:hover {
+  color: $yellow;
+  text-shadow: $shadow-1 $yellow, $shadow-2 $yellow;
+}
+
+.collapse-btn {
+  border-color: $pink;
+  box-shadow: inset $shadow-1 $pink, inset $shadow-2 $pink, $shadow-1 $pink,
+    $shadow-2 $pink;
+}
+
+.collapse-btn-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,102,203, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+
+// user-icon
+.link {
+  color: $white !important;
+  font-weight: bold;
+}
+
+.link:hover {
+  color: $yellow !important;
+  text-shadow: $shadow-1 $yellow, $shadow-2 $yellow, $shadow-3 $yellow;
+}

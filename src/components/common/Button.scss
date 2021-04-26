@@ -1,0 +1,62 @@
+@import "../styles/config.scss";
+
+.app-btn {
+  padding: 8px 16px 8px 16px;
+  border-radius: 40px;
+  border: none;
+  font-weight: bold;
+}
+
+@mixin color($color) {
+  @extend .app-btn;
+  color: $white;
+  background-color: $color;
+  box-shadow: $shadow-1 $color, $shadow-2 $color;
+}
+
+@mixin color-hover($color) {
+  filter: brightness(105%);
+  color: $white;
+  text-decoration: none;
+  box-shadow: $shadow-1 $color, $shadow-2 $color, $shadow-3 $color,
+    $shadow-4 $color;
+}
+
+@mixin color-outline($color) {
+  @extend .app-btn;
+  color: $color;
+  background-color: transparent;
+  border: 2px solid $color;
+  box-shadow: $shadow-1 $color, $shadow-2 $color, inset $shadow-1 $color,
+    inset $shadow-2 $color;
+  text-shadow: $shadow-1 $color, $shadow-2 $color;
+}
+
+@mixin color-outline-hover($color) {
+  color: $white;
+  text-decoration: none;
+  background-color: $color;
+  box-shadow: $shadow-1 $color, $shadow-2 $color, $shadow-3 $color,
+    $shadow-4 $color;
+}
+
+@each $c-name, $color in $colors {
+  .btn-#{$c-name} {
+    @include color($color);
+  }
+  .btn-#{$c-name}:hover {
+    @include color-hover($color);
+  }
+  .btn-#{$c-name}:focus {
+    outline: none;
+  }
+  .btn-outline-#{$c-name} {
+    @include color-outline($color);
+  }
+  .btn-outline-#{$c-name}:hover {
+    @include color-outline-hover($color);
+  }
+  .btn-outline-#{$c-name}:focus {
+    outline: none;
+  }
+}
