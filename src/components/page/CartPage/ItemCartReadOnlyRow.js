@@ -2,17 +2,14 @@ import React from "react";
 import Input from "../../common/Input";
 import Button from "../../common/Button";
 import ItemRowCss from "../AdminPage/ItemRow.module.scss";
+import baseURL from "../../../APIs/baseURL";
 
 const CartRow = ({ _item, _key }) => {
   return (
     <div className="row align-items-center">
       <div className="col-4 align-middle">
         <img
-          src={
-            "http://localhost:3000/uploaded_images/item" +
-            _item.item_id +
-            ".png"
-          }
+          src={baseURL + "/uploaded_images/item" + _item.item_id + ".png"}
           width={100}
           className={ItemRowCss["img"]}
         ></img>

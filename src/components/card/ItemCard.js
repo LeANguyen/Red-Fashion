@@ -9,6 +9,7 @@ import Space from "../common/Space";
 import ItemCardCss from "./ItemCard.module.scss";
 import ContainerCss from "../common/Container.module.scss";
 import NumberInput from "../common/NumberInput";
+import baseURL from "../../APIs/baseURL";
 
 const ItemCard = ({ _item, _key }) => {
   const user = useSelector(state => state.user.data);
@@ -112,7 +113,7 @@ const ItemCard = ({ _item, _key }) => {
       {/* item image */}
       <img
         className={`card-img-top ${ItemCardCss["img"]}`}
-        src={"http://localhost:3000/uploaded_images/item" + _item.id + ".png"}
+        src={baseURL + "/uploaded_images/item" + _item.id + ".png"}
         alt=""
       ></img>
 

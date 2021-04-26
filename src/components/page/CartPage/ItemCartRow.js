@@ -18,6 +18,7 @@ import Button from "../../common/Button";
 import { Link } from "react-router-dom";
 
 import ItemRowCss from "../AdminPage/ItemRow.module.scss";
+import baseURL from "../../../APIs/baseURL";
 
 const CartRow = ({ _item, _key }) => {
   const currentUser = useSelector(state => state.user.data);
@@ -89,11 +90,7 @@ const CartRow = ({ _item, _key }) => {
     <div className="row align-items-center">
       <div className="col-4 align-middle">
         <img
-          src={
-            "http://localhost:3000/uploaded_images/item" +
-            _item.item_id +
-            ".png"
-          }
+          src={baseURL + "/uploaded_images/item" + _item.item_id + ".png"}
           width={100}
           className={ItemRowCss["img"]}
         ></img>

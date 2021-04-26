@@ -5,6 +5,7 @@ import Space from "../../common/Space";
 import { Link, useHistory } from "react-router-dom";
 import useApi from "../../../hooks/useApi";
 import * as itemApi from "../../../APIs/itemApi";
+import baseURL from "../../../APIs/baseURL";
 
 const ItemAdminRow = ({ _item }) => {
   const deleteItemApi = useApi(itemApi.deleteItem);
@@ -21,7 +22,7 @@ const ItemAdminRow = ({ _item }) => {
     <div className="row align-items-center">
       <div className="col-4 align-middle">
         <img
-          src={"http://localhost:3000/uploaded_images/item" + _item.id + ".png"}
+          src={baseURL + "/uploaded_images/item" + _item.id + ".png"}
           width={100}
           className="rounded"
         ></img>

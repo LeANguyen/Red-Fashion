@@ -7,6 +7,7 @@ import Input from "../../common/Input";
 import Button from "../../common/Button";
 import Space from "../../common/Space";
 import ContainerCss from "../../common/Container.module.scss";
+import baseURL from "../../../APIs/baseURL";
 
 const ItemDetailContainer = ({ _item }) => {
   const user = useSelector(state => state.user.data);
@@ -97,9 +98,7 @@ const ItemDetailContainer = ({ _item }) => {
       <div className="row">
         <div className="col-md-6">
           <img
-            src={
-              "http://localhost:3000/uploaded_images/item" + _item.id + ".png"
-            }
+            src={baseURL + "/uploaded_images/item" + _item.id + ".png"}
             alt=""
             className="img-thumbnail"
           ></img>
