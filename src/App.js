@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import HomePage from "./pages/HomePage";
 import CartPage from "./pages/CartPage";
 import ItemListPage from "./pages/ItemListPage";
-import PurchaseHistoryScreen from "./pages/PurchaseHistoryScreen";
 import AdminPage from "./pages/AdminPage";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -51,11 +50,6 @@ function App() {
               component={ItemDetailPage}
             ></Route>
             <Route exact path="/cart/:id?" component={CartPage}></Route>
-            <Route
-              exact
-              path="/history"
-              component={PurchaseHistoryScreen}
-            ></Route>
             <Route exact path="/admin" component={AdminPage}></Route>
             <Route component={NotFoundPage} />
           </Switch>
