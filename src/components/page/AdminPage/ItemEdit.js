@@ -88,7 +88,7 @@ const ItemEdit = () => {
   const getLatestItemHandling = async () => {
     const response = await getLatestItemApi.request();
     if (response.ok) {
-      const imgName = "item" + response.data + ".png";
+      const imgName = "item" + response.data[0]["max"] + ".png";
       await uploadImageHandling(imgSrc, imgName);
     } else {
       alert("getLatestItemHandling Failed");
@@ -229,15 +229,15 @@ const ItemEdit = () => {
 
           <div class="col-md-4">
             <h5 class="text-muted font-weight-bold">Price($):</h5>
-            {/* <Input
+            <Input
               _inputType="number"
               _maxLength={2}
               _width={25}
               _wrapperClass="input-1 w-100"
               _onChange={event => setPrice(event.target.value)}
               _value={price}
-            ></Input> */}
-            <NumberInput></NumberInput>
+            ></Input>
+            {/* <NumberInput></NumberInput> */}
           </div>
         </div>
 
