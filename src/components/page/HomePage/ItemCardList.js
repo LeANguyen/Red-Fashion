@@ -5,23 +5,36 @@ import Loader from "../../common/Loader";
 import CardList from "../../card/CardList";
 import Button from "../../common/Button";
 import ItemCard from "../../card/ItemCard";
+import Pagination from "../../common/Pagination";
+import { useLocation, useHistory } from "react-router-dom";
+import querySearch from "stringquery";
+import settings from "../../../configs/settings";
 
 const ItemCardList = () => {
+  const history = useHistory();
+
+  const location = useLocation();
+  const query = querySearch(location.search);
+  const typeQ = query.type;
+  const searchQ = query.search ? query.search.replace("%20", " ") : "";
+  const priceQ = query.price ? query.price : "";
+  const areaQ = query.area ? query.area : "";
+  const pageQ = query.page ? query.page : 1;
+  const statusQ = query.status ? query.status : 0;
+  const kindQ = query.kind ? query.kind : 0;
   const [items, setItems] = useState([]);
 
   const getItemsApi = useApi(itemApi.getItems);
-
   const getItemsHandling = async (skip, limit) => {
-    const newItems = [...items];
     const response = await getItemsApi.request(skip, limit);
     if (response.ok) {
-      setItems(newItems.concat(response.data));
+      setItems(response.data["list"]);
     }
   };
 
   useEffect(() => {
-    getItemsHandling(items.length, 3);
-  }, []);
+    getItemsHandling(settings.perPage * (pageQ - 1), settings.perPage);
+  }, [pageQ]);
 
   return (
     <div>
@@ -32,7 +45,7 @@ const ItemCardList = () => {
         <>
           <CardList _data={items} _component={ItemCard}></CardList>
           <br></br>
-          <Button
+          {/* <Button
             _onClick={() => {
               getItemsHandling(items.length, 1);
             }}
@@ -41,7 +54,12 @@ const ItemCardList = () => {
             _loading={getItemsApi.loading}
           >
             Load More
-          </Button>
+          </Button> */}
+          <Pagination
+            _onChange={number => history.push(`/?page=${number}`)}
+            _activePage={pageQ}
+            _totalItemsCount={getItemsApi.data["count"]}
+          ></Pagination>
         </>
       )}
     </div>

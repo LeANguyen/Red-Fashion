@@ -18,14 +18,9 @@
   border: none;
 }
 
-.title {
-  color: $white;
-  font-weight: bold;
-  margin: 0px;
-}
-
 .divider {
   display: flex;
+  flex-shrink: 0;
   border-bottom: 1px solid $dark;
   justify-content: space-between;
   align-items: center;

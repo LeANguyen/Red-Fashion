@@ -10,11 +10,11 @@
 }
 
 .input-1 span {
-  background-color: transparent;
+  background-color: transparent !important;
 }
 
 .input-1 input {
-  background-color: transparent;
+  background-color: transparent !important;
 }
 
 // input skin 2
@@ -24,9 +24,11 @@
 }
 
 .input-2 span {
-  background-color: transparent;
+  color: $white;
+  background-color: transparent !important;
 }
 
 .input-2 input {
-  background-color: transparent;
+  color: $white !important;
+  background-color: transparent !important;
 }

@@ -5,7 +5,7 @@ import * as cartItemApi from "../../../APIs/cartItemApi";
 import CheckoutReadOnlyForm from "./CheckoutReadOnlyForm";
 import CheckoutForm from "./CheckoutForm";
 import ContainerCss from "../../common/Container.module.scss";
-
+import { useHistory } from "react-router-dom";
 import {
   setData,
   initEditedList,
@@ -19,6 +19,7 @@ import Button from "../../common/Button";
 import ItemCartReadOnlyRow from "./ItemCartReadOnlyRow";
 
 const ItemCartList = () => {
+  const history = useHistory();
   const cartData = useSelector(state => state.cart.data);
   const currentUser = useSelector(state => state.user.data);
   const dispatch = useDispatch();
@@ -107,9 +108,13 @@ const ItemCartList = () => {
       )}
       {getItemsFromCurrentCartApi.success && cartData.length === 0 && (
         <div className="text-center">
-          <h5 className="text-purple">There is nothing in your cart!!!</h5>
+          <h5 className="text-yellow">There is nothing in your cart!!!</h5>
           <br></br>
-          <Button _className="btn-orange" _iconName="shopping-cart">
+          <Button
+            _className="btn-yellow"
+            _iconName="shopping-cart"
+            _onClick={() => history.push("/")}
+          >
             Continue Shopping
           </Button>
         </div>

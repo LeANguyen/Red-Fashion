@@ -3,8 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import * as cartItemApi from "../../../APIs/cartItemApi";
 import useApi from "../../../hooks/useApi";
-
-import Input from "../../common/Input";
+import ContainerCss from "../../../components/common/Container.module.scss";
 
 import {
   increaseTotalPrice,
@@ -19,6 +18,8 @@ import { Link } from "react-router-dom";
 
 import ItemRowCss from "../AdminPage/ItemRow.module.scss";
 import baseURL from "../../../APIs/baseURL";
+import NumberInput from "../../common/NumberInput";
+import Space from "../../common/Space";
 
 const CartRow = ({ _item, _key }) => {
   const currentUser = useSelector(state => state.user.data);
@@ -52,7 +53,7 @@ const CartRow = ({ _item, _key }) => {
     quantity,
     index
   ) => {
-    if (quantity == "") {
+    if (quantity === "") {
       return alert(
         "The quantity cannot be empty if you want to keep the item in the cart!"
       );
@@ -70,91 +71,123 @@ const CartRow = ({ _item, _key }) => {
   };
 
   const [lastNum, setLastNum] = useState(_item.quantity);
+
   function onChange(value) {
+    // Check if the last quantity value is smaller or greater than the current quantity value
+
+    // If greater => the quantity is increased => increase the total price in redux's store accordingly
+    // If smaller => the quantity is decreased => decrease the total price in redux's store accordingly
     if (lastNum < value) {
       dispatch(increaseTotalPrice(_item.price * (value - lastNum)));
-      console.log("increasing");
     } else {
       dispatch(decreaseTotalPrice(_item.price * (lastNum - value)));
-      console.log("decreasing");
     }
-    if (value == "") {
-      setLastNum(0);
+    if (value === "") {
+      setLastNum(1);
     } else {
       setLastNum(value);
     }
-    console.log("lastNum: " + lastNum);
   }
 
   return (
-    <div className="row align-items-center">
-      <div className="col-4 align-middle">
-        <img
-          src={baseURL + "/uploaded_images/item" + _item.item_id + ".png"}
-          width={100}
-          className={ItemRowCss["img"]}
-        ></img>
-        <div className="ml-3 d-inline-block align-middle">
-          <strong>
-            <Link className="text-yellow-w" to={"/item_detail" + _item.id}>
-              {_item.item_name}
-            </Link>
+    <div className={`row ${ItemRowCss["body"]}`}>
+      <div className="col-7">
+        <div className="d-flex">
+          <img
+            src={baseURL + "/uploaded_images/item" + _item.item_id + ".png"}
+            className={ItemRowCss["img"]}
+          ></img>
+          <div className="ml-3">
+            <strong>
+              <Link className="text-yellow-w" to={"/item_detail" + _item.id}>
+                {
+                  "Thắt lưng nam cao cấp dây da bền đẹp khóa tự động thiết kế mặt lịch lãm TP0023 (đen)"
+                }
+                {/* {_item.item_name} */}
+              </Link>
+            </strong>
+            <br></br>
+            <strong className="text-yellow text-lg">
+              <i className="fa fa-money">
+                <Space></Space>
+                <Space></Space>
+              </i>
+              {"$" + _item.price}
+            </strong>
+          </div>
+        </div>
+      </div>
+
+      <div className="col-3">
+        <li className={ContainerCss["divider"]}>
+          <strong className="text-yellow text-lg">
+            <i className="fa fa-money"></i>
+            <Space></Space>
+            <Space></Space>Total
           </strong>
-          <br></br>
-          <strong className="text-pink">{"$" + _item.price}</strong>
+          <strong className="text-pink text-lg">
+            {"$" + _item.price * _item.quantity}
+          </strong>
+        </li>
+        <br></br>
+        <div className="text-center">
+          <NumberInput
+            _maxLength={2}
+            _value={_item.quantity}
+            _onChange={event => {
+              dispatch(setEditedList(_key, true));
+              dispatch(setQuantity(event.target.value, _key));
+              onChange(event.target.value);
+            }}
+            _onClickMinus={() => {
+              dispatch(setEditedList(_key, true));
+              dispatch(setQuantity(parseInt(lastNum) - 1, _key));
+              onChange(parseInt(lastNum) - 1);
+
+              // setQuantity(parseInt(quantity) - 1);
+              // setQuantityEdited(true);
+            }}
+            _onClickPlus={() => {
+              dispatch(setEditedList(_key, true));
+              dispatch(setQuantity(parseInt(lastNum) + 1, _key));
+              onChange(parseInt(lastNum) + 1);
+            }}
+          ></NumberInput>
         </div>
       </div>
 
       <div className="col-2">
-        <Input
-          _inputType="number"
-          _onChange={event => {
-            dispatch(setEditedList(_key, true));
-            dispatch(setQuantity(event.target.value, _key));
-            onChange(event.target.value);
-          }}
+        <Button
           _iconName="shopping-cart"
-          _wrapperClass="input-1"
-          _value={_item.quantity}
-        ></Input>
-      </div>
-
-      <div className="col-2 text-center">
-        <h5 className="text-pink m-0">{"$" + _item.price * _item.quantity}</h5>
-      </div>
-
-      <div className="col-4">
-        <div className="d-flex justify-content-around">
-          <Button
-            _iconName="shopping-cart"
-            _hidden={!editedList[_key]}
-            _loading={updateItemQuantityFromCurrentCartApi.isLoading}
-            _onClick={() =>
-              updateItemQuantityFromCurrentCartHandling(
-                currentUser.id,
-                _item.item_id,
-                _item.quantity,
-                _key
-              )
-            }
-            _loading={updateItemQuantityFromCurrentCartApi.loading}
-            _className="btn-yellow"
-          >
-            Update
-          </Button>
-          <Button
-            _iconName="trash"
-            _loading={deleteItemFromCurrentCartApi.loading}
-            _onClick={() =>
-              deleteItemFromCurrentCartHandling(
-                currentUser.id,
-                _item.item_id,
-                _key
-              )
-            }
-            _className="btn-pink"
-          ></Button>
-        </div>
+          _hidden={!editedList[_key]}
+          _loading={updateItemQuantityFromCurrentCartApi.isLoading}
+          _onClick={() =>
+            updateItemQuantityFromCurrentCartHandling(
+              currentUser.id,
+              _item.item_id,
+              _item.quantity,
+              _key
+            )
+          }
+          _loading={updateItemQuantityFromCurrentCartApi.loading}
+          _className="btn-yellow btn-block"
+        >
+          Update
+        </Button>
+        <Button
+          _iconName="trash"
+          _loading={deleteItemFromCurrentCartApi.loading}
+          _onClick={() =>
+            deleteItemFromCurrentCartHandling(
+              currentUser.id,
+              _item.item_id,
+              _key
+            )
+          }
+          _className="btn-pink btn-block"
+        >
+          Remove
+        </Button>
       </div>
     </div>
   );

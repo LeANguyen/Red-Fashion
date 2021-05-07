@@ -1,0 +1,52 @@
+@import "../../styles/config.scss";
+
+.dropdown-bubble {
+  position: relative;
+  // display: inline-block;
+}
+
+// Dropdown-menu Template
+@mixin dropdown-menu {
+  background-color: $white;
+  margin-top: 1em;
+  border-radius: 10px;
+  &::before,
+  &::after {
+    content: "";
+    display: block;
+    border-style: solid;
+    border-width: 0 1em 1em 1em;
+    border-color: transparent;
+    position: absolute;
+    left: 2em;
+  }
+  &::before {
+    top: -1em;
+    border-bottom-color: $white;
+  }
+  &::after {
+    top: -1em;
+    border-bottom-color: $white;
+  }
+}
+
+// On-click Dropdown
+.dropdown-menu-click {
+  @include dropdown-menu;
+  transition: transform 0.2s ease;
+  transform: scale(0.5);
+}
+
+// On-hover Dropdown
+.dropdown-menu-hover {
+  @include dropdown-menu;
+  transition: transform 0.2s ease;
+  transform: scale(0);
+  opacity: 0;
+  display: block;
+}
+
+.dropdown:hover .dropdown-menu-hover {
+  transform: scale(1);
+  opacity: 1;
+}

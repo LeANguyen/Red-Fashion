@@ -53,3 +53,30 @@ $shadow-4: 0 0 20px;
 // $gray: #6c757d;
 // $dark: #343a40;
 // $black: #202125;
+
+@mixin link($color, $t: 0.3, $h: 1px) {
+  display: inline-block;
+  position: relative;
+
+  &:hover {
+    color: $color;
+    text-decoration: none;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    width: 0;
+    height: $h;
+    background-color: $color;
+    transition: all #{$t}s ease-in-out;
+    box-shadow: $shadow-1 $color, $shadow-2 $color, $shadow-3 $color;
+  }
+
+  &:hover::before {
+    width: 100%;
+  }
+}

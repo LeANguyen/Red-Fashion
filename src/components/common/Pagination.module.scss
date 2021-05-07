@@ -1,0 +1,33 @@
+@import "../../styles/config.scss";
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.link {
+  color: $white;
+  float: left;
+  padding: 10px 12px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 20px;
+  border: 2px solid transparent;
+}
+
+.link:hover {
+  color: $white;
+  text-decoration: none;
+  // background-color: $yellow;
+  border-radius: 5px;
+  border: 2px solid $yellow;
+  box-shadow: $shadow-1 $yellow, $shadow-2 $yellow, inset $shadow-1 $yellow,
+    inset $shadow-2 $yellow;
+}
+
+.active-link {
+  color: $white !important;
+  background-color: $yellow !important;
+  border-radius: 5px;
+  box-shadow: $shadow-1 $yellow, $shadow-2 $yellow;
+}

@@ -11,6 +11,7 @@ import querySearch from "stringquery";
 import baseURL from "../../../APIs/baseURL";
 import Space from "../../common/Space";
 import NumberInput from "../../common/NumberInput";
+import DropdownItem from "../../common/DropdownItem";
 
 const ItemEdit = () => {
   const history = useHistory();
@@ -167,28 +168,20 @@ const ItemEdit = () => {
             <h5 class="text-muted font-weight-bold">Category:</h5>
             <Dropdown
               _text={category}
-              _className="btn-pink btn-block rounded"
+              _className="btn-pink d-block"
               _displayToggle
               _iconName="black-tie"
+              _dropdownHover
             >
-              <div
-                className="dropdown-item"
-                onClick={() => setCategory("Shirt")}
-              >
+              <DropdownItem _onClick={() => setCategory("Shirt")}>
                 Shirt
-              </div>
-              <div
-                className="dropdown-item"
-                onClick={() => setCategory("Pant")}
-              >
+              </DropdownItem>
+              <DropdownItem _onClick={() => setCategory("Pant")}>
                 Pant
-              </div>
-              <div
-                className="dropdown-item"
-                onClick={() => setCategory("Shoe")}
-              >
+              </DropdownItem>
+              <DropdownItem _onClick={() => setCategory("Shoe")}>
                 Shoe
-              </div>
+              </DropdownItem>
             </Dropdown>
           </div>
           <div className="d-block d-md-none">
@@ -205,19 +198,17 @@ const ItemEdit = () => {
               _className="btn-pink btn-block rounded"
               _displayToggle
               _iconName="star"
+              _dropdownClick
             >
-              <div
-                className="dropdown-item"
-                onClick={() => setOrigin("Vietnam")}
-              >
+              <DropdownItem _onClick={() => setCategory("Vietnam")}>
                 Vietnam
-              </div>
-              <div className="dropdown-item" onClick={() => setOrigin("China")}>
+              </DropdownItem>
+              <DropdownItem _onClick={() => setCategory("China")}>
                 China
-              </div>
-              <div className="dropdown-item" onClick={() => setOrigin("USA")}>
+              </DropdownItem>
+              <DropdownItem _onClick={() => setCategory("USA")}>
                 USA
-              </div>
+              </DropdownItem>
             </Dropdown>
           </div>
           <div className="d-block d-md-none">

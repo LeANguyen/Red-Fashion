@@ -52,6 +52,7 @@ const LoginModal = () => {
           <div className="modal-body modal-single text-center">
             <h1 className={HeaderCss["logo"]}>Fashion</h1>
             <br></br>
+            <br></br>
             <Input
               _iconName="envelope"
               _placeholder="Email"

@@ -1,0 +1,20 @@
+@import "../../styles/config.scss";
+
+.dropdown-item {
+  cursor: pointer;
+  background-color: $white;
+}
+
+.dropdown-item:hover {
+  background-color: $yellow;
+  color: $white;
+}
+
+.dropdown-item a {
+  @include link($white);
+  color: $dark;
+}
+
+.dropdown-item:hover a {
+  color: $white;
+}

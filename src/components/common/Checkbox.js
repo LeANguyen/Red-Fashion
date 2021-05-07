@@ -1,15 +1,16 @@
 import React from "react";
 import Space from "./Space";
 import styles from "./Checkbox.module.scss";
-const Checkbox = ({ _onChange, _className, children }) => {
-  // global properties
-  const textFontWeight = "font-weight-bold";
-
+const Checkbox = ({ _onChange }) => {
   return (
-    <label class={styles["container"] + " text-white"}>
-      Four
-      <input type="checkbox"></input>
-      <span class={styles["checkmark"]}></span>
+    <label className={styles["container"]}>
+      <input type="checkbox" onChange={_onChange}></input>
+      <span className={styles["checkbox"]}></span>
+      <Space></Space>
+      <Space></Space>
+      <span className="text-white">
+        Please agree to the terms and conditions
+      </span>
     </label>
   );
 };

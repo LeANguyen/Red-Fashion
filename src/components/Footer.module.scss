@@ -4,11 +4,30 @@
   background-color: $black;
 }
 
-// styled text
-.title {
-  color: $yellow;
-  font-weight: bold;
-  text-shadow: $shadow-1 $yellow, $shadow-2 $yellow, $shadow-3 $yellow;
+.link {
+  display: inline-block;
+  position: relative;
+}
+
+.link:hover {
+  text-decoration: none;
+}
+
+.link::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+  width: 0;
+  height: 1px;
+  background-color: $yellow;
+  transition: all 0.3s ease-in-out;
+  box-shadow: $shadow-1 $yellow, $shadow-2 $yellow, $shadow-3 $yellow;
+}
+
+.link:hover:before {
+  width: 100%;
 }
 
 // media container

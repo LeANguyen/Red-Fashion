@@ -1,5 +1,5 @@
 const settings = {
-  perPage: 1
+  perPage: 3
 };
 
 export default settings;

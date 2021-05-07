@@ -81,7 +81,10 @@ const CheckoutForm = () => {
     <div className="row">
       <div className="col-lg-6">
         <div className="container">
-          <h4 className="text-yellow-g">Shipping Information</h4>
+          <strong className="text-yellow-g text-xl">
+            Shipping Information
+          </strong>
+          <br></br>
           <br></br>
           <Input
             _iconName="user"
@@ -108,11 +111,12 @@ const CheckoutForm = () => {
 
       <div className="col-lg-6">
         <div className="container">
-          <h4 className="text-yellow-g">Order Summary</h4>
+          <strong className="text-yellow-g text-xl">Order Summary</strong>
+          <br></br>
           <br></br>
           <div className="d-flex justify-content-between">
-            <h5 className="text-pink">Total</h5>
-            <h5 className="text-white">{"$" + totalPrice}</h5>
+            <strong className="text-pink text-lg">Total</strong>
+            <strong className="text-white text-lg">{"$" + totalPrice}</strong>
           </div>
           <br></br>
           {(updateCartApi.isLoading || createCartApi.isLoading) && (

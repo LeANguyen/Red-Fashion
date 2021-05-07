@@ -12,7 +12,7 @@ const ItemAdminList = () => {
   return (
     <div>
       {getItemsApi.success &&
-        getItemsApi.data.map((item, i) => {
+        getItemsApi.data["list"].map((item, i) => {
           return <ItemAdminRow _item={item}></ItemAdminRow>;
         })}
     </div>

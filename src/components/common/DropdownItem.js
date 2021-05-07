@@ -1,16 +1,16 @@
 import React from "react";
-
-const AppDropdownItem = ({ _text, _active, _className, _onClick }) => {
+import styles from "./DropdownItem.module.scss";
+const DropdownItem = ({ _active, children, _onClick }) => {
   return (
-    <a
-      className={["dropdown-item", _active ? "active" : "", _className].join(
-        " "
-      )}
+    <div
+      className={
+        `dropdown-item ${styles["dropdown-item"]}` + (_active ? " active" : "")
+      }
       onClick={_onClick}
     >
-      {_text}
-    </a>
+      {children}
+    </div>
   );
 };
 
-export default AppDropdownItem;
+export default DropdownItem;

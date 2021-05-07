@@ -1,24 +1,42 @@
 import React from "react";
+import styles from "./Dropdown.module.scss";
+import Space from "./Space";
 
 const Dropdown = ({
   _text,
   _iconName,
   _displayToggle,
   _className = "btn btn-info rounded border",
+  _dropdownHover,
+  _dropdownClick,
   children
 }) => {
   return (
-    <>
-      <button
-        className={[_displayToggle ? "dropdown-toggle" : "", _className].join(
-          " "
-        )}
-        data-toggle="dropdown"
+    <div className={styles["dropdown-bubble"] + " " + styles["dropdown"]}>
+      <a
+        href="#"
+        className={[
+          _displayToggle ? "dropdown-toggle" : "",
+          "text-center",
+          _className
+        ].join(" ")}
+        data-toggle={_dropdownClick ? "dropdown" : ""}
       >
-        <i className={"fa fa-" + _iconName}></i> {_text}
-      </button>
-      <div className="dropdown-menu">{children}</div>
-    </>
+        <i className={"fa fa-" + _iconName}></i>
+        <Space></Space>
+        <Space></Space>
+        {_text}
+      </a>
+      <ul
+        className={
+          "dropdown-menu" +
+          (_dropdownClick ? " " + styles["dropdown-menu-click"] : "") +
+          (_dropdownHover ? " " + styles["dropdown-menu-hover"] : "")
+        }
+      >
+        {children}
+      </ul>
+    </div>
   );
 };
 

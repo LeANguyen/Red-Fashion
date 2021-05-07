@@ -47,7 +47,7 @@ const ItemCard = ({ _item, _key }) => {
     }
   };
 
-  const updateItemQuantityFromCurrentExtraHandling = async (
+  const updateItemQuantityFromCurrentHandling = async (
     clientId,
     itemId,
     quantity
@@ -64,7 +64,7 @@ const ItemCard = ({ _item, _key }) => {
     }
   };
 
-  const deleteItemFromCurrentCartExtraHandling = async (clientId, itemId) => {
+  const deleteItemFromCurrentCartHandling = async (clientId, itemId) => {
     const response = await deleteItemFromCurrentCartApi.request(
       clientId,
       itemId
@@ -77,16 +77,13 @@ const ItemCard = ({ _item, _key }) => {
     }
   };
 
-  const getItemFromCurrentCartByItemIdExtraHandling = async (
-    clientId,
-    itemId
-  ) => {
+  const getItemFromCurrentCartByItemIdHandling = async (clientId, itemId) => {
     const response = await getItemFromCurrentCartByItemIdApi.request(
       clientId,
       itemId
     );
     if (response.ok) {
-      if (response.data[0] != undefined) {
+      if (response.data[0] !== undefined) {
         setItemInCart(true);
         setQuantity(response.data[0].quantity);
       } else {
@@ -100,14 +97,14 @@ const ItemCard = ({ _item, _key }) => {
 
   useEffect(() => {
     if (user != null) {
-      getItemFromCurrentCartByItemIdExtraHandling(user.id, _item.id);
+      getItemFromCurrentCartByItemIdHandling(user.id, _item.id);
     }
   }, []);
 
   return (
     <div className={`card ${ContainerCss["body"]}`} key={_key}>
       <div className={`card-header ${ContainerCss["header"]}`}>
-        <h5 className={`${ContainerCss["title"]}`}>{_item.item_name}</h5>
+        <strong className="text-white">{_item.item_name}</strong>
       </div>
 
       {/* item image */}
@@ -120,60 +117,53 @@ const ItemCard = ({ _item, _key }) => {
       {/* card body */}
       <div className="card-body">
         <li className={ContainerCss["divider"]}>
-          <strong className="text-pink">
+          <strong className="text-yellow">
             <i className="fa fa-black-tie"></i>
             <Space></Space>
             <Space></Space>
             Category
           </strong>
-          <strong className="text-pink-w">{_item.category}</strong>
+          <strong className="text-white">{_item.category}</strong>
         </li>
         <li className={ContainerCss["divider"]}>
-          <strong className={"text-pink"}>
+          <strong className="text-yellow">
             <i className="fa fa-star"></i>
             <Space></Space>
             <Space></Space>
             Origin
           </strong>
-          <strong className="text-pink-w">{_item.origin}</strong>
+          <strong className="text-white">{_item.origin}</strong>
         </li>
         <li className={ContainerCss["divider"]}>
-          <strong className="text-pink">
+          <strong className="text-yellow">
             <i className="fa fa-money"></i>
             <Space></Space>
             <Space></Space>
             Price
           </strong>
-          <strong className="text-pink-w">{"$" + _item.price}</strong>
+          <strong className="text-white">{"$" + _item.price}</strong>
         </li>
+
         <li className={ContainerCss["divider"]}>
-          <strong className="text-pink">
+          <strong className="text-yellow">
             <i className="fa fa-shopping-cart"></i>
             <Space></Space>
             <Space></Space>
-            Inventory
+            Cart
           </strong>
           {!itemInCart && (
-            <Input
-              _inputType="number"
+            <NumberInput
+              _iconName="shopping-cart"
               _maxLength={2}
               _value={quantity}
               _disabled={getItemFromCurrentCartByItemIdApi.loading}
               _onChange={event => setQuantity(event.target.value)}
-              _width={25}
-              _wrapperClass="input-1"
-            ></Input>
-            // <NumberInput
-            //   // _iconName="shopping-cart"
-            //   _maxLength={2}
-            //   _value={quantity}
-            //   _disabled={getItemFromCurrentCartByItemIdApi.loading}
-            //   _onChange={event => setQuantity(event.target.value)}
-            // ></NumberInput>
+              _onClickMinus={() => setQuantity(quantity - 1)}
+              _onClickPlus={() => setQuantity(quantity + 1)}
+            ></NumberInput>
           )}
           {itemInCart && (
-            <Input
-              _inputType="number"
+            <NumberInput
               _maxLength={2}
               _value={quantity}
               _disabled={getItemFromCurrentCartByItemIdApi.loading}
@@ -181,21 +171,15 @@ const ItemCard = ({ _item, _key }) => {
                 setQuantity(event.target.value);
                 setQuantityEdited(true);
               }}
-              _width={25}
-              _wrapperClass="input-1"
-            ></Input>
-            // <div className="text-right">
-            //   <NumberInput
-            //     _maxLength={2}
-            //     _value={quantity}
-            //     _disabled={getItemFromCurrentCartByItemIdApi.loading}
-            //     _onChange={event => {
-            //       setQuantity(event.target.value);
-            //       setQuantityEdited(true);
-            //     }}
-            //     _width={25}
-            //   ></NumberInput>
-            // </div>
+              _onClickMinus={() => {
+                setQuantity(parseInt(quantity) - 1);
+                setQuantityEdited(true);
+              }}
+              _onClickPlus={() => {
+                setQuantity(parseInt(quantity) + 1);
+                setQuantityEdited(true);
+              }}
+            ></NumberInput>
           )}
         </li>
 
@@ -246,7 +230,7 @@ const ItemCard = ({ _item, _key }) => {
                 <Button
                   _loading={updateItemQuantityFromCurrentCartApi.loading}
                   _onClick={() =>
-                    updateItemQuantityFromCurrentExtraHandling(
+                    updateItemQuantityFromCurrentHandling(
                       user.id,
                       _item.id,
                       quantity
@@ -267,7 +251,7 @@ const ItemCard = ({ _item, _key }) => {
                 <Button
                   _loading={deleteItemFromCurrentCartApi.loading}
                   _onClick={() =>
-                    deleteItemFromCurrentCartExtraHandling(user.id, _item.id)
+                    deleteItemFromCurrentCartHandling(user.id, _item.id)
                   }
                   _className="btn-pink btn-block"
                   _iconName="cart-arrow-down"

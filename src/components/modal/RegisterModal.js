@@ -72,6 +72,7 @@ const LoginModal = () => {
           <div className="modal-body modal-single text-center">
             <h1 className={HeaderCss["logo"]}>Fashion</h1>
             <br></br>
+            <br></br>
             <Input
               _iconName="envelope"
               _placeholder="Email"
@@ -104,6 +105,7 @@ const LoginModal = () => {
             <Checkbox _className="text-white">
               Please agree to the Terms of Use & Privacy Policy
             </Checkbox>
+            <br></br>
             <Button
               _onClick={() => registerHanling()}
               _className="btn-yellow btn-block"

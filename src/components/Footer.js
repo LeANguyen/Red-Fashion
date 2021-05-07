@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Space from "./common/Space";
 import { Link } from "react-router-dom";
-import FooterCss from "./Footer.module.scss";
+import styles from "./Footer.module.scss";
 import ContainerCss from "./common/Container.module.scss";
 const mediaList = [
   {
@@ -28,7 +28,7 @@ const mediaList = [
 
 const Footer = () => {
   return (
-    <div className={FooterCss["body"]}>
+    <div className={styles["body"]}>
       <div className="row container-fluid">
         {/* Spacing */}
         <div className="col-lg-1"></div>
@@ -36,14 +36,14 @@ const Footer = () => {
         {/* Help links - start */}
         <div className="col-lg-4">
           <br></br>
-          <h2 className={FooterCss["title"]}>HELP</h2>
+          <h2 className="text-yellow-g">HELP</h2>
 
           {/* Delivery Information */}
           <strong className="text-yellow-w">
             <i className="fa fa-star"></i>
             <Space></Space>
             <Space></Space>
-            <Link className="text-yellow-w" to="/">
+            <Link className={`text-yellow-w ${styles["link"]}`} to="/">
               Delivery Information
             </Link>
           </strong>
@@ -55,7 +55,7 @@ const Footer = () => {
             <i className="fa fa-star"></i>
             <Space></Space>
             <Space></Space>
-            <Link className="text-yellow-w" to="/">
+            <Link className={`text-yellow-w ${styles["link"]}`} to="/">
               Privacy Policy
             </Link>
           </strong>
@@ -67,7 +67,7 @@ const Footer = () => {
             <i className="fa fa-star"></i>
             <Space></Space>
             <Space></Space>
-            <Link className="text-yellow-w" to="/">
+            <Link className={`text-yellow-w ${styles["link"]}`} to="/">
               Terms of Service
             </Link>
           </strong>
@@ -88,8 +88,8 @@ const Footer = () => {
         <div className="col-lg-5">
           {/* Business section - start */}
           <br></br>
-          <h2 className={FooterCss["title"]}>BUSINESS</h2>
-          <li className={FooterCss["media-container"]}>
+          <h2 className="text-yellow-g">BUSINESS</h2>
+          <li className={styles["media-container"]}>
             <strong className="text-yellow-w">
               <i className="fa fa-phone"></i>
               <Space></Space>
@@ -98,7 +98,7 @@ const Footer = () => {
             <strong className={"text-yellow"}>{"267-269-8815"}</strong>
           </li>
           <br></br>
-          <li className={FooterCss["media-container"]}>
+          <li className={styles["media-container"]}>
             <strong className="text-yellow-w">
               <i className="fa fa-envelope"></i>
               <Space></Space>
@@ -107,7 +107,7 @@ const Footer = () => {
             <strong className="text-yellow">Fashion@business.com</strong>
           </li>
           <br></br>
-          <li className={FooterCss["media-container"]}>
+          <li className={styles["media-container"]}>
             <strong className="text-yellow-w">
               <i className="fa fa-clock-o"></i>
               <Space></Space>
@@ -117,7 +117,7 @@ const Footer = () => {
             <strong className="text-pink">09:00 AM - 09:00 PM</strong>
           </li>
           <br></br>
-          <li className={FooterCss["media-container"]}>
+          <li className={styles["media-container"]}>
             <strong className="text-yellow-w">
               <i className="fa fa-map-marker"></i>
               <Space></Space>
@@ -139,13 +139,13 @@ const Footer = () => {
           </strong>
           <br></br>
           <br></br>
-          <div className={FooterCss["media-container"]}>
+          <div className={styles["media-container"]}>
             {mediaList.map((media, i) => {
               return (
                 <a
                   target="_blank"
                   href={media.url}
-                  className={FooterCss[media.media]}
+                  className={styles[media.media]}
                 >
                   <i className={"fa fa-2x fa-" + media.media}></i>
                 </a>

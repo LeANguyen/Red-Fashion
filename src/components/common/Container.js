@@ -8,12 +8,12 @@ const Container = ({ children, _title, _hasHeader, _iconName }) => {
       {/* header */}
       {_hasHeader && (
         <div className={`card-header ${ContainerCss["header"]}`}>
-          <h4 className={ContainerCss["title"]}>
+          <strong className="text-white text-xl">
             <i className={"fa fa-" + _iconName}></i>
             <Space></Space>
             <Space></Space>
             {_title}
-          </h4>
+          </strong>
         </div>
       )}
 

@@ -7,7 +7,8 @@ import RegisterModal from "./modal/RegisterModal";
 import $ from "jquery";
 import Space from "./common/Space";
 import Dropdown from "./common/Dropdown";
-import HeaderCss from "./Header.module.scss";
+import DropdownItem from "./common/DropdownItem";
+import styles from "./Header.module.scss";
 
 const Header = () => {
   const history = useHistory();
@@ -23,25 +24,25 @@ const Header = () => {
 
   return (
     <>
-      <nav className={`navbar navbar-expand-lg ${HeaderCss.body}`}>
+      <nav className={`navbar navbar-expand-lg ${styles.body}`}>
         {/* collapse button */}
         <button
-          className={`navbar-toggler ${HeaderCss["collapse-btn"]}`}
+          className={`navbar-toggler ${styles["collapse-btn"]}`}
           data-toggle="collapse"
           data-target="#navbarToggler"
         >
           <span
-            className={`navbar-toggler-icon ${HeaderCss["collapse-btn-icon"]}`}
+            className={`navbar-toggler-icon ${styles["collapse-btn-icon"]}`}
           ></span>
         </button>
 
         {/* logo */}
         <div className="navbar-brand">
-          <h1 className="m-0">
-            <Link className={`${HeaderCss["logo"]}`} to="/">
+          <strong className="text-pink text-xl">
+            <Link className={styles["logo"]} to="/">
               Fashion
             </Link>
-          </h1>
+          </strong>
         </div>
 
         {/* header body */}
@@ -49,13 +50,17 @@ const Header = () => {
           <ul className="navbar-nav mr-auto">
             {/* home */}
             <li className="nav-item mx-lg-2">
-              <Link className="nav-link" to="/">
-                <h5 className={HeaderCss["link"]}>
+              {/* {`text-yellow-w ${FooterCss["link"]}`} */}
+              <div className="nav-link">
+                <strong className="text-yellow-w text-lg">
                   <i className="fa fa-home"></i>
                   <Space></Space>
-                  <Space></Space>Home
-                </h5>
-              </Link>
+                  <Space></Space>
+                  <Link className={`text-yellow-w ${styles["link"]}`} to="/">
+                    Home
+                  </Link>
+                </strong>
+              </div>
             </li>
 
             {/* shop categories */}
@@ -64,27 +69,34 @@ const Header = () => {
                 _iconName="black-tie"
                 _text="Categories"
                 _displayToggle
-                _textBold
-                _className="btn-outline-pink"
+                _dropdownHover
+                _className="btn-outline-pink d-block"
               >
-                <Link className="dropdown-item" to="/items/Shirt">
-                  <i className="fa fa-star"></i>
-                  <Space></Space>
-                  <Space></Space>
-                  Shirt
-                </Link>
-                <Link className="dropdown-item" to="/items/Pant">
-                  <i className="fa fa-star"></i>
-                  <Space></Space>
-                  <Space></Space>
-                  Pant
-                </Link>
-                <Link className="dropdown-item" to="/items/Shoe">
-                  <i className="fa fa-star"></i>
-                  <Space></Space>
-                  <Space></Space>
-                  Shoe
-                </Link>
+                <DropdownItem>
+                  <strong>
+                    <i className="fa fa-star"></i>
+                    <Space></Space>
+                    <Space></Space>
+                    <Link to="/items/Shirt">Shirt</Link>
+                  </strong>
+                </DropdownItem>
+
+                <DropdownItem>
+                  <strong>
+                    <i className="fa fa-star"></i>
+                    <Space></Space>
+                    <Space></Space>
+                    <Link to="/items/Pant">Pant</Link>
+                  </strong>
+                </DropdownItem>
+                <DropdownItem>
+                  <strong>
+                    <i className="fa fa-star"></i>
+                    <Space></Space>
+                    <Space></Space>
+                    <Link to="/items/Shoe">Shoe</Link>
+                  </strong>
+                </DropdownItem>
               </Dropdown>
             </li>
 
@@ -92,7 +104,7 @@ const Header = () => {
             {user === null && (
               <li className="nav-item mx-lg-2">
                 <a
-                  className={`nav-link ${HeaderCss["link"]}`}
+                  className={`nav-link ${styles["link"]}`}
                   data-toggle="modal"
                   data-target="#loginModal"
                 >
@@ -110,7 +122,8 @@ const Header = () => {
                   _iconName="user"
                   _text={user.name}
                   _displayToggle
-                  _className="btn-outline-yellow"
+                  _dropdownHover
+                  _className="btn-outline-yellow d-block"
                 >
                   <Link className="dropdown-item" to="/cart?">
                     <i className="fa fa-shopping-cart"></i>
@@ -145,13 +158,19 @@ const Header = () => {
 
             {/* admin */}
             <li className="nav-item mx-lg-2">
-              <Link className="nav-link" to="/admin">
-                <h5 className={HeaderCss["link"]}>
+              <div className="nav-link">
+                <h5 className="text-yellow-w">
                   <i className="fa fa-list"></i>
                   <Space></Space>
-                  <Space></Space>Admin
+                  <Space></Space>
+                  <Link
+                    className={`text-yellow-w ${styles["link"]}`}
+                    to="/admin"
+                  >
+                    Admin
+                  </Link>
                 </h5>
-              </Link>
+              </div>
             </li>
           </ul>
         </div>

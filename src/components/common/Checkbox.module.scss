@@ -1,11 +1,14 @@
+@import "../../styles/config.scss";
+
 /* Customize the label (the container) */
 .container {
-  display: block;
-  position: relative;
-  padding-left: 35px;
-  margin-bottom: 12px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
   cursor: pointer;
-  font-size: 22px;
+  color: $white;
+
+  // User cannot hightlight/select the children for ctrl-c/ctrl-v
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -14,54 +17,61 @@
 
 /* Hide the browser's default checkbox */
 .container input {
-  position: absolute;
-  opacity: 0;
   cursor: pointer;
   height: 0;
   width: 0;
 }
 
 /* Create a custom checkbox */
-.checkmark {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 25px;
-  width: 25px;
-  background-color: #eee;
+.checkbox {
+  height: 20px;
+  width: 20px;
+  border-radius: 2px;
+  background-color: $white;
+  position: relative;
 }
 
-/* On mouse-over, add a grey background color */
-.container:hover input ~ .checkmark {
-  background-color: #ccc;
+/* On mouse-over, add a custom background color */
+.container input ~ .checkbox:hover {
+  box-shadow: $shadow-1 $white, $shadow-2 $white;
 }
 
-/* When the checkbox is checked, add a blue background */
-.container input:checked ~ .checkmark {
-  background-color: #2196f3;
+/* When the checkbox is checked, add another custom background */
+.container input:checked ~ .checkbox {
+  background-color: $yellow;
+}
+
+.container input:checked ~ .checkbox:hover {
+  box-shadow: $shadow-1 $yellow, $shadow-2 $yellow;
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
-.checkmark:after {
+// The checkmark is at the center of the checkbox
+.checkbox:after {
   content: "";
-  position: absolute;
   display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
 }
 
 /* Show the checkmark when checked */
-.container input:checked ~ .checkmark:after {
+.container input:checked ~ .checkbox:after {
   display: block;
 }
 
 /* Style the checkmark/indicator */
-.container .checkmark:after {
-  left: 9px;
-  top: 5px;
-  width: 5px;
+// Checkmark's postion: go back 50% => go up 58% => rotate 45
+$checkmark-rotation: translateX(-50%) translateY(-58%) rotate(45deg);
+.container .checkbox:after {
+  width: 6px;
   height: 10px;
-  border: solid white;
+  border: solid $white;
   border-width: 0 3px 3px 0;
-  -webkit-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  transform: rotate(45deg);
+  -ms-transform: $checkmark-rotation; /* IE 9 */
+  -webkit-transform: $checkmark-rotation; /* Chrome, Safari, Opera */
+  -moz-transform: $checkmark-rotation;
+  transform: $checkmark-rotation;
+  transition: transform 3s ease;
 }

@@ -6,49 +6,24 @@
   align-items: center;
 }
 
-// logo
-.logo {
-  font-family: cursive;
-  text-decoration: none;
-  color: $pink;
-  text-shadow: $shadow-1 $pink, $shadow-2 $pink, $shadow-3 $pink,
-    $shadow-4 $pink;
-  font-weight: bold;
-  margin: 0;
-  padding: 0;
-}
-
-.logo:hover {
-  color: $pink;
-}
-
 .link {
-  color: $white;
-  margin: 0;
+  @include link($yellow, 0.2, 2px);
 }
 
-.link::before {
-  content: "";
-  position: absolute;
-  width: 0;
-  height: 1px;
-  bottom: 0;
-  left: 0;
-  background-color: $yellow;
-  visibility: hidden;
-  transition: all 0.3s ease-in-out;
+.logo {
+  @include link($pink, 0.3, 3px);
+  color: $pink;
+  font-family: cursive;
+  text-shadow: $shadow-1 $pink, $shadow-2 $pink;
+
+  &:hover {
+    color: $pink;
+    text-shadow: $shadow-1 $pink, $shadow-2 $pink, $shadow-3 $pink,
+      $shadow-4 $pink;
+  }
 }
 
-.link:hover:before {
-  visibility: visible;
-  width: 100%;
-}
-
-.link:hover {
-  color: $yellow;
-  text-shadow: $shadow-1 $yellow, $shadow-2 $yellow;
-}
-
+// Collapse Button
 .collapse-btn {
   border-color: $pink;
   box-shadow: inset $shadow-1 $pink, inset $shadow-2 $pink, $shadow-1 $pink,
@@ -59,13 +34,24 @@
   background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,102,203, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
 }
 
-// user-icon
-.link {
-  color: $white !important;
-  font-weight: bold;
+// Dropdown
+.dropdown-menu {
+  margin-top: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  display: block;
+  opacity: 0;
+  transition: ease-out 0.3s;
 }
 
-.link:hover {
-  color: $yellow !important;
-  text-shadow: $shadow-1 $yellow, $shadow-2 $yellow, $shadow-3 $yellow;
+.dropdown:hover .dropdown-menu {
+  opacity: 1;
+}
+
+.dropdown {
+  border: 1px solid red;
+}
+
+.dropdown:hover {
+  color: red !important;
 }
