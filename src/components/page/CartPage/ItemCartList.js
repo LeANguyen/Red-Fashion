@@ -4,7 +4,6 @@ import useApi from "../../../hooks/useApi";
 import * as cartItemApi from "../../../APIs/cartItemApi";
 import CheckoutReadOnlyForm from "./CheckoutReadOnlyForm";
 import CheckoutForm from "./CheckoutForm";
-import ContainerCss from "../../common/Container.module.scss";
 import { useHistory } from "react-router-dom";
 import {
   setData,
@@ -78,7 +77,7 @@ const ItemCartList = () => {
               <>
                 <br></br>
                 <ItemCartRow _item={item} _key={i}></ItemCartRow>
-                <div className={ContainerCss["divider"]}></div>
+                <div className="divider-dark"></div>
               </>
             );
           })}
@@ -97,7 +96,7 @@ const ItemCartList = () => {
                   _item={item}
                   _key={i}
                 ></ItemCartReadOnlyRow>
-                <div className={ContainerCss["divider"]}></div>
+                <div className="divider-dark"></div>
               </>
             );
           })}

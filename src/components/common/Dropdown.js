@@ -13,8 +13,7 @@ const Dropdown = ({
 }) => {
   return (
     <div className={styles["dropdown-bubble"] + " " + styles["dropdown"]}>
-      <a
-        href="#"
+      <strong
         className={[
           _displayToggle ? "dropdown-toggle" : "",
           "text-center",
@@ -26,7 +25,7 @@ const Dropdown = ({
         <Space></Space>
         <Space></Space>
         {_text}
-      </a>
+      </strong>
       <ul
         className={
           "dropdown-menu" +

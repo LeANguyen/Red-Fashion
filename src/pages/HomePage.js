@@ -11,10 +11,21 @@ import colors from "../configs/colors";
 import AboutUs from "../components/page/HomePage/AboutUs";
 import Loader from "../components/common/Loader";
 import ItemCardList from "../components/page/HomePage/ItemCardList";
+import ItemSearch from "../components/page/HomePage/ItemSearch";
 
 const HomePage = () => {
   return (
     <Page>
+      <div className="bg-2">
+        <div className="container">
+          <br></br>
+          <br></br>
+          <ItemSearch></ItemSearch>
+          <br></br>
+          <br></br>
+        </div>
+      </div>
+
       {/* item card list */}
       <div className="bg-1">
         <div className="container">

@@ -54,3 +54,25 @@ code {
   -moz-backface-visibility: hidden;
   backface-visibility: hidden;
 }
+
+.divider-light {
+  display: flex;
+  flex-shrink: 0;
+  border-bottom: 1px solid $dim;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.divider-dark {
+  display: flex;
+  flex-shrink: 0;
+  border-bottom: 1px solid $dark;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+  box-shadow: inset 0 -5px 5px -5px $dark, 0 5px 5px -5px $dark;
+}
+
+.grid-container {
+  grid-row-gap: 30px;
+}

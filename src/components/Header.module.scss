@@ -2,16 +2,29 @@
 
 .body {
   background-color: $black;
-  padding: 15px;
-  align-items: center;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 .link {
   @include link($yellow, 0.2, 2px);
 }
 
+.nav-item {
+  height: 55px;
+  display: flex;
+  align-items: center;
+}
+
+.nav-item:hover {
+  background-color: $dark;
+}
+
 .logo {
   @include link($pink, 0.3, 3px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: $pink;
   font-family: cursive;
   text-shadow: $shadow-1 $pink, $shadow-2 $pink;

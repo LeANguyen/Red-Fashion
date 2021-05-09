@@ -22,7 +22,7 @@ const ItemAdminRow = ({ _item }) => {
     <div className="row align-items-center">
       <div className="col-4 align-middle">
         <img
-          src={baseURL + "/uploaded_images/item" + _item.id + ".png"}
+          src={baseURL + "/images/store/item-" + _item.id + ".png"}
           width={100}
           className="rounded"
         ></img>
@@ -32,6 +32,10 @@ const ItemAdminRow = ({ _item }) => {
               {_item.item_name}
             </Link>
           </strong>
+          <strong className="text-green">{_item.id}</strong>
+          <br></br>
+          <strong className="text-pink">{_item.category}</strong>
+          <br></br>
           <strong className="text-pink">{"$" + _item.price}</strong>
         </div>
       </div>

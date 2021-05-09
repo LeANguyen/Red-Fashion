@@ -110,13 +110,13 @@ const ItemCard = ({ _item, _key }) => {
       {/* item image */}
       <img
         className={`card-img-top ${ItemCardCss["img"]}`}
-        src={baseURL + "/uploaded_images/item" + _item.id + ".png"}
+        src={baseURL + "/images/store/item-" + _item.id + ".png"}
         alt=""
       ></img>
 
       {/* card body */}
       <div className="card-body">
-        <li className={ContainerCss["divider"]}>
+        <li className="divider-dark">
           <strong className="text-yellow">
             <i className="fa fa-black-tie"></i>
             <Space></Space>
@@ -125,7 +125,7 @@ const ItemCard = ({ _item, _key }) => {
           </strong>
           <strong className="text-white">{_item.category}</strong>
         </li>
-        <li className={ContainerCss["divider"]}>
+        <li className="divider-dark">
           <strong className="text-yellow">
             <i className="fa fa-star"></i>
             <Space></Space>
@@ -134,7 +134,7 @@ const ItemCard = ({ _item, _key }) => {
           </strong>
           <strong className="text-white">{_item.origin}</strong>
         </li>
-        <li className={ContainerCss["divider"]}>
+        <li className="divider-dark">
           <strong className="text-yellow">
             <i className="fa fa-money"></i>
             <Space></Space>
@@ -144,7 +144,7 @@ const ItemCard = ({ _item, _key }) => {
           <strong className="text-white">{"$" + _item.price}</strong>
         </li>
 
-        <li className={ContainerCss["divider"]}>
+        <li className="divider-dark">
           <strong className="text-yellow">
             <i className="fa fa-shopping-cart"></i>
             <Space></Space>
@@ -153,7 +153,6 @@ const ItemCard = ({ _item, _key }) => {
           </strong>
           {!itemInCart && (
             <NumberInput
-              _iconName="shopping-cart"
               _maxLength={2}
               _value={quantity}
               _disabled={getItemFromCurrentCartByItemIdApi.loading}

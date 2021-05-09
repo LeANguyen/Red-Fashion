@@ -2,10 +2,11 @@ import React, { useEffect } from "react";
 import useApi from "../../../hooks/useApi";
 import * as itemApi from "../../../APIs/itemApi";
 import ItemAdminRow from "./ItemAdminRow";
+import settings from "../../../configs/settings";
 
 const ItemAdminList = () => {
   useEffect(() => {
-    getItemsApi.request(0, 20);
+    getItemsApi.request(0, settings.perPage);
   }, []);
 
   const getItemsApi = useApi(itemApi.getItems);

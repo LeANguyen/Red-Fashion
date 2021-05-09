@@ -27,7 +27,7 @@ export const createItem = (item, onUploadProgress) => {
 };
 
 export const getItems = (skip, limit) =>
-  client.api.get(`/items/skip/${skip}/limit/${limit}`);
+  client.api.get(`/items?skip=${skip}&limit=${limit}`);
 
 export const getItemsByCategory = category =>
   client.api.get(`items/category/${category}`);
@@ -52,3 +52,20 @@ export const getItemsByName = name => client.api.get(`items/name/${name}`);
 export const uploadImage = formData => {
   return client.api.post(`/image`, formData);
 };
+
+export const searchItems = (
+  itemName,
+  category,
+  origin,
+  priceFrom,
+  priceTo,
+  skip,
+  limit
+) =>
+  client.api.post(`items/search?skip=${skip}&limit=${limit}`, {
+    itemName,
+    category,
+    origin,
+    priceFrom,
+    priceTo
+  });

@@ -5,24 +5,41 @@ import styles from "./Footer.module.scss";
 import ContainerCss from "./common/Container.module.scss";
 const mediaList = [
   {
-    media: "facebook",
-    url: "https://www.facebook.com/profile.php?id=100013080886155"
+    type: "facebook",
+    link: "https://www.facebook.com/profile.php?id=100013080886155"
   },
   {
-    media: "twitter",
-    url: "https://www.facebook.com/profile.php?id=100013080886155"
+    type: "twitter",
+    link: "https://www.facebook.com/profile.php?id=100013080886155"
   },
   {
-    media: "instagram",
-    url: "https://www.facebook.com/profile.php?id=100013080886155"
+    type: "instagram",
+    link: "https://www.facebook.com/profile.php?id=100013080886155"
   },
   {
-    media: "pinterest",
-    url: "https://www.facebook.com/profile.php?id=100013080886155"
+    type: "pinterest",
+    link: "https://www.facebook.com/profile.php?id=100013080886155"
   },
   {
-    media: "youtube",
-    url: "https://www.facebook.com/profile.php?id=100013080886155"
+    type: "youtube",
+    link: "https://www.facebook.com/profile.php?id=100013080886155"
+  }
+];
+
+const helpList = [
+  { type: "Delivery Information", link: "/" },
+  { type: "Privacy Policy", link: "/" },
+  { type: "Terms of Service", link: "/" }
+];
+
+const businessList = [
+  { type: "Contact Number", value: "267-269-8815", icon: "phone" },
+  { type: "Contact Email", value: "Fashion@business.com", icon: "envelope" },
+  { type: "Business Hour", value: "09:00 AM - 09:00 PM", icon: "clock-o" },
+  {
+    type: "Shop Address",
+    value: "123 Trần Tuấn Khải, P5, Q5, TP.HCM",
+    icon: "map-marker"
   }
 ];
 
@@ -36,43 +53,29 @@ const Footer = () => {
         {/* Help links - start */}
         <div className="col-lg-4">
           <br></br>
-          <h2 className="text-yellow-g">HELP</h2>
-
+          <strong className="text-yellow-g text-xl">HELP</strong>
+          <br></br>
+          <br></br>
           {/* Delivery Information */}
-          <strong className="text-yellow-w">
-            <i className="fa fa-star"></i>
-            <Space></Space>
-            <Space></Space>
-            <Link className={`text-yellow-w ${styles["link"]}`} to="/">
-              Delivery Information
-            </Link>
-          </strong>
-          <br></br>
-          <br></br>
-
-          {/* Privacy Policy */}
-          <strong className="text-yellow-w">
-            <i className="fa fa-star"></i>
-            <Space></Space>
-            <Space></Space>
-            <Link className={`text-yellow-w ${styles["link"]}`} to="/">
-              Privacy Policy
-            </Link>
-          </strong>
-          <br></br>
-          <br></br>
-
-          {/* Terms of Service */}
-          <strong className="text-yellow-w">
-            <i className="fa fa-star"></i>
-            <Space></Space>
-            <Space></Space>
-            <Link className={`text-yellow-w ${styles["link"]}`} to="/">
-              Terms of Service
-            </Link>
-          </strong>
-          <br></br>
-          <br></br>
+          {helpList.map((help, i) => {
+            return (
+              <>
+                <strong className="text-yellow-w">
+                  <i className="fa fa-star"></i>
+                  <Space></Space>
+                  <Space></Space>
+                  <Link
+                    className={`text-yellow-w ${styles["link"]}`}
+                    to={help["link"]}
+                  >
+                    {help["type"]}
+                  </Link>
+                </strong>
+                <br></br>
+                <br></br>
+              </>
+            );
+          })}
         </div>
         {/* Help links - end */}
 
@@ -88,54 +91,33 @@ const Footer = () => {
         <div className="col-lg-5">
           {/* Business section - start */}
           <br></br>
-          <h2 className="text-yellow-g">BUSINESS</h2>
-          <li className={styles["media-container"]}>
-            <strong className="text-yellow-w">
-              <i className="fa fa-phone"></i>
-              <Space></Space>
-              <Space></Space>Contact Number:
-            </strong>
-            <strong className={"text-yellow"}>{"267-269-8815"}</strong>
-          </li>
+          <strong className="text-yellow-g text-xl">BUSINESS</strong>
           <br></br>
-          <li className={styles["media-container"]}>
-            <strong className="text-yellow-w">
-              <i className="fa fa-envelope"></i>
-              <Space></Space>
-              <Space></Space>Contact Email:
-            </strong>
-            <strong className="text-yellow">Fashion@business.com</strong>
-          </li>
           <br></br>
-          <li className={styles["media-container"]}>
-            <strong className="text-yellow-w">
-              <i className="fa fa-clock-o"></i>
-              <Space></Space>
-              <Space></Space>
-              Business Hour:
-            </strong>
-            <strong className="text-pink">09:00 AM - 09:00 PM</strong>
-          </li>
-          <br></br>
-          <li className={styles["media-container"]}>
-            <strong className="text-yellow-w">
-              <i className="fa fa-map-marker"></i>
-              <Space></Space>
-              <Space></Space>Shop Address:
-            </strong>
-            <strong className="text-pink">
-              4975 Valley Drive, Eagleville, PA, Pennsylvania
-            </strong>
-          </li>
+          {businessList.map((business, i) => {
+            return (
+              <>
+                <li className={styles["media-container"]}>
+                  <strong className="text-white">
+                    <i className={"fa fa-" + business["icon"]}></i>
+                    <Space></Space>
+                    <Space></Space>
+                    {business["type"]}
+                  </strong>
+                  <strong className="text-yellow">{business["value"]}</strong>
+                </li>
+                <br></br>
+              </>
+            );
+          })}
           {/* Business section - end */}
 
           {/* social media buttons - bootstrap free - start */}
-          <br></br>
-          <strong className="text-pink-w">
+          <strong className="text-white">
             <i className="fa fa-thumbs-up"></i>
             <Space></Space>
             <Space></Space>
-            Follow us on social media:
+            Follow us on social media
           </strong>
           <br></br>
           <br></br>
@@ -144,10 +126,10 @@ const Footer = () => {
               return (
                 <a
                   target="_blank"
-                  href={media.url}
-                  className={styles[media.media]}
+                  href={media["link"]}
+                  className={styles[media["type"]]}
                 >
-                  <i className={"fa fa-2x fa-" + media.media}></i>
+                  <i className={"fa fa-2x fa-" + media["type"]}></i>
                 </a>
               );
             })}

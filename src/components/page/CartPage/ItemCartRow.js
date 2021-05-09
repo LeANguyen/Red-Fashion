@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 import * as cartItemApi from "../../../APIs/cartItemApi";
 import useApi from "../../../hooks/useApi";
-import ContainerCss from "../../../components/common/Container.module.scss";
 
 import {
   increaseTotalPrice,
@@ -94,7 +93,7 @@ const CartRow = ({ _item, _key }) => {
       <div className="col-7">
         <div className="d-flex">
           <img
-            src={baseURL + "/uploaded_images/item" + _item.item_id + ".png"}
+            src={baseURL + "/images/item-" + _item.item_id + ".png"}
             className={ItemRowCss["img"]}
           ></img>
           <div className="ml-3">
@@ -119,7 +118,7 @@ const CartRow = ({ _item, _key }) => {
       </div>
 
       <div className="col-3">
-        <li className={ContainerCss["divider"]}>
+        <li className="divider-dark">
           <strong className="text-yellow text-lg">
             <i className="fa fa-money"></i>
             <Space></Space>

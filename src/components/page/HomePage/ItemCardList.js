@@ -9,6 +9,7 @@ import Pagination from "../../common/Pagination";
 import { useLocation, useHistory } from "react-router-dom";
 import querySearch from "stringquery";
 import settings from "../../../configs/settings";
+import { decreaseTotalPrice } from "../../../actions/cartActions";
 
 const ItemCardList = () => {
   const history = useHistory();
@@ -16,49 +17,76 @@ const ItemCardList = () => {
   const location = useLocation();
   const query = querySearch(location.search);
   const typeQ = query.type;
-  const searchQ = query.search ? query.search.replace("%20", " ") : "";
-  const priceQ = query.price ? query.price : "";
-  const areaQ = query.area ? query.area : "";
+
+  const itemNameQ = query["item-name"]
+    ? decodeURIComponent(query["item-name"])
+    : "";
+  const originQ = query.origin ? query.origin : "";
+  const categoryQ = query.category ? query.category : "";
+  const priceFromQ = query["price-from"] ? query["price-from"] : 0;
+  const priceToQ = query["price-to"] ? query["price-to"] : 0;
   const pageQ = query.page ? query.page : 1;
-  const statusQ = query.status ? query.status : 0;
-  const kindQ = query.kind ? query.kind : 0;
+
   const [items, setItems] = useState([]);
+  const [trueTotal, setTrueTotal] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   const getItemsApi = useApi(itemApi.getItems);
+  const searchItemsApi = useApi(itemApi.searchItems);
+
   const getItemsHandling = async (skip, limit) => {
-    const response = await getItemsApi.request(skip, limit);
+    let response = [];
+    setLoading(true);
+    setError(false);
+    setSuccess(false);
+
+    if (typeQ === "search") {
+      response = await searchItemsApi.request(
+        itemNameQ,
+        categoryQ,
+        originQ,
+        priceFromQ,
+        priceToQ,
+        (pageQ - 1) * settings.perPage,
+        settings.perPage
+      );
+    } else {
+      response = await getItemsApi.request(
+        (pageQ - 1) * settings.perPage,
+        settings.perPage
+      );
+    }
+
+    setLoading(false);
+
     if (response.ok) {
-      setItems(response.data["list"]);
+      setItems(response.data[0].rows);
+      setTrueTotal(response.data[0].count);
+      setSuccess(true);
+    } else {
+      setError(true);
     }
   };
 
   useEffect(() => {
-    getItemsHandling(settings.perPage * (pageQ - 1), settings.perPage);
-  }, [pageQ]);
+    getItemsHandling();
+  }, [typeQ, itemNameQ, categoryQ, originQ, priceFromQ, priceToQ, pageQ]);
 
   return (
     <div>
       <h2 className="text-yellow-g text-center">LATEST ITEMS</h2>
       <br></br>
-      {getItemsApi.loading && <Loader></Loader>}
-      {getItemsApi.success && items.length !== 0 && (
+      {loading && <Loader></Loader>}
+      {success && items.length !== 0 && (
         <>
           <CardList _data={items} _component={ItemCard}></CardList>
           <br></br>
-          {/* <Button
-            _onClick={() => {
-              getItemsHandling(items.length, 1);
-            }}
-            _block
-            _className={`btn-yellow btn-block`}
-            _loading={getItemsApi.loading}
-          >
-            Load More
-          </Button> */}
           <Pagination
             _onChange={number => history.push(`/?page=${number}`)}
             _activePage={pageQ}
-            _totalItemsCount={getItemsApi.data["count"]}
+            _totalItemsCount={trueTotal}
           ></Pagination>
         </>
       )}

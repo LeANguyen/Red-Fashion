@@ -5,6 +5,9 @@
   border-radius: 2em;
   border: none;
   font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @mixin color($color) {

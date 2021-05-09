@@ -9,7 +9,7 @@ const CartRow = ({ _item, _key }) => {
     <div className="row align-items-center">
       <div className="col-4 align-middle">
         <img
-          src={baseURL + "/uploaded_images/item" + _item.item_id + ".png"}
+          src={baseURL + "/images/item-" + _item.item_id + ".png"}
           width={100}
           className={ItemRowCss["img"]}
         ></img>
