@@ -1,8 +1,16 @@
 @import "./config.scss";
+// @import "../assets/3/";
 .bg-1 {
   background-color: $dark;
 }
 
 .bg-2 {
   background: linear-gradient(to right, $pink, $purple);
+}
+
+.bg-3 {
+  // background: url("../assets/3.jpg") center repeat-y;
+  // background-size: 100vw;
+  background: url("../assets/3.jpg");
+  background-repeat: round space;
 }

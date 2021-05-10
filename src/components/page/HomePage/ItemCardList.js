@@ -62,8 +62,8 @@ const ItemCardList = () => {
     setLoading(false);
 
     if (response.ok) {
-      setItems(response.data[0].rows);
-      setTrueTotal(response.data[0].count);
+      setItems(response.data.rows);
+      setTrueTotal(response.data.count);
       setSuccess(true);
     } else {
       setError(true);

@@ -71,7 +71,7 @@ const Header = () => {
                 _text="Categories"
                 _displayToggle
                 _dropdownHover
-                _className="text-yellow-w d-block"
+                _className="text-yellow-w text-lg"
               >
                 <DropdownItem>
                   <strong>

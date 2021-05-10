@@ -62,9 +62,7 @@ const ItemEdit = () => {
       setCategory(response.data[0].category);
       setPrice(response.data[0].price);
       setOrigin(response.data[0].origin);
-      setImgSrc(
-        baseURL + "/uploaded_images/item" + response.data[0].id + ".png"
-      );
+      setImgSrc(baseURL + "/images/store/item-" + response.data[0].id + ".png");
     } else {
       alert("FFF");
     }
@@ -126,7 +124,7 @@ const ItemEdit = () => {
   return (
     <div class="row">
       <div class="col-md-4">
-        <h5 class="text-muted font-weight-bold">Item's Image:</h5>
+        <strong class="text-muted text-lg">Item's Image:</strong>
         <img
           src={imgSrc}
           id="item_imageview"
@@ -141,7 +139,7 @@ const ItemEdit = () => {
       <div class="col-md-8">
         <div className="row">
           <div class="col-md-8">
-            <h5 class="text-muted font-weight-bold">Item's Name: </h5>
+            <h5 class="text-muted text-lg">Item's Name: </h5>
             <Input
               _wrapperClass="input-1"
               _placeholder="Item's Name"

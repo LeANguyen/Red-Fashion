@@ -8,6 +8,7 @@ import Button from "../../common/Button";
 import Space from "../../common/Space";
 import ContainerCss from "../../common/Container.module.scss";
 import baseURL from "../../../APIs/baseURL";
+import NumberInput from "../../common/NumberInput";
 
 const ItemDetailContainer = ({ _item }) => {
   const user = useSelector(state => state.user.data);
@@ -98,59 +99,59 @@ const ItemDetailContainer = ({ _item }) => {
       <div className="row">
         <div className="col-md-6">
           <img
-            src={baseURL + "/uploaded_images/item" + _item.id + ".png"}
+            src={baseURL + "/images/store/item-" + _item.id + ".png"}
             alt=""
             className="img-thumbnail"
           ></img>
         </div>
 
         <div className="col-md-6">
-          <li className={ContainerCss["divider"]}>
-            <strong className="text-pink">
+          <li className="divider-dark">
+            <strong className="text-yellow">
               <i className="fa fa-tags">
                 <Space></Space>
                 <Space></Space>
               </i>
               ID
             </strong>
-            <strong className="text-pink-w">{_item.id}</strong>
+            <strong className="text-white">{_item.id}</strong>
           </li>
 
-          <li className={ContainerCss["divider"]}>
-            <strong className="text-pink">
+          <li className="divider-dark">
+            <strong className="text-yellow">
               <i className="fa fa-black-tie">
                 <Space></Space>
                 <Space></Space>
               </i>
               Category
             </strong>
-            <strong className="text-pink-w">{_item.category}</strong>
+            <strong className="text-white">{_item.category}</strong>
           </li>
 
-          <li className={ContainerCss["divider"]}>
-            <strong className={"text-pink"}>
+          <li className="divider-dark">
+            <strong className={"text-yellow"}>
               <i className="fa fa-star">
                 <Space></Space>
                 <Space></Space>
               </i>
               Origin
             </strong>
-            <strong className="text-pink-w">{_item.origin}</strong>
+            <strong className="text-white">{_item.origin}</strong>
           </li>
 
-          <li className={ContainerCss["divider"]}>
-            <strong className="text-pink">
+          <li className="divider-dark">
+            <strong className="text-yellow">
               <i className="fa fa-money">
                 <Space></Space>
                 <Space></Space>
               </i>
               Price
             </strong>
-            <strong className="text-pink-w">{"$" + _item.price}</strong>
+            <strong className="text-white">{"$" + _item.price}</strong>
           </li>
 
-          <li className={ContainerCss["divider"]}>
-            <strong className="text-pink">
+          <li className="divider-dark">
+            <strong className="text-yellow">
               <i className="fa fa-shopping-cart">
                 <Space></Space>
                 <Space></Space>
@@ -158,19 +159,17 @@ const ItemDetailContainer = ({ _item }) => {
               Inventory
             </strong>
             {!itemInCart && (
-              <Input
-                _inputType="number"
+              <NumberInput
                 _maxLength={2}
                 _value={quantity}
                 _disabled={getItemFromCurrentCartByItemIdApi.loading}
                 _onChange={event => setQuantity(event.target.value)}
-                _width={25}
-                _wrapperClass="input-1"
-              ></Input>
+                _onClickMinus={() => setQuantity(quantity - 1)}
+                _onClickPlus={() => setQuantity(quantity + 1)}
+              ></NumberInput>
             )}
             {itemInCart && (
-              <Input
-                _inputType="number"
+              <NumberInput
                 _maxLength={2}
                 _value={quantity}
                 _disabled={getItemFromCurrentCartByItemIdApi.loading}
@@ -178,9 +177,15 @@ const ItemDetailContainer = ({ _item }) => {
                   setQuantity(event.target.value);
                   setQuantityEdited(true);
                 }}
-                _width={25}
-                _wrapperClass="input-1"
-              ></Input>
+                _onClickMinus={() => {
+                  setQuantity(parseInt(quantity) - 1);
+                  setQuantityEdited(true);
+                }}
+                _onClickPlus={() => {
+                  setQuantity(parseInt(quantity) + 1);
+                  setQuantityEdited(true);
+                }}
+              ></NumberInput>
             )}
           </li>
 
@@ -260,7 +265,7 @@ const ItemDetailContainer = ({ _item }) => {
               {user === null && (
                 <div className="text-center">
                   <br></br>
-                  <strong className={"text-pink"}>
+                  <strong className="text-yellow">
                     You have not login to save a cart
                   </strong>
                   <br></br>

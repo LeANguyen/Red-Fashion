@@ -10,6 +10,11 @@
   color: $white;
 }
 
+.dropdown-item:active {
+  background-color: $yellow !important;
+  color: $white;
+}
+
 .dropdown-item a {
   @include link($white);
   color: $dark;
