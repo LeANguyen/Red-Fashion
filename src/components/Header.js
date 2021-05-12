@@ -53,7 +53,7 @@ const Header = () => {
             <li className={"nav-item mx-lg-2 " + styles["nav-item"]}>
               {/* {`text-yellow-w ${FooterCss["link"]}`} */}
               <div className="nav-link">
-                <strong className="text-yellow-w text-lg">
+                <strong className="text-yellow-w">
                   <i className="fa fa-home"></i>
                   <Space></Space>
                   <Space></Space>
@@ -71,7 +71,7 @@ const Header = () => {
                 _text="Categories"
                 _displayToggle
                 _dropdownHover
-                _className="text-yellow-w text-lg"
+                _className="text-yellow-w"
               >
                 <DropdownItem>
                   <strong>
@@ -104,15 +104,15 @@ const Header = () => {
             {/* login - when user not logged in */}
             {user === null && (
               <li className={"nav-item mx-lg-2 " + styles["nav-item"]}>
-                <a
-                  className={`nav-link ${styles["link"]}`}
+                <strong
+                  className={`text-yellow-w ${styles["link"]}`}
                   data-toggle="modal"
                   data-target="#loginModal"
                 >
                   <i className="fa fa-user"></i>
                   <Space></Space>
                   <Space></Space>Login
-                </a>
+                </strong>
               </li>
             )}
 
@@ -166,7 +166,7 @@ const Header = () => {
             {/* admin */}
             <li className={"nav-item mx-lg-2 " + styles["nav-item"]}>
               <div className="nav-link">
-                <strong className="text-yellow-w text-lg">
+                <strong className="text-yellow-w">
                   <i className="fa fa-list"></i>
                   <Space></Space>
                   <Space></Space>

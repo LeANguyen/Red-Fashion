@@ -1,53 +1,45 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-
+import { Link } from "react-router-dom";
+import Space from "../../common/Space";
 const CheckoutReadOnlyForm = ({ _data }) => {
   const totalPrice = useSelector(state => state.cart.totalPrice);
 
   return (
     <div className="row">
       <div className="col-lg-6">
-        <div className="bg-dark text-white rounded-pill px-4 py-3 text-uppercase font-weight-bold">
-          Shipping Information
-        </div>
-        <div className="p-4">
-          <div className="container">
-            <li className="d-flex justify-content-between py-2 border-bottom">
-              <strong className="text-muted">Receiver's Name:</strong>
-              <h6 id="category_label" className="font-weight-bold">
-                {_data.client_name}
-              </h6>
-            </li>
-            <li className="d-flex justify-content-between py-2 border-bottom">
-              <strong className="text-muted">Address:</strong>
-              <h6 id="category_label" className="font-weight-bold">
-                {_data.address}
-              </h6>
-            </li>
-            <li className="d-flex justify-content-between py-2 border-bottom">
-              <strong className="text-muted">Phone Number:</strong>
-              <h6 id="category_label" className="font-weight-bold">
-                {_data.phone}
-              </h6>
-            </li>
-          </div>
+        <div className="container">
+          <strong className="text-yellow text-xl">Shipping Information</strong>
+          <li className="divider-dark">
+            <strong className="text-yellow">Receiver's Name:</strong>
+            <strong className="text-white">{_data.client_name}</strong>
+          </li>
+          <li className="divider-dark">
+            <strong className="text-yellow">Address:</strong>
+            <strong className="text-white">{_data.address}</strong>
+          </li>
+          <li className="divider-dark">
+            <strong className="text-yellow">Phone Number:</strong>
+            <strong className="text-white">{_data.phone}</strong>
+          </li>
         </div>
       </div>
 
       <div className="col-lg-6">
-        <div className="bg-dark text-white rounded-pill px-4 py-3 text-uppercase font-weight-bold">
-          Order summary
-        </div>
-        <div className="p-4">
-          <ul className="list-unstyled mb-4">
-            <li className="d-flex justify-content-between py-3 border-bottom">
-              <strong className="text-muted">Total</strong>
-              <h5 id="big_total_label" className="font-weight-bold">
-                {"$" + totalPrice}
-              </h5>
-            </li>
-          </ul>
-        </div>
+        <strong className="text-yellow text-xl">Order summary</strong>
+        <br></br>
+        <br></br>
+        <li className="d-flex justify-content-between">
+          <strong className="text-pink text-lg">Total</strong>
+          <strong className="text-white text-lg">{"$" + totalPrice}</strong>
+        </li>
+        <br></br>
+        <Link className="btn-yellow btn-block" to="/cart">
+          <i className="fa fa-arrow-left"></i>
+          <Space></Space>
+          <Space></Space>
+          Back to History
+        </Link>
       </div>
     </div>
   );

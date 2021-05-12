@@ -7,9 +7,9 @@ import baseURL from "../../../APIs/baseURL";
 const CartRow = ({ _item, _key }) => {
   return (
     <div className="row align-items-center">
-      <div className="col-4 align-middle">
+      <div className="col-8 align-middle">
         <img
-          src={baseURL + "/images/item-" + _item.item_id + ".png"}
+          src={baseURL + "/images/store/item-" + _item.item_id + ".png"}
           width={100}
           className={ItemRowCss["img"]}
         ></img>
@@ -17,27 +17,24 @@ const CartRow = ({ _item, _key }) => {
           <strong className="text-white d-block">
             <a>{_item.item_name}</a>
           </strong>
-          <strong className="text-pink">{"$" + _item.price}</strong>
+          <strong className="text-yellow text-lg">{"$" + _item.price}</strong>
         </div>
       </div>
 
-      <div className="col-2">
-        {/* <Input
-          _inputType="number"
-          _onChange={event => {
-            dispatch(setEditedList(_key, true));
-            dispatch(setQuantity(event.target.value, _key));
-            onChange(event.target.value);
-          }}
-          _iconName="shopping-cart"
-          _wrapperClass="input-1"
-          _value={_item.quantity}
-        ></Input> */}
-        <strong className="text-pink">X</strong>
-      </div>
-
-      <div className="col-2 text-center">
-        <h5 className="text-pink m-0">{"$" + _item.price * _item.quantity}</h5>
+      <div className="col-4">
+        <li className="divider-dark">
+          <strong className="text-yellow text-lg">Quantity</strong>
+          <strong className="text-white text-lg">{_item.quantity}</strong>
+        </li>
+        <br></br>
+        <li className="d-flex justify-content-between">
+          <strong className="text-yellow text-lg">
+            <i className="fa fa-money pr-2"></i>Total
+          </strong>
+          <strong className="text-white text-lg">
+            {"$" + _item.price * _item.quantity}
+          </strong>
+        </li>
       </div>
     </div>
   );

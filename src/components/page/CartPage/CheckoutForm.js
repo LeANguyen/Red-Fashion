@@ -126,10 +126,10 @@ const CheckoutForm = () => {
             </>
           )}
           <Button
-            _disabled={updateCartApi.isLoading || createCartApi.isLoading}
             _onClick={() => checkValidOnCheckOut()}
             _iconName="credit-card"
             _className="btn-yellow btn-block"
+            _loading={updateCartApi.loading || createCartApi.isLoading}
           >
             Checkout
           </Button>

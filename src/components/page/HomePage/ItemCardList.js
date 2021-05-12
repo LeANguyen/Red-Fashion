@@ -23,8 +23,8 @@ const ItemCardList = () => {
     : "";
   const originQ = query.origin ? query.origin : "";
   const categoryQ = query.category ? query.category : "";
-  const priceFromQ = query["price-from"] ? query["price-from"] : 0;
-  const priceToQ = query["price-to"] ? query["price-to"] : 0;
+  const priceFromQ = query["price-from"] ? query["price-from"] : "";
+  const priceToQ = query["price-to"] ? query["price-to"] : "";
   const pageQ = query.page ? query.page : 1;
 
   const [items, setItems] = useState([]);
@@ -76,7 +76,8 @@ const ItemCardList = () => {
 
   return (
     <div>
-      <h2 className="text-yellow-g text-center">LATEST ITEMS</h2>
+      <strong className="text-yellow-g text-xl">LATEST ITEMS</strong>
+      <br></br>
       <br></br>
       {loading && <Loader></Loader>}
       {success && items.length !== 0 && (

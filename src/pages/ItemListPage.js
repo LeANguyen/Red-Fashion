@@ -19,8 +19,9 @@ const ItemListPage = ({ match }) => {
       <div className="bg-dark">
         <div class="container">
           <br></br>
-          <h2 className="text-orange-g text-center">LATEST ITEMS</h2>
-
+          <strong className="text-yellow-g text-xl">LATEST ITEMS</strong>
+          <br></br>
+          <br></br>
           {getItemsByCategoryApi.loading && <Loader></Loader>}
           {getItemsByCategoryApi.data && (
             <CardList

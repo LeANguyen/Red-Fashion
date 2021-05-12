@@ -4,10 +4,10 @@ import Page from "../components/Page";
 import itemApi from "../APIs/itemApi";
 import useApi from "../hooks/useApi";
 
-import carousel1 from "../assets/1.jpg";
-import carousel2 from "../assets/2.jpeg";
-import carousel3 from "../assets/3.jpg";
-import colors from "../configs/colors";
+// import carousel1 from "../assets/1.jpg";
+// import carousel2 from "../assets/2.jpeg";
+// import carousel3 from "../assets/3.jpg";
+// import colors from "../../configs/colors";
 import AboutUs from "../components/page/HomePage/AboutUs";
 import Loader from "../components/common/Loader";
 import ItemCardList from "../components/page/HomePage/ItemCardList";
@@ -17,16 +17,8 @@ const HomePage = () => {
   return (
     <Page>
       <div className="bg-3">
-        <div className="container">
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
+        <div className="container py-5">
           <ItemSearch></ItemSearch>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
         </div>
       </div>
 

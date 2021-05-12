@@ -65,7 +65,7 @@ const ItemCartList = () => {
         getItemsFromCurrentCartHandling(currentUser.id);
       }
     }
-  }, []);
+  }, [idP]);
 
   return (
     <div>
@@ -100,6 +100,8 @@ const ItemCartList = () => {
               </>
             );
           })}
+          <br></br>
+          <br></br>
           <CheckoutReadOnlyForm
             _data={getItemsByCartIdApi.data[0]}
           ></CheckoutReadOnlyForm>
@@ -109,13 +111,15 @@ const ItemCartList = () => {
         <div className="text-center">
           <h5 className="text-yellow">There is nothing in your cart!!!</h5>
           <br></br>
-          <Button
-            _className="btn-yellow"
-            _iconName="shopping-cart"
-            _onClick={() => history.push("/")}
-          >
-            Continue Shopping
-          </Button>
+          <div className="d-flex justify-content-center">
+            <Button
+              _className="btn-yellow"
+              _iconName="shopping-cart"
+              _onClick={() => history.push("/")}
+            >
+              Continue Shopping
+            </Button>
+          </div>
         </div>
       )}
     </div>

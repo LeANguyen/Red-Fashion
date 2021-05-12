@@ -12,6 +12,7 @@ import useLink from "./hooks/useLink";
 import NotFound from "./components/page/NotFoundPage/NotFound";
 import NotFoundPage from "./pages/NotFoundPage";
 import TestPage from "./components/page/TestPage/TestPage";
+import PurchaseHistoryPage from "./pages/PurchaseHistoryPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -53,7 +54,12 @@ function App() {
             <Route exact path="/cart/:id?" component={CartPage}></Route>
             <Route exact path="/admin" component={AdminPage}></Route>
             <Route exact path="/test" component={TestPage}></Route>
-            <Route component={NotFoundPage} />
+            <Route
+              exact
+              path="/history"
+              component={PurchaseHistoryPage}
+            ></Route>
+            <Route component={NotFoundPage}></Route>
           </Switch>
         </Router>
       )}

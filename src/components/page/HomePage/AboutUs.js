@@ -21,7 +21,7 @@ const AboutUs = () => {
           <div className="col-lg-4">
             <div className={styles["about"]}>
               <div className={styles["about-title"]}>
-                <h4 className={styles["title"]}>About Us</h4>
+                <strong className={styles["title"]}>About Us</strong>
               </div>
               <br></br>
               <p className="text-light">

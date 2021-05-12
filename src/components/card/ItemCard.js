@@ -185,7 +185,7 @@ const ItemCard = ({ _item, _key }) => {
         {/* item detail btn */}
         <br></br>
         <Button
-          _className="btn-green btn-block"
+          _className="btn-yellow btn-block"
           _iconName="tags"
           _onClick={() => history.push("/item_detail/" + _item.id)}
         >
@@ -215,7 +215,7 @@ const ItemCard = ({ _item, _key }) => {
                     addItemIntoCurrentCartHandling(user.id, _item.id, quantity)
                   }
                   _iconName="cart-plus"
-                  _className="btn-yellow btn-block"
+                  _className="btn-green btn-block"
                 >
                   Add to Cart
                 </Button>
@@ -252,7 +252,7 @@ const ItemCard = ({ _item, _key }) => {
                   _onClick={() =>
                     deleteItemFromCurrentCartHandling(user.id, _item.id)
                   }
-                  _className="btn-pink btn-block"
+                  _className="btn-red btn-block"
                   _iconName="cart-arrow-down"
                 >
                   Remove from Cart

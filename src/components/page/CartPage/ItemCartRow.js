@@ -93,20 +93,20 @@ const CartRow = ({ _item, _key }) => {
       <div className="col-7">
         <div className="d-flex">
           <img
-            src={baseURL + "/images/item-" + _item.item_id + ".png"}
+            src={baseURL + "/images/store/item-" + _item.item_id + ".png"}
             className={ItemRowCss["img"]}
           ></img>
           <div className="ml-3">
             <strong>
-              <Link className="text-yellow-w" to={"/item_detail" + _item.id}>
-                {
+              <Link className="text-yellow-w" to={"/item_detail/" + _item.id}>
+                {/* {
                   "Thắt lưng nam cao cấp dây da bền đẹp khóa tự động thiết kế mặt lịch lãm TP0023 (đen)"
-                }
-                {/* {_item.item_name} */}
+                } */}
+                {_item.item_name}
               </Link>
             </strong>
             <br></br>
-            <strong className="text-yellow text-lg">
+            <strong className="text-yellow">
               <i className="fa fa-money">
                 <Space></Space>
                 <Space></Space>
@@ -119,12 +119,12 @@ const CartRow = ({ _item, _key }) => {
 
       <div className="col-3">
         <li className="divider-dark">
-          <strong className="text-yellow text-lg">
+          <strong className="text-yellow">
             <i className="fa fa-money"></i>
             <Space></Space>
             <Space></Space>Total
           </strong>
-          <strong className="text-pink text-lg">
+          <strong className="text-white">
             {"$" + _item.price * _item.quantity}
           </strong>
         </li>
@@ -183,7 +183,7 @@ const CartRow = ({ _item, _key }) => {
               _key
             )
           }
-          _className="btn-pink btn-block"
+          _className="btn-red btn-block"
         >
           Remove
         </Button>
